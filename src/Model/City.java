@@ -9,6 +9,11 @@ public class City {
     private String name;
     private Vector<Vehicule> vehicules;
 
+    public City(String name, Vector<Vehicule> vehicules) {
+        this.name = name;
+        this.vehicules = vehicules;
+    }
+
     public String getName() {
         return name;
     }

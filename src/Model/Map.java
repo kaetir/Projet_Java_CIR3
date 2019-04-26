@@ -6,9 +6,10 @@ public class Map {
     private Vector<City> cities;
     private Vector<Road> roads;
 
-    void start(){
-
-    };
+    public Map(Vector<City> cities, Vector<Road> roads) {
+        this.cities = cities;
+        this.roads = roads;
+    }
 
     public Vector<City> getCities() {
         return cities;
@@ -17,4 +18,9 @@ public class Map {
     public Vector<Road> getRoads() {
         return roads;
     }
+
+    void start(){
+
+    }
+
 }
