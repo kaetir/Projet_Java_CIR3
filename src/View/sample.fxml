@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.effect.DisplacementMap?>
+<?import javafx.scene.effect.FloatMap?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.layout.VBox?>
 
-<TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.View">
         <tabs>
           <Tab text="Map">
                <content>
                   <SplitPane dividerPositions="0.5">
                      <items>
-                        <TextFlow prefHeight="546.0" prefWidth="268.0" />
-                        <Canvas height="554.0" width="722.0" />
+                  <VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="Start" mnemonicParsing="false" onAction="#boutonVille" text="Ville" />
+                        <Button mnemonicParsing="false" text="route" />
+                     </children>
+                  </VBox>
+                        <Canvas fx:id="Drawing_Canvas" height="554.0" width="722.0">
+                     <effect>
+                        <DisplacementMap>
+                           <mapData>
+                              <FloatMap />
+                           </mapData>
+                        </DisplacementMap>
+                     </effect></Canvas>
                      </items>
                   </SplitPane>
                </content>
