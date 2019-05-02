@@ -20,10 +20,10 @@
                   <VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Button fx:id="Start" mnemonicParsing="false" onAction="#boutonVille" text="Ville" />
-                        <Button mnemonicParsing="false" text="route" />
+                        <Button mnemonicParsing="false" onAction="#boutonRoute" text="route" />
                      </children>
                   </VBox>
-                        <Canvas fx:id="Drawing_Canvas" height="554.0" width="722.0">
+                        <Canvas fx:id="Drawing_Canvas" height="900.0" width="1024.0">
                      <effect>
                         <DisplacementMap>
                            <mapData>
