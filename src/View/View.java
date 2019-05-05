@@ -1,7 +1,5 @@
 package View;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import com.sun.xml.internal.fastinfoset.algorithm.BooleanEncodingAlgorithm;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.*;
@@ -9,9 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
-import java.awt.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
+import java.util.Vector;
 
 
 public class View {
@@ -20,7 +16,16 @@ public class View {
 
     private GraphicsContext gc;
 
+    class GraphVille{
+        public int x,y;
 
+        public GraphVille(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    Vector<GraphVille> vgv = new Vector<>();
 
     public void boutonVille(){
 
