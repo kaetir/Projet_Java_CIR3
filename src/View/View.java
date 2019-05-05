@@ -1,5 +1,7 @@
 package View;
 
+import View.Displayable.DisplayCity;
+import View.Displayable.DisplayRoad;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.*;
@@ -12,22 +14,27 @@ import java.util.Vector;
 
 public class View {
     @FXML
-    private Canvas Drawing_Canvas;
+    public Canvas Drawing_Canvas;
 
-    private GraphicsContext gc;
+    public static GraphicsContext gc;
 
-    class GraphVille{
-        public int x,y;
 
-        public GraphVille(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
+
+    Vector<DisplayCity> vgv = new Vector<>();
+
+
+    public void buttonSelection(){
+
+        Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+            }
+        });
     }
 
-    Vector<GraphVille> vgv = new Vector<>();
 
-    public void boutonVille(){
+    public void buttonCity(){
 
         gc = Drawing_Canvas.getGraphicsContext2D();
         gc.setFill(Color.RED);
@@ -35,13 +42,13 @@ public class View {
         Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                DrawVille(mouseEvent.getX(), mouseEvent.getY());
+                DrawVille((int)mouseEvent.getX(), (int)mouseEvent.getY());
             }
         });
 
     }
 
-    public void boutonRoute(){
+    public void buttonRoad(){
 
         gc = Drawing_Canvas.getGraphicsContext2D();
         gc.setFill(Color.GREEN);
@@ -51,29 +58,28 @@ public class View {
 
         Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             double x,y;
-            Boolean firstPointReady = false;
+            DisplayRoad dr = new DisplayRoad();
 
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (!firstPointReady){
-                    x = mouseEvent.getX();
-                    y = mouseEvent.getY();
-                    firstPointReady = true;
-
-                }else{
-                    DrawRoute(x, y, mouseEvent.getX(), mouseEvent.getY());
-                    firstPointReady = false;
+                x = mouseEvent.getX();
+                y = mouseEvent.getY();
+                dr.addDot(x,y);
+                if(mouseEvent.isControlDown()){
+                    dr.Draw();
+                    dr = new DisplayRoad();
+                    System.out.println("une route");
                 }
+
             }
         });
 
     }
 
     @FXML
-    public void DrawVille(double x, double y){
+    public void DrawVille(int x, int y){
 
-        gc = Drawing_Canvas.getGraphicsContext2D();
-        gc.fillRect(x,y,50,50);
+        new DisplayCity(x,y).Draw();
     }
 
 

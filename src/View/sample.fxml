@@ -21,8 +21,9 @@
                      <items>
                   <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
                      <children>
-                        <Button fx:id="Start" mnemonicParsing="false" onAction="#boutonVille" text="Ville" />
-                        <Button mnemonicParsing="false" onAction="#boutonRoute" text="route" />
+                        <Button mnemonicParsing="false" onAction="#buttonSelection" text="Selection" />
+                        <Button fx:id="Start" mnemonicParsing="false" onAction="#buttonCity" text="Ville" />
+                        <Button mnemonicParsing="false" onAction="#buttonRoad" text="route" />
                      </children>
                      <cursor>
                         <Cursor fx:constant="HAND" />
