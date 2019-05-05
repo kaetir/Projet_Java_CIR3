@@ -1,4 +1,7 @@
 package View.Displayable;
 
-public class DisplayVehicle {
+public class DisplayVehicle implements Displayable {
+    public void Draw(){
+
+    };
 }
