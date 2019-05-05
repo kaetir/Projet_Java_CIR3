@@ -1,17 +1,22 @@
-package Sample.Controler;
+package Controler;
+
+import View.Displayable.DisplayCity;
+import View.Displayable.DisplayRoad;
+import View.Displayable.DisplayVehicle;
+
+import java.util.Vector;
 
 public class Controller {
-    private Model model;
-    private View view;
+    //private Model model;
+
 
     //Initialize the Controller
     public Controller(){
-        this.model = new Model();
-        this.view = new View();
+        //this.model = new Model();
     }
 
     //Initialize the Model
-    public static void init_Model(){
+    /*public static void init_Model(){
         this.model = new Model();
     }
 
@@ -19,19 +24,19 @@ public class Controller {
     public static void init_View(){
         this.view = new View();
     }
-
+    */
     //Create a new city on the grid
     public static void createCity(double x, double y, String id){
         //this.model.createCity(x,y,id);
     }
 
     //Get the cities List
-    public static vector<DisplayCity> getCities(){
+    /*public static Vector<DisplayCity> getCities(){
         //return this.model.getCities;
     }
-
+    */
     //Update a City on the Grid
-    public static void updateCity(String id, vector<DisplayVehicules>){
+    public static void updateCity(String id, Vector<DisplayVehicle> vehicules){
         //
         //
         //this.model.modifyCity(id, vector<DisplayVehicles>);
@@ -43,11 +48,11 @@ public class Controller {
     }
 
     //Get the roads List
-    public static vector<DisplayRoad> getRoads(){
+    /*public static Vector<DisplayRoad> getRoads(){
         //
         //
         //return this.model.getRoads;
-    }
+    }*/
 
     //Update a road on the grid
     public static void updateRoad(String id, int t){
@@ -60,11 +65,11 @@ public class Controller {
     }
 
     //Get the vehicules List
-    public static vector<DisplayVehicle> getVehicles(){
+    /*public static Vector<DisplayVehicle> getVehicles(){
         //
         //
         //return this.model.getVehicles;
-    }
+    }*/
 
     //Update a vehicule on the grid
     public static  void updateVehicles(String id, String start, String end){
