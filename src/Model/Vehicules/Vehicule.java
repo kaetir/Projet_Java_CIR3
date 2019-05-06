@@ -10,6 +10,7 @@ abstract public class Vehicule {
         this.maxVitesse = maxVitesse;
         this.size = size;
         this.canPass = canPass;
+        System.out.println(this.getClass() + " created");
     }
 
     public double randSize(double sizeMin, double sizeMax){
