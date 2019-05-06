@@ -10,6 +10,8 @@ import static View.View.gc;
 public class DisplayCity implements Displayable {
     private double x,y, r = 50;
     private String name="missigno";
+    private int id = nbVilles++;
+    private static int nbVilles = 0;
 
     @Override
     public void Draw() {

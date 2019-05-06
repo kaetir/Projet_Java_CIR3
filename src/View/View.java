@@ -1,14 +1,20 @@
 package View;
 
 import View.Displayable.DisplayCity;
+import View.Displayable.DisplayIntersection;
 import View.Displayable.DisplayRoad;
+import View.Displayable.DisplayVehicle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.*;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
+import javax.swing.text.TabableView;
 import java.util.Vector;
 
 
@@ -16,11 +22,17 @@ public class View {
     @FXML
     public Canvas Drawing_Canvas;
 
+    @FXML
+    public Tab CityEdit;
+
     public static GraphicsContext gc;
 
 
 
-    Vector<DisplayCity> vgv = new Vector<>();
+    Vector<DisplayCity> displayCities = new Vector<>();
+    Vector<DisplayRoad> displayRoads = new Vector<>();
+    Vector<DisplayVehicle> displayVehicles = new Vector<>();
+    Vector<DisplayIntersection> displayIntersections = new Vector<>();
 
 
     public void buttonSelection(){
@@ -29,9 +41,11 @@ public class View {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
+
             }
         });
     }
+
 
 
     public void buttonCity(){
@@ -93,8 +107,6 @@ public class View {
 
 
     public View(){
-
-
 
 
     }

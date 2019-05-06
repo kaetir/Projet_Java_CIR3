@@ -7,6 +7,8 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DisplacementMap?>
 <?import javafx.scene.effect.FloatMap?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -49,9 +51,20 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
-      <Tab text="City Editor">
+      <Tab fx:id="CityEdit" text="City Editor">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView layoutX="41.0" layoutY="34.0" prefHeight="462.0" prefWidth="1007.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="id" />
+                        <TableColumn prefWidth="75.0" text="Nom" />
+                        <TableColumn prefWidth="75.0" text="pos x" />
+                      <TableColumn prefWidth="75.0" text="pos y" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
         </content>
       </Tab>
         </tabs>
