@@ -1,6 +1,6 @@
 package Model.Vehicules;
 
-abstract class Vehicule {
+abstract public class Vehicule {
 
     protected final double maxVitesse;
     protected final double size;
