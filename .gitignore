@@ -24,6 +24,10 @@ hs_err_pid*
 
 #intelliJ 
 .idea/
+<<<<<<< HEAD
 
 #out
 out/
+=======
+Projet_Java_CIR3.iml
+>>>>>>> Model
