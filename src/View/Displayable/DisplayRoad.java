@@ -47,9 +47,6 @@ public class DisplayRoad implements Displayable {
             path += Math.floor(p.getKey()) + " " + Math.floor(p.getValue()) +" ";
         }
 
-
-        System.out.println(path);
-
         gc.beginPath();
         gc.appendSVGPath(path);
         gc.stroke();
