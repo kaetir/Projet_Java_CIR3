@@ -1,7 +1,7 @@
 package Controler;
 
-import Model.Vehicules.Car;
-import Model.Vehicules.Vehicule;
+import Model.Vehicules.Exception.VehiculeCreationException;
+import Model.Vehicules.VehiculeFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,8 +21,11 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws VehiculeCreationException {
         launch(args);
-        Vehicule car = new Car();
+        VehiculeFactory.create("car");
+        VehiculeFactory.create("truck");
+        VehiculeFactory.create("motorBike");
+        VehiculeFactory.create("trottinnette");
     }
 }
