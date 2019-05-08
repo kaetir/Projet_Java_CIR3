@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
+
+<TableView fx:id="CityEdit" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.TableCityController">
+    <columns>
+        <TableColumn fx:id="city_col_id" prefWidth="100.0" text="id" />
+        <TableColumn fx:id="city_col_name" prefWidth="300.0" text="name" />
+        <TableColumn fx:id="city_col_x" minWidth="0.0" prefWidth="150.0" text="pos x" />
+        <TableColumn fx:id="city_col_y" minWidth="0.0" prefWidth="150.0" text="pos y" />
+        <TableColumn fx:id="city_col_size" minWidth="0.0" prefWidth="150.0" text="size" />
+    </columns>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <tooltip>
+        <Tooltip text="F5 to refresh" textAlignment="CENTER" />
+    </tooltip>
+</TableView>

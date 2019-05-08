@@ -6,34 +6,44 @@ import View.Displayable.DisplayRoad;
 import View.Displayable.DisplayVehicle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.canvas.*;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Tab;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
+
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.Vector;
 
 import static javafx.scene.input.KeyCode.*;
 
 
-public class View {
-    @FXML
-    public Canvas Drawing_Canvas;
-
-    @FXML
-    public Tab CityEdit;
+public class View implements Initializable {
+    @FXML public Canvas Drawing_Canvas;
 
     public static GraphicsContext gc;
 
-    Vector<DisplayCity> displayCities = new Vector<>();
-    Vector<DisplayRoad> displayRoads = new Vector<>();
-    Vector<DisplayVehicle> displayVehicles = new Vector<>();
-    Vector<DisplayIntersection> displayIntersections = new Vector<>();
+    @FXML
+    private TableCityController CityEditController;
 
 
+    public Vector<DisplayCity> displayCities = new Vector<>();
+    private Vector<DisplayRoad> displayRoads = new Vector<>();
+    private Vector<DisplayVehicle> displayVehicles = new Vector<>();
+    private Vector<DisplayIntersection> displayIntersections = new Vector<>();
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        gc = Drawing_Canvas.getGraphicsContext2D();
+        // controller available in initialize method
+        System.out.println("Current value: " + CityEditController);
+
+    }
 
     @FXML
     private void handleKeyPressed(KeyEvent ke){
@@ -59,7 +69,6 @@ public class View {
 
     public void buttonCity(){
 
-        gc = Drawing_Canvas.getGraphicsContext2D();
         gc.setFill(Color.RED);
 
         Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -73,7 +82,6 @@ public class View {
 
     public void buttonRoad(){
 
-        gc = Drawing_Canvas.getGraphicsContext2D();
         gc.setFill(Color.GREEN);
 
         gc.setLineWidth(4);
@@ -121,7 +129,7 @@ public class View {
         // debug message
         System.out.println("refresh");
 
-        gc = Drawing_Canvas.getGraphicsContext2D();
+
 
         gc.clearRect(0,0,Drawing_Canvas.getWidth(), Drawing_Canvas.getHeight());
 
@@ -132,6 +140,8 @@ public class View {
 
 
         // refresh city edit
+        CityEditController.refresh(displayCities);
+
 
 
     }
@@ -150,6 +160,5 @@ public class View {
 
 
     }
-
 
 }
