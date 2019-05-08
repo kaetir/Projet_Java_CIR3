@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.View">
+<TabPane onKeyPressed="#handleKeyPressed" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.View">
         <tabs>
           <Tab text="Map">
                <content>
@@ -34,7 +34,7 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
                   </VBox>
-                        <Canvas fx:id="Drawing_Canvas" height="900.0" width="1024.0">
+                        <Canvas fx:id="Drawing_Canvas" height="736.0" width="1009.0">
                      <effect>
                         <DisplacementMap>
                            <mapData>
@@ -46,16 +46,11 @@
                   </SplitPane>
                </content>
           </Tab>
-          <Tab text="Car Editor">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
       <Tab fx:id="CityEdit" text="City Editor">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView layoutX="41.0" layoutY="34.0" prefHeight="462.0" prefWidth="1007.0">
+                  <TableView layoutX="20.0" layoutY="23.0" prefHeight="622.0" prefWidth="1078.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="id" />
                         <TableColumn prefWidth="75.0" text="Nom" />
@@ -67,5 +62,10 @@
             </AnchorPane>
         </content>
       </Tab>
+          <Tab text="Car Editor">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
         </tabs>
 </TabPane>

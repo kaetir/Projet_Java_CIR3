@@ -10,6 +10,11 @@ public class DisplayVehicle implements Displayable {
         this.y = y;
     }
 
+    @Override
+    public boolean isIn(double x, double y) {
+        return false;
+    }
+
     public void Draw(){
 
 

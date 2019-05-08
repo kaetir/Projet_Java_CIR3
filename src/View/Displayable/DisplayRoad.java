@@ -52,4 +52,9 @@ public class DisplayRoad implements Displayable {
         gc.stroke();
         gc.closePath();
     }
+
+    @Override
+    public boolean isIn(double x, double y) {
+        return false;
+    }
 }

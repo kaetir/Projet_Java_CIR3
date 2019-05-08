@@ -1,6 +1,9 @@
 package View.Displayable;
 
 public interface Displayable {
-    // affiche l'objet sur le canvas
+    // draw the object on the canvas
     void Draw();
+
+    // tell if a hit touch the object
+    boolean isIn(double x, double y);
 }
