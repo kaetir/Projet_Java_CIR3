@@ -4,19 +4,47 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<TableView fx:id="CityEdit" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.TableCityController">
-    <columns>
-        <TableColumn fx:id="city_col_id" prefWidth="100.0" text="id" />
-        <TableColumn fx:id="city_col_name" prefWidth="300.0" text="name" />
-        <TableColumn fx:id="city_col_x" minWidth="0.0" prefWidth="150.0" text="pos x" />
-        <TableColumn fx:id="city_col_y" minWidth="0.0" prefWidth="150.0" text="pos y" />
-        <TableColumn fx:id="city_col_size" minWidth="0.0" prefWidth="150.0" text="size" />
-    </columns>
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-    <tooltip>
-        <Tooltip text="F5 to refresh" textAlignment="CENTER" />
-    </tooltip>
-</TableView>
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="View.TableCityController">
+    <children>
+        <TableView fx:id="CityEdit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn fx:id="city_col_id" prefWidth="100.0" text="id">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="id"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="city_col_name" prefWidth="300.0" text="name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="name"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="city_col_x" minWidth="0.0" prefWidth="150.0" text="pos x">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="x"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="city_col_y" minWidth="0.0" prefWidth="150.0" text="pos y">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="y"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="city_col_size" minWidth="0.0" prefWidth="150.0" text="size">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="size"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <tooltip>
+                <Tooltip text="F5 to refresh" textAlignment="CENTER"/>
+            </tooltip>
+        </TableView>
+    </children>
+</AnchorPane>

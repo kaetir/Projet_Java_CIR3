@@ -35,6 +35,13 @@ public class DisplayCity implements Displayable {
         this.name = name;
     }
 
+    public DisplayCity(double x, double y, double size, String name) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.name = name;
+    }
+
     public DisplayCity(int x, int y) {
         this.x = x;
         this.y = y;

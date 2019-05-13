@@ -31,6 +31,7 @@ public class View implements Initializable {
     private TableCityController CityEditController;
 
 
+
     public Vector<DisplayCity> displayCities = new Vector<>();
     private Vector<DisplayRoad> displayRoads = new Vector<>();
     private Vector<DisplayVehicle> displayVehicles = new Vector<>();
@@ -40,8 +41,10 @@ public class View implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gc = Drawing_Canvas.getGraphicsContext2D();
+        System.out.println("Graphic context: " + gc);
         // controller available in initialize method
-        System.out.println("Current value: " + CityEditController);
+        System.out.println("Table controller: " + CityEditController);
+        CityEditController.setMaman(this);
 
     }
 
@@ -121,6 +124,13 @@ public class View implements Initializable {
         displayCities.add(tmp);
         tmp.Draw();
 
+    }
+
+    public void EditCity(int id, double x, double y, double size,String name){
+        displayCities.elementAt(id).setX(x);
+        displayCities.elementAt(id).setY(y);
+        displayCities.elementAt(id).setSize(size);
+        displayCities.elementAt(id).setName(name);
     }
 
 

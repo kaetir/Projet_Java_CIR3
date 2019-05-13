@@ -78,7 +78,7 @@
                         <Insets />
                      </opaqueInsets>
                      <children>
-                        <fx:include source="cityEditor.fxml" fx:id="tableCityController" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <fx:include source="cityEditor.fxml" fx:id="CityEdit" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </content>
