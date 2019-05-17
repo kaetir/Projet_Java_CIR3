@@ -15,6 +15,13 @@ public class DisplayCity {
         this.vehicles = vehicles;
     }
 
+    public DisplayCity(int id, Vector<DisplayVehicle> vehicles){
+        this.x = 0.0;
+        this.y = 0.0;
+        this.id = id;
+        this.vehicles = vehicles;
+    }
+
     public double get_X(){
         return this.x;
     }
