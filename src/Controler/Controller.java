@@ -25,7 +25,7 @@ public class Controller {
         this.view = new View();
     }
     */
-    //Create a new city on the grid
+    //Create cityA new city on the grid
     public static void createCity(double x, double y, String id){
         //this.model.createCity(x,y,id);
     }
@@ -35,16 +35,16 @@ public class Controller {
         //return this.model.getCities;
     }
     */
-    //Update a City on the Grid
+    //Update cityA City on the Grid
     public static void updateCity(String id, Vector<DisplayVehicle> vehicules){
         //
         //
         //this.model.modifyCity(id, vector<DisplayVehicles>);
     }
 
-    //Create a new road on the grid
+    //Create cityA new road on the grid
     public static void createRoad(String start, String end, int t, String id){
-        //this.model.createRoad(start,end, t,id);
+        //this.model.createRoad(cityA,b, t,id);
     }
 
     //Get the roads List
@@ -54,14 +54,14 @@ public class Controller {
         //return this.model.getRoads;
     }*/
 
-    //Update a road on the grid
+    //Update cityA road on the grid
     public static void updateRoad(String id, int t){
         //this.model.modifyRoad(id, t);
     }
 
-    //Create a new Vehicule
+    //Create cityA new Vehicule
     public static void createVehicle(String start, String end, String id){
-        //this.model.createVehicle(start, end, id);
+        //this.model.createVehicle(cityA, b, id);
     }
 
     //Get the vehicules List
@@ -71,9 +71,9 @@ public class Controller {
         //return this.model.getVehicles;
     }*/
 
-    //Update a vehicule on the grid
+    //Update cityA vehicule on the grid
     public static  void updateVehicles(String id, String start, String end){
-        //this.model.modifyVehicle(id, start, end);
+        //this.model.modifyVehicle(id, cityA, b);
     }
 
 }

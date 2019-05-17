@@ -1,4 +1,4 @@
 package Model.Intersections;
 
-public class Stop implements Intersection {
+public class Stop extends Intersection {
 }

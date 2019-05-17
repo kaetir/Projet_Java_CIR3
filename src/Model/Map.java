@@ -1,8 +1,11 @@
 package Model;
 
+import Model.Roads.Road;
+
 import java.util.Vector;
 
 public class Map {
+
     private Vector<City> cities;
     private Vector<Road> roads;
 
@@ -15,12 +18,15 @@ public class Map {
         return cities;
     }
 
+    public void setCities(Vector<City> cities) {
+        this.cities = cities;
+    }
+
     public Vector<Road> getRoads() {
         return roads;
     }
 
-    void start(){
-
+    public void setRoads(Vector<Road> roads) {
+        this.roads = roads;
     }
-
 }

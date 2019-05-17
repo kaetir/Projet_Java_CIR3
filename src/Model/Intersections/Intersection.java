@@ -1,4 +1,7 @@
 package Model.Intersections;
 
-public interface Intersection {
+abstract public class Intersection {
+
+
+
 }
