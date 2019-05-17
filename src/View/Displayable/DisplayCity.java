@@ -2,6 +2,7 @@ package View.Displayable;
 
 import java.util.Vector;
 
+//Information class about cities
 public class DisplayCity {
     private double x,y;
     private int id;
