@@ -22,7 +22,7 @@ public class City {
         vehicule.setX(x);;
         vehicule.setY(y);
         this.vehicules.add(vehicule);
-        System.out.println(vehicule.getClass() + " added to city " + this.id + " in (" + x + ", " + y + ").");
+        System.out.println(vehicule.name + " added to city " + this.id + " in (" + x + ", " + y + ").");
     }
 
     public String getId() {
