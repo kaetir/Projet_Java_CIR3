@@ -1,4 +1,4 @@
 package Model.Intersections;
 
-public class TraficLight implements Intersection {
+public class TraficLight extends Intersection {
 }
