@@ -1,67 +1,69 @@
 package Model;
 
+import Model.Roads.*;
 import Model.Roads.Exception.RoadCreationException;
-import Model.Roads.Road;
-import Model.Roads.RoadFactory;
 import Model.Vehicules.Exception.VehiculeCreationException;
 import Model.Vehicules.Vehicule;
 import Model.Vehicules.VehiculeFactory;
 
-import java.util.Iterator;
 import java.util.Vector;
 
-public class Model {
+public abstract class Model {
 
-    private Vector<City> cities;
-    private Vector<Road> roads;
+    private static Vector<City> cities = new Vector<City>();
+    private static Vector<Road> roads = new Vector<Road>();
 
-    public Model(Vector<City> cities, Vector<Road> roads) {
-        this.cities = cities;
-        this.roads = roads;
-    }
-
-    public void createCity(int id, double x, double y){
+    public static void createCity(int id, double x, double y){
         City city = new City(id, x, y);
         cities.add(city);
     }
 
-    public void createRoad(int voies, City a, City b) throws RoadCreationException {
+    public static void createRoad(int voies, City a, City b) throws RoadCreationException {
         Road road;
-        if(voies == 1) road = RoadFactory.create("path", a, b);
-        else if(voies == 2) road = RoadFactory.create("way", a, b);
-        else if(voies == 3) road = RoadFactory.create("highway", a, b);
-        else road = RoadFactory.create("null", a, b);
-        roads.add(road);
+        try {
+            if(voies == 1) road = new Path(a, b);
+            else if(voies == 2) road = new Way(a, b);
+            else if(voies == 3) road = new Highway(a, b);
+            else throw new RoadCreationException();
+            roads.add(road);
+        } catch (RoadCreationException e){}
     }
 
-    public Vector<Road> getRoads(City city){
-        Vector<Road> roadsFrom = null;
-        Iterator<Road> itr = roads.iterator();
-        System.out.println("Les routes suivantes mènent à / partent de la ville " + city.getId());
-        while(itr.hasNext()){
-            if(itr.next().getCityA() == city || itr.next().getCityB() == city) roadsFrom.add(itr.next());
-            System.out.println(itr.next());
+    public static Vector<Road> getRoads(City city){
+        Vector<Road> roadsFrom = new Vector<>();
+        System.out.println("Following roads coming from / going to city " + city.getId() + " :");
+        for(Road r : roads){
+            if(r.getCityA() == city || r.getCityB() == city){
+                roadsFrom.add(r);
+                System.out.println("    Road " + r.getNbWay() + " ways");
+            }
         }
         return roadsFrom;
     }
 
-    public Vector<Road> getRoads() {
+    public static Vector<Road> getRoads() {
         return roads;
     }
 
-    public Vehicule createVehicule(Vehicule.type vehType, double x, double y) throws VehiculeCreationException {
-        return VehiculeFactory.create(vehType, x, y);
+    public static Vehicule createVehicule(Vehicule.type vehType) throws VehiculeCreationException {
+        return VehiculeFactory.create(vehType);
     }
 
-    public void updateVehicule(Vehicule vehicule, double x, double y){
+    public static void updateVehicule(Vehicule vehicule, double x, double y){
         vehicule.setOldX(vehicule.getX());
         vehicule.setOldY(vehicule.getY());
         vehicule.setX(x);
         vehicule.setY(y);
+        System.out.println(vehicule.getClass() + " a roulé de (" + vehicule.getOldX() + ", " + vehicule.getOldY() +
+                ") à (" + vehicule.getX() + ", " + vehicule.getY() + ").");
     }
 
-    public Vector<City> getCities() {
+    public static Vector<City> getCities() {
         return cities;
+    }
+
+    public static City getCity(int id){
+        return cities.get(id);
     }
 
 }

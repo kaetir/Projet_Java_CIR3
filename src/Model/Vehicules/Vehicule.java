@@ -11,15 +11,11 @@ abstract public class Vehicule {
     protected double oldY;
     public enum type {car, truck , motorBike};
 
-    public Vehicule(double maxVitesse, double sizeMin, double sizeMax, boolean canPass, double x, double y) {
+    public Vehicule(double maxVitesse, double sizeMin, double sizeMax, boolean canPass, String name) {
         this.maxVitesse = maxVitesse;
         this.size = randSize(sizeMin, sizeMax);
         this.canPass = canPass;
-        this.x = x;
-        this.y = y;
-        this.oldX = x;
-        this.oldY = y;
-        System.out.println(this.getClass() + " created");
+        System.out.println(name + " created");
     }
 
     public double randSize(double sizeMin, double sizeMax){

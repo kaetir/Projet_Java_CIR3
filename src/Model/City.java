@@ -15,12 +15,14 @@ public class City {
         this.id = id;
         this.x = x;
         this.y = y;
-        System.out.println("City " + this.id + " created.");
+        System.out.println("City " + this.id + " created in (" + x + ", " + y + ").");
     }
 
     public void add(Vehicule vehicule) {
+        vehicule.setX(x);;
+        vehicule.setY(y);
         this.vehicules.add(vehicule);
-        System.out.println(vehicule.getClass() + " added to city " + this.id + ".");
+        System.out.println(vehicule.getClass() + " added to city " + this.id + " in (" + x + ", " + y + ").");
     }
 
     public String getId() {
