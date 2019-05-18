@@ -1,6 +1,7 @@
 package View.Displayable;
 
 
+import javafx.scene.shape.SVGPath;
 import javafx.util.Pair;
 
 import java.util.Vector;
@@ -34,8 +35,7 @@ public class DisplayRoad implements Displayable {
         this.nbVoies = nbVoies;
     }
 
-    String replaceLast(String string, String substring, String replacement)
-    {
+    String replaceLast(String string, String substring, String replacement) {
         int ind = string.lastIndexOf(substring);
         if( ind != -1) {
             StringBuilder b = new StringBuilder(string);
@@ -57,11 +57,24 @@ public class DisplayRoad implements Displayable {
 
     @Override
     public void Draw() {
-        String path = "M " + Math.floor(Dots.elementAt(0).getKey()) + " " + Math.floor( Dots.elementAt(0).getValue()) + " S ";
-        for (Pair<Double, Double > p: Dots  ) {
-            path += Math.floor(p.getKey()) + " " + Math.floor(p.getValue()) +" ";
-        }
 
+        String path = new String();
+
+        if(Dots.size() > 2){
+            path = "M " + Math.floor(Dots.elementAt(0).getKey()) + " " + Math.floor( Dots.elementAt(0).getValue()) + " S ";
+            for (Pair<Double, Double > p: Dots  ) {
+                path += Math.floor(p.getKey()) + " " + Math.floor(p.getValue()) + " " ;
+            }
+
+        }else if (Dots.size() == 2){
+            path = "M " +Math.floor(Dots.elementAt(0).getKey()) + " " + Math.floor( Dots.elementAt(0).getValue())
+                    + " " + Math.floor(Dots.elementAt(1).getKey()) + " " + Math.floor( Dots.elementAt(1).getValue());
+
+        }else if (Dots.size() < 2){
+            System.err.println("NOT ENOUGH POINTS");
+            return;
+        }
+        System.out.println(path);
         gc.beginPath();
         gc.appendSVGPath(path);
         gc.stroke();
