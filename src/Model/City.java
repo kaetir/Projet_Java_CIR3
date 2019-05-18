@@ -6,25 +6,27 @@ import java.util.Vector;
 
 public class City {
 
-    private String name;
+    private int id;
+    private double x;
+    private double y;
     private Vector<Vehicule> vehicules = new Vector<Vehicule>();
 
-    public City(String name) {
-        this.name = name;
-        System.out.println("City " + this.name + " created.");
+    public City(int id, double x, double y) {
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        System.out.println("City " + this.id + " created in (" + x + ", " + y + ").");
     }
 
     public void add(Vehicule vehicule) {
+        vehicule.setX(x);;
+        vehicule.setY(y);
         this.vehicules.add(vehicule);
-        System.out.println(vehicule.getClass() + " added to city " + this.name + ".");
+        System.out.println(vehicule.getClass() + " added to city " + this.id + " in (" + x + ", " + y + ").");
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public String getId() {
+        return Integer.toString(id);
     }
 
 }
