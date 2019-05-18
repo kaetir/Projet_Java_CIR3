@@ -5,17 +5,17 @@ import Model.Vehicules.Exception.VehiculeCreationException;
 public class VehiculeFactory {
 
     //Fonction de création des véhicules
-    public static Vehicule create(String vehType) throws VehiculeCreationException {
+    public static Vehicule create(Vehicule.type vehType, double x, double y) throws VehiculeCreationException {
 
         try {
 
             //Création du véhicule en fonction du paramètre fourni
-            if(vehType.equals("car"))               //Création d'une voiture
-                    return new Car();
-            else if(vehType.equals("motorBike"))    //Création d'une moto
-                    return new MotorBike();
-            else if(vehType.equals("truck"))        //Création d'un camion
-                    return new Truck();
+            if(Vehicule.type.car.equals(vehType))               //Création d'une voiture
+                    return new Car(x, y);
+            else if(Vehicule.type.motorBike.equals(vehType))    //Création d'une moto
+                    return new MotorBike(x, y);
+            else if(Vehicule.type.truck.equals(vehType))        //Création d'un camion
+                    return new Truck(x, y);
 
             //Renvoi d'une erreur
             throw new VehiculeCreationException(vehType);

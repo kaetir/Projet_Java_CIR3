@@ -18,14 +18,14 @@ abstract public class Road {
         this.cityA = a;
         this.cityB = end;
         this.nbWay = nbWay;
-        System.out.println(this.getClass() + " created between " + a.getName() + " et " + end.getName() + ".");
+        System.out.println(this.getClass() + " created between " + a.getId() + " et " + end.getId() + ".");
     }
 
     public City getCityA() {
         return cityA;
     }
 
-    public City getB() {
+    public City getCityB() {
         return cityB;
     }
 
