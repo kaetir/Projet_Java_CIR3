@@ -1,5 +1,7 @@
 package Controler;
 
+import Model.Roads.Exception.RoadCreationException;
+import Model.Vehicules.Exception.VehiculeCreationException;
 import Model.Vehicules.Vehicule;
 import View.Displayable.DisplayCity;
 import View.Displayable.DisplayRoad;
@@ -10,7 +12,7 @@ import Model.Model;
 import java.util.Vector;
 
 public class Controller {
-    private Model model;
+    //private Model model;
     private View view;
 
 
@@ -26,30 +28,34 @@ public class Controller {
     }
 
     //Create a new city on the grid
-    public static void createCity(DisplayCity city){
-        //this.model.createCity(city.getId(), city.getX(), city.getY());
+    public void createCity(DisplayCity city){
+        Model.createCity(city.getId(), city.getX(), city.getY());
     }
 
     //Create a new road on the grid
-    public static void createRoad(DisplayRoad road){
-        //this.model.createRoad(road.getNbVoies(), road.getDots(), road.getStart, road.getEnd);
+    public void createRoad(DisplayRoad road) throws RoadCreationException{
+        //Model.createRoad(road.getNbVoies(), road.getStart(), road.getEnd());   //A RAJOUTER: getteur pour les id
     }
 
     //Create a new Vehicule
-    public static void createVehicle(DisplayVehicle vehicle){
-        //this.model.createVehicle(vehicle.getX(), vehicle.getY(), vehicle.getType(), vehicle.getDestination);
+    public void createVehicle(DisplayVehicle vehicle) throws VehiculeCreationException {
+        Vehicule vehicle2;
+
+        /*if(vehicle.getType() == "truck"){
+            vehicle2 = Model.createVehicule(Vehicule.type.truck);           //A RAJOUTER: getteur pour le type
+        }else if(vehicle.getType() == "car"){                               //A RAJOUTER: getteur pour l'id de la ville
+            vehicle2 = Model.createVehicule(Vehicule.type.car);
+        }else{
+            vehicle2 = Model.createVehicule(Vehicule.type.motorBike);
+        }
+        Model.getCity(vehicle.getStart()).add(vehicle2);*/
     }
 
     //Get the vehicules List
-    public static Vector<DisplayVehicle> getVehicles(){
+    public Vector<DisplayVehicle> getVehicles(){
         Vector<DisplayVehicle> vehicles = new Vector<DisplayVehicle>();
         //this.model.getVehicles();
         return vehicles;
-    }
-
-    //Update a vehicule on the grid
-    public static  void updateVehicles(DisplayVehicle vehicle){
-        //this.model.modifyVehicle(vehicle.getX(), vehicle.getY(), vehicle.getType(), vehicle.getDestination);
     }
 
 }
