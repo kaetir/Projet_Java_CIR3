@@ -83,16 +83,32 @@ public class View implements Initializable {
 
     }
 
+    @FXML
+    public void buttonPath(){
+        Road(1);
+    }
+
+    @FXML
     public void buttonRoad(){
+        Road(2);
+    }
 
-        gc.setFill(Color.GREEN);
+    @FXML
+    public void buttonHighway(){
+        Road(3);
+    }
 
-        gc.setLineWidth(4);
-        gc.setStroke(Color.GREEN);
+
+    // function which draw roads with int as type
+    public void Road(int i){
+
+        gc.setFill(Color.WHITE);
+        gc.setLineWidth(i*2);
+        gc.setStroke(Color.BLACK);
 
         Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             double x,y;
-            boolean start = false ,end = false;
+            DisplayCity start = null ,end = null;
             DisplayRoad dr = new DisplayRoad();
 
             @Override
@@ -100,17 +116,33 @@ public class View implements Initializable {
                 x = mouseEvent.getX();
                 y = mouseEvent.getY();
 
-                if(!start){
+                if(start == null){
+                    start = colideCity(x,y);
+                    System.out.println(start);
+                    if(start != null){
+                        System.out.println("set Start : " + x + " : " + y);
+                        dr.addDot(start.getX(), start.getY());
+                    }
 
-                    dr.addDot(x,y);
+                }else if(end == null){
+                        end = colideCity(x,y);
+                        System.out.println(end);
+                        if(end != null){
+                            System.out.println("set End : " + end);
+                            if(start != end) {
+                                dr.addDot(end.getX(), end.getY());
+                                dr.Draw();
+                                start = null ;
+                                end = null;
+                                displayRoads.add(dr);
+                                dr = new DisplayRoad();
+                                System.out.println("une route type : " + i);
+                                // ICI APPEL AU CONTROLER POUR AJOUT VILLE
+                            }
+                        }else {
+                            dr.addDot(x,y);
+                        }
                 }
-                if(mouseEvent.getButton() == MouseButton.SECONDARY){
-                    dr.Draw();
-                    displayRoads.add(dr);
-                    dr = new DisplayRoad();
-                    System.out.println("une route");
-                }
-
             }
         });
 
@@ -119,13 +151,15 @@ public class View implements Initializable {
     @FXML
     // add a city
     public void DrawCity(int x, int y){
-
-        DisplayCity tmp = new DisplayCity(x,y);
-        displayCities.add(tmp);
-        tmp.Draw();
+        if(colideCity(x,y) == null){
+            DisplayCity tmp = new DisplayCity(x,y);
+            displayCities.add(tmp);
+            tmp.Draw();
+        }
 
     }
 
+    // edit a city
     public void EditCity(int id, double x, double y, double size,String name){
         displayCities.elementAt(id).setX(x);
         displayCities.elementAt(id).setY(y);
