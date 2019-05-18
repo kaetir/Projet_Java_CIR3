@@ -6,33 +6,55 @@ import View.Displayable.DisplayRoad;
 import View.Displayable.DisplayVehicle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.canvas.*;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
-import javax.swing.text.TabableView;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.Vector;
 
+import static javafx.scene.input.KeyCode.*;
 
-public class View {
-    @FXML
-    public Canvas Drawing_Canvas;
 
-    @FXML
-    public Tab CityEdit;
+public class View implements Initializable {
+    @FXML public Canvas Drawing_Canvas;
 
     public static GraphicsContext gc;
 
+    @FXML
+    private TableCityController CityEditController;
 
 
-    Vector<DisplayCity> displayCities = new Vector<>();
-    Vector<DisplayRoad> displayRoads = new Vector<>();
-    Vector<DisplayVehicle> displayVehicles = new Vector<>();
-    Vector<DisplayIntersection> displayIntersections = new Vector<>();
+
+    public Vector<DisplayCity> displayCities = new Vector<>();
+    private Vector<DisplayRoad> displayRoads = new Vector<>();
+    private Vector<DisplayVehicle> displayVehicles = new Vector<>();
+    private Vector<DisplayIntersection> displayIntersections = new Vector<>();
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        gc = Drawing_Canvas.getGraphicsContext2D();
+        System.out.println("Graphic context: " + gc);
+        // controller available in initialize method
+        System.out.println("Table controller: " + CityEditController);
+        CityEditController.setMaman(this);
+
+    }
+
+    @FXML
+    private void handleKeyPressed(KeyEvent ke){
+        System.out.println("Key Pressed: " + ke.getCode());
+        if(ke.getCode() == F5){
+            this.refresh();
+        }
+    }
 
 
     public void buttonSelection(){
@@ -40,7 +62,7 @@ public class View {
         Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
+                System.out.println("x:" + mouseEvent.getX() + "  y:" + mouseEvent.getY() + " isIn : " + colideCity(mouseEvent.getX(), mouseEvent.getY()));
 
             }
         });
@@ -50,13 +72,12 @@ public class View {
 
     public void buttonCity(){
 
-        gc = Drawing_Canvas.getGraphicsContext2D();
         gc.setFill(Color.RED);
 
         Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                DrawVille((int)mouseEvent.getX(), (int)mouseEvent.getY());
+                DrawCity((int)mouseEvent.getX(), (int)mouseEvent.getY());
             }
         });
 
@@ -64,7 +85,6 @@ public class View {
 
     public void buttonRoad(){
 
-        gc = Drawing_Canvas.getGraphicsContext2D();
         gc.setFill(Color.GREEN);
 
         gc.setLineWidth(4);
@@ -72,15 +92,21 @@ public class View {
 
         Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             double x,y;
+            boolean start = false ,end = false;
             DisplayRoad dr = new DisplayRoad();
 
             @Override
             public void handle(MouseEvent mouseEvent) {
                 x = mouseEvent.getX();
                 y = mouseEvent.getY();
-                dr.addDot(x,y);
-                if(mouseEvent.isControlDown()){
+
+                if(!start){
+
+                    dr.addDot(x,y);
+                }
+                if(mouseEvent.getButton() == MouseButton.SECONDARY){
                     dr.Draw();
+                    displayRoads.add(dr);
                     dr = new DisplayRoad();
                     System.out.println("une route");
                 }
@@ -91,25 +117,58 @@ public class View {
     }
 
     @FXML
-    public void DrawVille(int x, int y){
+    // add a city
+    public void DrawCity(int x, int y){
 
-        new DisplayCity(x,y).Draw();
+        DisplayCity tmp = new DisplayCity(x,y);
+        displayCities.add(tmp);
+        tmp.Draw();
+
+    }
+
+    public void EditCity(int id, double x, double y, double size,String name){
+        displayCities.elementAt(id).setX(x);
+        displayCities.elementAt(id).setY(y);
+        displayCities.elementAt(id).setSize(size);
+        displayCities.elementAt(id).setName(name);
     }
 
 
-    @FXML
-    public void DrawRoute(double x, double y, double x1, double y1){
+    // erase and redraw the canvas (usefull in case of graphic glitch)
+    public void refresh(){
+        // debug message
+        System.out.println("refresh");
 
-        gc = Drawing_Canvas.getGraphicsContext2D();
-        gc.strokeLine(x,y,x1,y1);
+
+
+        gc.clearRect(0,0,Drawing_Canvas.getWidth(), Drawing_Canvas.getHeight());
+
+        // redrawing saved elements
+        displayCities.forEach( (dv)-> dv.Draw() );
+
+
+
+
+        // refresh city edit
+        CityEditController.refresh(displayCities);
+
+
+
     }
 
+    // tell if a hit touch a city
+    private DisplayCity colideCity(double x, double y){
+        for (DisplayCity city: displayCities) {
+            if (city.isIn(x,y))
+                return city;
+        }
+        return null;
+    }
 
 
     public View(){
 
 
     }
-
 
 }
