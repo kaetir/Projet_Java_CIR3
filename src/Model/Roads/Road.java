@@ -8,24 +8,22 @@ import java.util.Map;
 
 abstract public class Road {
 
-    protected final City cityA;
-    protected final City cityB;
-    protected final int nbWay;
+    private final City cityA;
+    private final City cityB;
+    private final int nbWay;
 
-    private Map<Vehicule, Boolean> vehiculesOnRoad = new LinkedHashMap<Vehicule, Boolean>();
-
-    public Road(final City a, final City end, final int nbWay) {
+    public Road(final City a, final City b, final int nbWay, String name) {
         this.cityA = a;
-        this.cityB = end;
+        this.cityB = b;
         this.nbWay = nbWay;
-        System.out.println(this.getClass() + " created between " + a.getName() + " et " + end.getName() + ".");
+        System.out.println(name + " created between " + a.getId() + " and " + b.getId() + ".");
     }
 
     public City getCityA() {
         return cityA;
     }
 
-    public City getB() {
+    public City getCityB() {
         return cityB;
     }
 
@@ -33,11 +31,4 @@ abstract public class Road {
         return nbWay;
     }
 
-    public Map<Vehicule, Boolean> getVehiculesOnRoad() {
-        return vehiculesOnRoad;
-    }
-
-    public void setVehiculesOnRoad(Map<Vehicule, Boolean> vehiculesOnRoad) {
-        this.vehiculesOnRoad = vehiculesOnRoad;
-    }
 }

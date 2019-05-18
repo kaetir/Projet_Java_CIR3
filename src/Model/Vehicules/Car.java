@@ -4,7 +4,7 @@ public class Car extends Vehicule{
 
     //Valeurs par défaut d'une voiture
     public Car() {
-        super(170, 2, 5, true);
+        super(170, 2, 5, true, "Car");
     }
 
 }

@@ -1,9 +1,13 @@
 package Controler;
 
+import Model.Roads.Exception.RoadCreationException;
+import Model.Vehicules.Exception.VehiculeCreationException;
+import Model.Vehicules.Vehicule;
 import View.Displayable.DisplayCity;
 import View.Displayable.DisplayRoad;
 import View.Displayable.DisplayVehicle;
 import View.View;
+import Model.Model;
 
 import java.util.Vector;
 
@@ -13,78 +17,45 @@ public class Controller {
 
 
     //Initialize the Controller
-    public Controller(){
-        //this.model = new Model(this);
-        this.view = new View();
+    public Controller(View view){
+        //this.model = new Model();
+        this.view = view;
     }
 
     //Initialize the Model
     public void init_Model(){
-        //this.model = new Model(this);
-    }
-
-    //Initialize the View
-    public void init_View(){
-        this.view = new View();
+        //this.model = new Model();
     }
 
     //Create a new city on the grid
-    public static void createCity(double x, double y, int id){
-        Vector<DisplayVehicle> vehicles = new Vector<DisplayVehicle>();
-        //DisplayCity city = new DisplayCity(x,y,id,vehicles);
-        //this.model.createCity(city);
+    public void createCity(DisplayCity city){
+        Model.createCity(city.getId(), city.getX(), city.getY());
     }
 
-    //Get the cities List
-    public static Vector<DisplayCity> getCities(){
-        Vector<DisplayCity> cities = new Vector<DisplayCity>();
-        //CODE
-        return cities;
-    }
-
-    //Update a City on the Grid
-    public static void updateCity(int id, Vector<DisplayVehicle> vehicles){
-        //DisplayCity city = new DisplayCity(id, vehicles);
-        //this.model.modifyCity(city);
-    }
-
-    //FROM THE VIEW
     //Create a new road on the grid
-    public static void createRoad(int id, int lanes, boolean multi, double[][] path, int start, int end){
-        //DisplayRoad road = new DisplayRoad(id,lanes,multi,path,start,end);
-        //this.model.createRoad(road);
-    }
-
-    //Get the roads List
-    /*public static Vector<DisplayRoad> getRoads(){
-        Vector<DisplayRoad> roads = new Vector<DisplayRoad>();
-        //CODE
-        return roads;
-    }*/
-
-    //Update a road on the grid
-    public static void updateRoad(int id, int lanes, boolean multi){
-        //DisplayRoad road = new DisplayRoad(id, lanes, multi);
-        //this.model.modifyRoad(road);
+    public void createRoad(DisplayRoad road) throws RoadCreationException{
+        //Model.createRoad(road.getNbVoies(), road.getStart(), road.getEnd());   //A RAJOUTER: getteur pour les id
     }
 
     //Create a new Vehicule
-    public static void createVehicle(int id, int start, int end, String type){
-        //DisplayVehicle vehicle = new DisplayVehicle(id, start, end, type);
-        //this.model.createVehicle(vehicle);
+    public void createVehicle(DisplayVehicle vehicle) throws VehiculeCreationException {
+        Vehicule vehicle2;
+
+        /*if(vehicle.getType() == "truck"){
+            vehicle2 = Model.createVehicule(Vehicule.type.truck);           //A RAJOUTER: getteur pour le type
+        }else if(vehicle.getType() == "car"){                               //A RAJOUTER: getteur pour l'id de la ville
+            vehicle2 = Model.createVehicule(Vehicule.type.car);
+        }else{
+            vehicle2 = Model.createVehicule(Vehicule.type.motorBike);
+        }
+        Model.getCity(vehicle.getStart()).add(vehicle2);*/
     }
 
     //Get the vehicules List
-    public static Vector<DisplayVehicle> getVehicles(){
+    public Vector<DisplayVehicle> getVehicles(){
         Vector<DisplayVehicle> vehicles = new Vector<DisplayVehicle>();
-        //CODE
+        //this.model.getVehicles();
         return vehicles;
-    }
-
-    //Update a vehicule on the grid
-    public static  void updateVehicles(int id, int start, int end, String type){
-        //DisplayVehicle vehicle = new DisplayVehicle(id, start, end, type);
-        //this.model.modifyVehicle(vehicle);
     }
 
 }
