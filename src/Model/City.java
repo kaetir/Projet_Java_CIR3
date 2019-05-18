@@ -7,11 +7,16 @@ import java.util.Vector;
 public class City {
 
     private String name;
-    private Vector<Vehicule> vehicules;
+    private Vector<Vehicule> vehicules = new Vector<Vehicule>();
 
-    public City(String name, Vector<Vehicule> vehicules) {
+    public City(String name) {
         this.name = name;
-        this.vehicules = vehicules;
+        System.out.println("City " + this.name + " created.");
+    }
+
+    public void add(Vehicule vehicule) {
+        this.vehicules.add(vehicule);
+        System.out.println(vehicule.getClass() + " added to city " + this.name + ".");
     }
 
     public String getName() {
@@ -21,4 +26,5 @@ public class City {
     public void setName(String name) {
         this.name = name;
     }
+
 }

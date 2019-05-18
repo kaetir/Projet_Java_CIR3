@@ -2,12 +2,9 @@ package Model.Vehicules;
 
 public class Truck extends Vehicule {
 
-    public Truck(double maxVitesse, double size, boolean canPass) {
-        super(maxVitesse, size, canPass);
+    //Valeurs par défaut d'un camion
+    public Truck() {
+        super(130, 5, 25.5, false);
     }
 
-    public Truck getTruck(double maxVitesse, double sizeMin, double sizeMax, boolean canPass){
-        double size = randSize(sizeMin, sizeMax);
-        return new Truck(maxVitesse, size, canPass);
-    }
 }
