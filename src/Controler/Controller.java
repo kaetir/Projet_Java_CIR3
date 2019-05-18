@@ -5,11 +5,12 @@ import View.Displayable.DisplayCity;
 import View.Displayable.DisplayRoad;
 import View.Displayable.DisplayVehicle;
 import View.View;
+import Model.Model;
 
 import java.util.Vector;
 
 public class Controller {
-    //private Model model;
+    private Model model;
     private View view;
 
 
