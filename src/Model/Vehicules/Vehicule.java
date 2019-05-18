@@ -2,6 +2,7 @@ package Model.Vehicules;
 
 abstract public class Vehicule {
 
+    public Vehicule.type name;
     protected final double maxVitesse;
     protected final double size;
     protected final boolean canPass;
@@ -11,10 +12,11 @@ abstract public class Vehicule {
     protected double oldY;
     public enum type {car, truck , motorBike};
 
-    public Vehicule(double maxVitesse, double sizeMin, double sizeMax, boolean canPass, String name) {
+    public Vehicule(double maxVitesse, double sizeMin, double sizeMax, boolean canPass, Vehicule.type name) {
         this.maxVitesse = maxVitesse;
         this.size = randSize(sizeMin, sizeMax);
         this.canPass = canPass;
+        this.name = name;
         System.out.println(name + " created");
     }
 

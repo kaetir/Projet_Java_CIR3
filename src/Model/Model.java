@@ -12,6 +12,7 @@ public abstract class Model {
 
     private static Vector<City> cities = new Vector<City>();
     private static Vector<Road> roads = new Vector<Road>();
+    private static Vector<Vehicule> vehicules = new Vector<Vehicule>();
 
     public static void createCity(int id, double x, double y){
         City city = new City(id, x, y);
@@ -46,7 +47,9 @@ public abstract class Model {
     }
 
     public static Vehicule createVehicule(Vehicule.type vehType) throws VehiculeCreationException {
-        return VehiculeFactory.create(vehType);
+        Vehicule v = VehiculeFactory.create(vehType);
+        vehicules.add(v);
+        return v;
     }
 
     public static void updateVehicule(Vehicule vehicule, double x, double y){
@@ -54,16 +57,24 @@ public abstract class Model {
         vehicule.setOldY(vehicule.getY());
         vehicule.setX(x);
         vehicule.setY(y);
-        System.out.println(vehicule.getClass() + " a roulé de (" + vehicule.getOldX() + ", " + vehicule.getOldY() +
-                ") à (" + vehicule.getX() + ", " + vehicule.getY() + ").");
+        System.out.println(vehicule.name + " rolled from (" + vehicule.getOldX() + ", " + vehicule.getOldY() +
+                ") to (" + vehicule.getX() + ", " + vehicule.getY() + ").");
+    }
+
+    public static Vector<Vehicule> getVehicules(){
+        return vehicules;
+    }
+
+    public static Vehicule getVehicule(int index){
+        return vehicules.get(index);
     }
 
     public static Vector<City> getCities() {
         return cities;
     }
 
-    public static City getCity(int id){
-        return cities.get(id);
+    public static City getCity(int index){
+        return cities.get(index);
     }
 
 }

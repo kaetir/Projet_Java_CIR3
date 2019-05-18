@@ -34,15 +34,15 @@ public class Main extends Application {
         Model.createCity(2, 50, 0);
 
         //Création de routes (nb voies, ville A, ville B)
-        //  getCity retourne la ville par son id
+        //  getCity retourne la ville par son index
         //Existe aussi getCities sans argument pour retourner un vecteur de toutes les villes de la map
         Model.createRoad(1, Model.getCity(0), Model.getCity(1));    //'path' entre ville 0 et 1
         Model.createRoad(2, Model.getCity(1), Model.getCity(2));    //'way' entre ville 1 et 2
         Model.createRoad(3, Model.getCity(2), Model.getCity(0));    //'highway' entre ville 2 et 0
         Model.createRoad(4, Model.getCity(2), Model.getCity(0));    //trop de voies pour la route : ERROR
 
-        //Renvoie un vecteur de toutes les routes menant à ou venant de la ville passée en paramètres
-        Model.getRoads(Model.getCity(0));     //Existe aussi sans argument pour retourner un vecteur de toutes le routes de la map
+        //Renvoie un vecteur de toutes les routes menant à ou venant de la ville dont l'index est passé en paramètres
+        Model.getRoads(Model.getCity(0));     //Existe aussi sans argument pour retourner un vecteur de toutes les routes de la map
 
         //Création de véhicule avec pour paramètre : Vehicule.type. 'car' / 'motorBike' / 'truck'
         //Les véhicules sont créés mais leur coordonnée n'est pas définie
@@ -60,6 +60,10 @@ public class Main extends Application {
         Model.updateVehicule(car, 3, 20);
         Model.updateVehicule(truck, 2, 14);
         Model.updateVehicule(motorBike, 30, 20);
+        Model.updateVehicule(Model.getVehicule(1), 1, 1);
+        Model.updateVehicule(motorBike, 100, 100);
+        //  getVehicule retourne le véhicule par son index
+        //Existe aussi getVehicules sans argument pour retourner un vecteur de tous les véhicules de la map
 
     }
 }
