@@ -18,6 +18,21 @@ public class DisplayRoad implements Displayable {
     public DisplayRoad() {
     }
 
+    public Vector<Pair<Double, Double>> getDots() {
+        return Dots;
+    }
+
+    public void setDots(Vector<Pair<Double, Double>> dots) {
+        Dots = dots;
+    }
+
+    public int getNbVoies() {
+        return nbVoies;
+    }
+
+    public void setNbVoies(int nbVoies) {
+        this.nbVoies = nbVoies;
+    }
 
     String replaceLast(String string, String substring, String replacement)
     {
@@ -51,5 +66,10 @@ public class DisplayRoad implements Displayable {
         gc.appendSVGPath(path);
         gc.stroke();
         gc.closePath();
+    }
+
+    @Override
+    public boolean isIn(double x, double y) {
+        return false;
     }
 }

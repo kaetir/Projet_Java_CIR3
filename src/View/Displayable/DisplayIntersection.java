@@ -9,4 +9,9 @@ public class DisplayIntersection implements Displayable {
     public void Draw() {
 
     }
+
+    @Override
+    public boolean isIn(double x, double y) {
+        return false;
+    }
 }
