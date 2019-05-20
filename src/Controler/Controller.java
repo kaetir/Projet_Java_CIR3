@@ -25,6 +25,10 @@ public class Controller {
         Model.clear();
     }
 
+    public void run(){
+        Model.start();
+    }
+
     //Create a new city on the grid
     public void createCity(DisplayCity city){
         Model.createCity(city.getId(), city.getX(), city.getY());
