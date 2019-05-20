@@ -1,5 +1,6 @@
 package View;
 
+import Controler.Controller;
 import View.Displayable.DisplayCity;
 import View.Displayable.DisplayIntersection;
 import View.Displayable.DisplayRoad;
@@ -30,6 +31,8 @@ public class View implements Initializable {
     @FXML
     private TableCityController CityEditController;
 
+
+    private Controller conTroller;
 
 
     public Vector<DisplayCity> displayCities = new Vector<>();
@@ -77,6 +80,7 @@ public class View implements Initializable {
         // controller available in initialize method
         System.out.println("Table controller: " + CityEditController);
         CityEditController.setMaman(this);
+        conTroller = new Controller(this);
 
     }
 
@@ -167,9 +171,11 @@ public class View implements Initializable {
                                 start = null ;
                                 end = null;
                                 displayRoads.add(dr);
+                                conTroller.createRoad(dr, start.getId(), end.getId());
                                 dr = new DisplayRoad();
                                 System.out.println("une route type : " + i);
                                 // ICI APPEL AU CONTROLER POUR AJOUT VILLE
+
                             }
                         }else {
                             dr.addDot(x,y);
@@ -186,6 +192,8 @@ public class View implements Initializable {
         if(colideCity(x,y) == null){
             DisplayCity tmp = new DisplayCity(x,y);
             displayCities.add(tmp);
+            // send to controlleur
+            conTroller.createCity(tmp);
             tmp.Draw();
         }
 
