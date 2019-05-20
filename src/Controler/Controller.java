@@ -51,9 +51,14 @@ public class Controller {
 
     //Get the vehicules List
     public Vector<DisplayVehicle> getVehicles(){
-        Vector<DisplayVehicle> vehicles = new Vector<DisplayVehicle>();
-        //this.model.getVehicles();
-        return vehicles;
+        Vector<Vehicule> vehicles = Model.getVehicules();
+        Vector<DisplayVehicle> vehicles2 = new Vector<DisplayVehicle>();
+
+        for (Vehicule elt: vehicles) {
+            vehicles2.add(new DisplayVehicle(elt.getX(), elt.getY(), elt.getOldX(), elt.getOldY(), elt.getType()));
+        }
+
+        return vehicles2;
     }
 
 }
