@@ -1,6 +1,7 @@
 package View;
 
 import Controler.Controller;
+import Model.Roads.Exception.RoadCreationException;
 import View.Displayable.DisplayCity;
 import View.Displayable.DisplayIntersection;
 import View.Displayable.DisplayRoad;
@@ -147,11 +148,12 @@ public class View implements Initializable {
             DisplayCity start = null ,end = null;
             DisplayRoad dr = new DisplayRoad();
 
+
             @Override
             public void handle(MouseEvent mouseEvent) {
                 x = mouseEvent.getX();
                 y = mouseEvent.getY();
-
+                dr.setNbVoies(i);
                 if(start == null){
                     start = colideCity(x,y);
                     System.out.println(start);
@@ -168,10 +170,15 @@ public class View implements Initializable {
                             if(start != end) {
                                 dr.addDot(end.getX(), end.getY());
                                 dr.Draw();
+
+                                displayRoads.add(dr);
+                                try {
+                                    conTroller.createRoad(dr, start.getId(), end.getId());
+                                }catch (RoadCreationException e){
+                                    System.err.println(e);
+                                }
                                 start = null ;
                                 end = null;
-                                displayRoads.add(dr);
-                                conTroller.createRoad(dr, start.getId(), end.getId());
                                 dr = new DisplayRoad();
                                 System.out.println("une route type : " + i);
                                 // ICI APPEL AU CONTROLER POUR AJOUT VILLE
