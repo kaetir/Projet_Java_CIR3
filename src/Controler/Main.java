@@ -43,5 +43,7 @@ public class Main extends Application {
 
         Model.start();
 
+        Model.clear();
+
     }
 }

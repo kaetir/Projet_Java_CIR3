@@ -46,7 +46,7 @@ public class City {
 
     //Affichage des véhicules présents dans la ville
     public void printVehicules(){
-        System.out.println("Vehicules in the city " + getStringId() +  " :");
+        System.out.println("Vehicules in the city " + this.getStringId() +  " :");
         for(Vehicule v : vehicules){
             v.print();
         }
@@ -80,5 +80,10 @@ public class City {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public void clear(){
+        System.out.println("Vehicules in city " + this.getStringId() + " cleared");
+        vehicules.removeAllElements();
     }
 }

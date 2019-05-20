@@ -68,4 +68,9 @@ abstract public class Road {
         return nbWay;
     }
 
+    public void clear(){
+        System.out.println("Vehicules on the road between city " + this.cityA.getStringId() + " and " + this.cityB.getStringId() + " cleared");
+        vehicules.removeAllElements();
+    }
+
 }

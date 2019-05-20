@@ -103,4 +103,22 @@ public abstract class Model {
         Simulation.start();
     }
 
+    public static void clear(){
+        String newLine = System.getProperty("line.separator");
+        System.out.println(newLine + "*** Clearing everything ***");
+        for(City c : cities) {
+            c.clear();
+        }
+        cities.removeAllElements();
+        for(Road r : roads){
+            r.clear();
+        }
+        System.out.println("Cities in map cleared");
+        cities.removeAllElements();
+        System.out.println("Roads in map cleared");
+        roads.removeAllElements();
+        System.out.println("Vehicules in map cleared");
+        vehicules.removeAllElements();
+    }
+
 }
