@@ -36,17 +36,17 @@ public class Controller {
     }
 
     //Create a new Vehicule
-    public void createVehicle(DisplayVehicle vehicle) throws VehiculeCreationException {
+    public void createVehicle(DisplayVehicle vehicle, int id) throws VehiculeCreationException {
         Vehicule vehicle2;
 
-        /*if(vehicle.getType() == "truck"){
-            vehicle2 = Model.createVehicule(Vehicule.type.truck);           //A RAJOUTER: getteur pour le type
-        }else if(vehicle.getType() == "car"){                               //A RAJOUTER: getteur pour l'id de la ville
+        if( vehicle.getVasistas().equals(Vehicule.type.truck) ){
+            vehicle2 = Model.createVehicule(Vehicule.type.truck);
+        }else if( vehicle.getVasistas().equals(Vehicule.type.car) ){
             vehicle2 = Model.createVehicule(Vehicule.type.car);
         }else{
             vehicle2 = Model.createVehicule(Vehicule.type.motorBike);
         }
-        Model.getCity(vehicle.getStart()).add(vehicle2);*/
+        Model.getCity(id).add(vehicle2);
     }
 
     //Get the vehicules List
