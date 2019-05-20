@@ -87,11 +87,6 @@ public abstract class Model {
         return vehicules;
     }
 
-    //Renvoie le véhicule de la liste de tous les véhicules présents sur la map dont l'index est passé en paramètre
-    public static Vehicule getVehicule(int index){
-        return vehicules.get(index);
-    }
-
     //Renvoie la liste de toutes les villes présentes sur la map
     public static Vector<City> getCities() {
         return cities;

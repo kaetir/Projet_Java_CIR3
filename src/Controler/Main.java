@@ -1,9 +1,6 @@
 package Controler;
 
 import Model.Model;
-import Model.Roads.Exception.RoadCreationException;
-import Model.Vehicules.Exception.VehiculeCreationException;
-import Model.Vehicules.Vehicule;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,7 +20,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) throws RoadCreationException, VehiculeCreationException {
+    public static void main(String[] args) {
         launch(args);
 
         Model.start();
