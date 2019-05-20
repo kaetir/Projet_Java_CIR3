@@ -10,8 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import static Model.Model.createVehicule;
-
 
 public class Main extends Application {
 
@@ -44,6 +42,5 @@ public class Main extends Application {
         Model.start();
 
         Model.clear();
-
     }
 }

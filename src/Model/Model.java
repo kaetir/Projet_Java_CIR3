@@ -15,6 +15,9 @@ public abstract class Model {
     private static Vector<Road> roads = new Vector<>();         //Liste de toutes les routes
     private static Vector<Vehicule> vehicules = new Vector<>(); //Liste de tous les véhicules
 
+    //Séparateur pour le println()
+    private static String newLine = System.getProperty("line.separator");
+
     //Création d'une ville
     public static void createCity(int id, double x, double y){
         City city = new City(id, x, y);
@@ -104,7 +107,7 @@ public abstract class Model {
     }
 
     public static void clear(){
-        String newLine = System.getProperty("line.separator");
+
         System.out.println(newLine + "*** Clearing everything ***");
         for(City c : cities) {
             c.clear();

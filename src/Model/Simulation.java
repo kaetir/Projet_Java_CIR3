@@ -8,14 +8,18 @@ public abstract class Simulation {
 
     //Simulation
     public static void start(){
+        System.out.println(System.getProperty("line.separator") + "*** Starting simulation ***");
         //Parcours de toutes les villes c de la map
         for(City c : Model.getCities()) {
+            System.out.println(System.getProperty("line.separator") + "-> City " + c.getStringId() + " :");
             vehiculeFromCityToRoad(c);
         }
     }
 
     //Placement des différentes voiture d'une ville au début d'un route SI C'EST POSSIBLE
     public static void vehiculeFromCityToRoad(City c){
+        //Affichage de la liste des routes rattahées à la ville c
+        Model.printRoads(c);
         //Affichage de la liste des véhicules présents dans la ville c
         c.printVehicules();
 
@@ -24,8 +28,6 @@ public abstract class Simulation {
         while (iterator.hasNext()) {
             Vehicule v = iterator.next();
 
-            //Affichage de la liste des routes rattahées à la ville c
-            Model.printRoads(c);
             //Choix de l'index d'une des routes rattachées à la ville c
             int i = chooseIndexRoad(c);
             if(i != -1) {
