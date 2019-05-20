@@ -12,13 +12,11 @@ import Model.Model;
 import java.util.Vector;
 
 public class Controller {
-    //private Model model;
     private View view;
 
 
     //Initialize the Controller
     public Controller(View view){
-        //this.model = new Model();
         this.view = view;
     }
 
