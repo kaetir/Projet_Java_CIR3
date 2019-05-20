@@ -53,7 +53,6 @@ public abstract class Simulation {
     //Choix de l'index d'une des routes rattachées à la ville c
     public static int chooseIndexRoad(City c){
 
-
         //Si une seule route est disponible, vérification de cette route. Sinon choix aléatoire
         if(Model.getRoads(c).size() == 1){
             if(Model.getRoads(c).get(0).isFree(c)) return 0;    //Si la route est libre, renvoi l'index 0
@@ -72,6 +71,8 @@ public abstract class Simulation {
                     i = 0;            //Si l'index dépasse la taille, réinitialisation de l'index à 0
             }
         }
+        
         return -1;  //Si aucune route n'est libre, renvoie -1
+
     }
 }
