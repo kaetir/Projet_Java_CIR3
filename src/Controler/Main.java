@@ -30,8 +30,8 @@ public class Main extends Application {
         Model.createCity(1, 50, 50);
 
         Model.createRoad(1, Model.getCity(0), Model.getCity(1));    //'path' entre ville 0 et 1
-        Model.createRoad(1, Model.getCity(0), Model.getCity(1));    //'path' entre ville 0 et 1
-        Model.createRoad(1, Model.getCity(0), Model.getCity(1));    //'path' entre ville 0 et 1
+        //Model.createRoad(1, Model.getCity(0), Model.getCity(1));    //'path' entre ville 0 et 1
+        //Model.createRoad(1, Model.getCity(0), Model.getCity(1));    //'path' entre ville 0 et 1
 
         Vehicule car1 = Model.createVehicule(Vehicule.type.car);
         Vehicule car2 = Model.createVehicule(Vehicule.type.car);
