@@ -15,6 +15,9 @@ public abstract class Model {
     private static Vector<Road> roads = new Vector<>();         //Liste de toutes les routes
     private static Vector<Vehicule> vehicules = new Vector<>(); //Liste de tous les véhicules
 
+    //Séparateur pour le println()
+    private static String newLine = System.getProperty("line.separator");
+
     //Création d'une ville
     public static void createCity(int id, double x, double y){
         City city = new City(id, x, y);
@@ -101,6 +104,24 @@ public abstract class Model {
     //Démarrage de la simulation
     public static void start(){
         Simulation.start();
+    }
+
+    public static void clear(){
+
+        System.out.println(newLine + "*** Clearing everything ***");
+        for(City c : cities) {
+            c.clear();
+        }
+        cities.removeAllElements();
+        for(Road r : roads){
+            r.clear();
+        }
+        System.out.println("Cities in map cleared");
+        cities.removeAllElements();
+        System.out.println("Roads in map cleared");
+        roads.removeAllElements();
+        System.out.println("Vehicules in map cleared");
+        vehicules.removeAllElements();
     }
 
 }
