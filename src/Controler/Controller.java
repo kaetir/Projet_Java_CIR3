@@ -22,7 +22,7 @@ public class Controller {
 
     //Initialize the Model
     public void clear_Model(){
-        //Model.clear();
+        Model.clear();
     }
 
     //Create a new city on the grid
@@ -31,8 +31,8 @@ public class Controller {
     }
 
     //Create a new road on the grid
-    public void createRoad(DisplayRoad road) throws RoadCreationException{
-        //Model.createRoad(road.getNbVoies(), road.getStart(), road.getEnd());   //A RAJOUTER: getteur pour les id
+    public void createRoad(DisplayRoad road, int id1, int id2) throws RoadCreationException{
+        Model.createRoad(road.getNbVoies(), Model.getCity(id1) , Model.getCity(id2), road.getDots());
     }
 
     //Create a new Vehicule
