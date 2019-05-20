@@ -33,7 +33,10 @@ public abstract class Simulation {
             if(i != -1) {
                 //Enlèvement du véhicule v à la ville c
                 iterator.remove();
-                System.out.println(v.getType() + " took road at the index " + i + " of city " + c.getStringId());
+                //Ajout de la ville de destination au véhicule
+                if(Model.getRoads(c).get(i).getCityA().equals(c)) v.setDestination(Model.getRoads(c).get(i).getCityB());
+                else v.setDestination(Model.getRoads(c).get(i).getCityA());
+                System.out.println("    by the road at the index " + i + " of city " + c.getStringId());
                 //Ajout du véhicule v à la route d'index i
                 Model.getRoads(c).get(i).add(v);
                 Model.getRoads(c).get(i).printVehicules();
@@ -50,18 +53,25 @@ public abstract class Simulation {
     //Choix de l'index d'une des routes rattachées à la ville c
     public static int chooseIndexRoad(City c){
 
-        //Choix aléatoire
-        int i = (int) (Math.random() * (Model.getRoads(c).size()));
-        int j = i-1;
-        if(j < 0) j = Model.getRoads(c).size() - 1;
 
-        //Vérification
-        while(i != j){
-            if(Model.getRoads(c).get(i).isFree(c)) return i;    //Si la route est libre, renvoi de l'index
-            else i = ++i;                                       //Sinon incrémentation de l'index
-            if(i >= Model.getRoads(c).size()) i = 0;            //Si l'index dépasse la taille, réinitialisation de l'index à 0
+        //Si une seule route est disponible, vérification de cette route. Sinon choix aléatoire
+        if(Model.getRoads(c).size() == 1){
+            if(Model.getRoads(c).get(0).isFree(c)) return 0;    //Si la route est libre, renvoi l'index 0
+        } else {
+            //Choix aléatoire
+            int i = (int) (Math.random() * (Model.getRoads(c).size()));
+            int j = i - 1;
+            if (j < 0) j = Model.getRoads(c).size() - 1;
+
+            //Vérification
+            while (i != j) {
+                System.out.println("i = " + i + " ; j = " + j);
+                if (Model.getRoads(c).get(i).isFree(c)) return i;    //Si la route est libre, renvoi de l'index
+                else i = ++i;                                       //Sinon incrémentation de l'index
+                if (i >= Model.getRoads(c).size())
+                    i = 0;            //Si l'index dépasse la taille, réinitialisation de l'index à 0
+            }
         }
-
         return -1;  //Si aucune route n'est libre, renvoie -1
     }
 }
