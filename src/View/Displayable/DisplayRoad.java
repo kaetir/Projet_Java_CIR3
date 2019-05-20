@@ -1,7 +1,6 @@
 package View.Displayable;
 
 
-import javafx.scene.shape.SVGPath;
 import javafx.util.Pair;
 
 import java.util.Vector;

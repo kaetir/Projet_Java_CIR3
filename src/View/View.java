@@ -38,6 +38,38 @@ public class View implements Initializable {
     private Vector<DisplayIntersection> displayIntersections = new Vector<>();
 
 
+    public Vector<DisplayCity> getDisplayCities() {
+        return displayCities;
+    }
+
+    public void setDisplayCities(Vector<DisplayCity> displayCities) {
+        this.displayCities = displayCities;
+    }
+
+    public Vector<DisplayRoad> getDisplayRoads() {
+        return displayRoads;
+    }
+
+    public void setDisplayRoads(Vector<DisplayRoad> displayRoads) {
+        this.displayRoads = displayRoads;
+    }
+
+    public Vector<DisplayVehicle> getDisplayVehicles() {
+        return displayVehicles;
+    }
+
+    public void setDisplayVehicles(Vector<DisplayVehicle> displayVehicles) {
+        this.displayVehicles = displayVehicles;
+    }
+
+    public Vector<DisplayIntersection> getDisplayIntersections() {
+        return displayIntersections;
+    }
+
+    public void setDisplayIntersections(Vector<DisplayIntersection> displayIntersections) {
+        this.displayIntersections = displayIntersections;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gc = Drawing_Canvas.getGraphicsContext2D();

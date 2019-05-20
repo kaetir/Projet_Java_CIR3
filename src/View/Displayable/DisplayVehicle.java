@@ -1,5 +1,6 @@
 package View.Displayable;
 
+import Model.Vehicules.Vehicule;
 import javafx.scene.paint.Color;
 
 import static View.View.gc;
@@ -7,12 +8,11 @@ import static View.View.gc;
 public class DisplayVehicle implements Displayable {
 
     private double x,y, lastx, lasty;
-    private enum type{ car, truck , motorBike;};
-    private type vasistas; // what is that allemand
+    private Vehicule.type vasistas; // what is that allemand
 
 
     //constructor
-    public DisplayVehicle(double x, double y, double lastx, double lasty, type vasistas) {
+    public DisplayVehicle(double x, double y, double lastx, double lasty, Vehicule.type vasistas) {
         this.x = x;
         this.y = y;
         this.lastx = lastx;
@@ -52,11 +52,11 @@ public class DisplayVehicle implements Displayable {
         this.y = y;
     }
 
-    public type getVasistas() {
+    public Vehicule.type getVasistas() {
         return vasistas;
-    }
+    }public enum type {car, truck , motorBike};
 
-    public void setVasistas(type vasistas) {
+    public void setVasistas(Vehicule.type vasistas) {
         this.vasistas = vasistas;
     }
 
