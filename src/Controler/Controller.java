@@ -21,8 +21,8 @@ public class Controller {
     }
 
     //Initialize the Model
-    public void init_Model(){
-        //this.model = new Model();
+    public void clear_Model(){
+        //Model.clear();
     }
 
     //Create a new city on the grid
