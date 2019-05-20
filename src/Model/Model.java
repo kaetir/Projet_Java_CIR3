@@ -5,6 +5,7 @@ import Model.Roads.Exception.RoadCreationException;
 import Model.Vehicules.Exception.VehiculeCreationException;
 import Model.Vehicules.Vehicule;
 import Model.Vehicules.VehiculeFactory;
+import javafx.util.Pair;
 
 import java.util.Vector;
 
@@ -25,12 +26,12 @@ public abstract class Model {
     }
 
     //Création d'une route
-    public static void createRoad(int voies, City a, City b) throws RoadCreationException {
+    public static void createRoad(int voies, City a, City b, Vector<Pair<Double, Double>> dots) throws RoadCreationException {
         Road road;
         try {
-            if(voies == 1) road = new Path(a, b);
-            else if(voies == 2) road = new Way(a, b);
-            else if(voies == 3) road = new Highway(a, b);
+            if(voies == 1) road = new Path(a, b, dots);
+            else if(voies == 2) road = new Way(a, b, dots);
+            else if(voies == 3) road = new Highway(a, b, dots);
             else throw new RoadCreationException();
             roads.add(road);
         } catch (RoadCreationException e){}
