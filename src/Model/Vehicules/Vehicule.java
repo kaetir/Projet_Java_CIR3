@@ -19,7 +19,6 @@ abstract public class Vehicule {
     protected City destination = null;
 
     //Constructeur
-
     public Vehicule(double maxVitesse, double sizeMin, double sizeMax, boolean canPass, Vehicule.type name) {
         this.maxSpeed = maxVitesse;
         this.size = randSize(sizeMin, sizeMax);
@@ -27,21 +26,22 @@ abstract public class Vehicule {
         this.type = name;
         System.out.println(name + " created");
     }
-    //Choix aléatoire de la taille du véhicule comprise entre sizeMin et sizeMax
 
+    //Choix aléatoire de la taille du véhicule comprise entre sizeMin et sizeMax
     public double randSize(double sizeMin, double sizeMax){
         return (sizeMin + (Math.random() * ((sizeMax - sizeMin) + 1)));
     }
-    //Affichage du type de véhicule et de ses coordonnées
 
+    //Affichage du type de véhicule et de ses coordonnées
     public void print(){
         System.out.println("    " + this.type + " (" + this.x + ", " + this.y + ")");
     }
-    //Getters et Setters
 
+    //Getters et Setters
     public type getType() {
         return type;
     }
+
     public double getX() {
         return x;
     }
