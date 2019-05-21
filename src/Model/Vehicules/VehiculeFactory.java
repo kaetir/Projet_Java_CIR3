@@ -1,21 +1,22 @@
 package Model.Vehicules;
 
+import Model.City;
 import Model.Vehicules.Exception.VehiculeCreationException;
 
 public class VehiculeFactory {
 
     //Fonction de création des véhicules
-    public static Vehicule create(Vehicule.type vehType) throws VehiculeCreationException {
+    public static Vehicule create(Vehicule.type vehType, City destination) throws VehiculeCreationException {
 
         try {
 
             //Création du véhicule en fonction du paramètre fourni
             if(Vehicule.type.car.equals(vehType))               //Création d'une voiture
-                    return new Car();
+                    return new Car(destination);
             else if(Vehicule.type.motorBike.equals(vehType))    //Création d'une moto
-                    return new MotorBike();
+                    return new MotorBike(destination);
             else if(Vehicule.type.truck.equals(vehType))        //Création d'un camion
-                    return new Truck();
+                    return new Truck(destination);
 
             //Renvoi d'une erreur
             throw new VehiculeCreationException(vehType);

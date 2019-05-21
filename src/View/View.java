@@ -164,7 +164,7 @@ public class View implements Initializable {
     }
 
 
-    // function which draw roads with int as type
+    // function which draw roads with int as name
     public void Road(int i){
 
 

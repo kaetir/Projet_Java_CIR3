@@ -4,26 +4,29 @@ import Model.City;
 
 abstract public class Vehicule {
 
-    //Enumération du type de véhicule
+    //Enumération du name de véhicule
     public enum type {car, truck , motorBike}
 
     //Paramètres d'un véhicule
-    protected static Vehicule.type type;
+    protected final Vehicule.type name;
     protected final double maxSpeed;
+    protected double currentSpeed = 0;
     protected final double size;
     protected final boolean canPass;
     protected double x;
     protected double y;
     protected double oldX;
     protected double oldY;
-    protected City destination = null;
+    protected City destination;
+    protected int way = -1;
 
     //Constructeur
-    public Vehicule(double maxVitesse, double sizeMin, double sizeMax, boolean canPass, Vehicule.type name) {
+    public Vehicule(double maxVitesse, double sizeMin, double sizeMax, boolean canPass, Vehicule.type name, City destination) {
         this.maxSpeed = maxVitesse;
         this.size = randSize(sizeMin, sizeMax);
         this.canPass = canPass;
-        this.type = name;
+        this.name = name;
+        this.destination = destination;
         System.out.println(name + " created");
     }
 
@@ -32,16 +35,22 @@ abstract public class Vehicule {
         return (sizeMin + (Math.random() * ((sizeMax - sizeMin) + 1)));
     }
 
-    //Affichage du type de véhicule et de ses coordonnées
+    //Modifie la position d'un véhicule en sauvegardant son ancienne position
+    public void updateVehicule(double x, double y){
+        setOldX(getX());
+        setOldY(getY());
+        setX(x);
+        setY(y);
+        System.out.println(getType() + " rolled from (" + getOldX() + ", " + getOldY() + ") to (" + getX()
+                + ", " + getY() + ").");
+    }
+
+    //Affichage du name de véhicule et de ses coordonnées
     public void print(){
-        System.out.println("    " + this.type + " (" + this.x + ", " + this.y + ")");
+        System.out.println("    " + this.name + " (" + this.x + ", " + this.y + ")");
     }
 
     //Getters et Setters
-    public type getType() {
-        return type;
-    }
-
     public double getX() {
         return x;
     }
@@ -83,8 +92,34 @@ abstract public class Vehicule {
         this.destination = destination;
     }
 
+    public type getType() {
+        return name;
+    }
+
+    public int getWay() {
+        return way;
+    }
+
+    public void setWay(int way) {
+        System.out.println("    on way " + way);
+        this.way = way;
+    }
+
+    public type getName() {
+        return name;
+    }
+
+    public double getCurrentSpeed() {
+        return currentSpeed;
+    }
+
     public double getMaxSpeed() {
         return maxSpeed;
+    }
+
+    public void setCurrentSpeed(double currentSpeed) {
+        System.out.println(name + " is now going at " + currentSpeed + " km/h (max at : " + this.maxSpeed + " km/h)");
+        this.currentSpeed = currentSpeed;
     }
 
     public double getSize() {
