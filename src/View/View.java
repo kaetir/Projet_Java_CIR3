@@ -14,9 +14,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -122,7 +125,20 @@ public class View implements Initializable {
 
     @FXML
     public void run(){
+        String musicFile = "run.mp3";     // For example
+
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+
+        try {
+            Thread.sleep(1);
+        }catch (InterruptedException ie){
+            System.err.println("NO GOD PLEASE NO !");
+        }
+
         conTroller.run();
+
     }
 
     @FXML
