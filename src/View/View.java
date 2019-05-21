@@ -167,8 +167,6 @@ public class View implements Initializable {
     // function which draw roads with int as type
     public void Road(int i){
 
-        gc.setFill(Color.WHITE);
-        gc.setStroke(Color.BLACK);
 
         Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             double x,y;
@@ -275,6 +273,10 @@ public class View implements Initializable {
                 return city;
         }
         return null;
+    }
+
+    public void clear(){
+
     }
 
 
