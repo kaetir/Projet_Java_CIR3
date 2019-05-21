@@ -275,7 +275,15 @@ public class View implements Initializable {
         return null;
     }
 
-    public void clear(){
+    @FXML
+    public void reset(){
+        displayVehicles.clear();
+        displayIntersections.clear();
+        displayRoads.clear();
+        displayCities.clear();
+
+        refresh();
+        conTroller.clear_Model();
 
     }
 
