@@ -5,6 +5,7 @@ import Model.Roads.Exception.RoadCreationException;
 import Model.Vehicules.Exception.VehiculeCreationException;
 import Model.Vehicules.Vehicule;
 import Model.Vehicules.VehiculeFactory;
+import View.View;
 import javafx.util.Pair;
 
 import java.util.Vector;
@@ -90,7 +91,7 @@ public abstract class Model {
     //Démarrage de la simulation
     public static void start(){
         System.out.println(System.getProperty("line.separator") + "*** Initialisation project ***" + System.getProperty("line.separator"));
-        Simulation.start();
+
     }
 
     public static void clear(){
