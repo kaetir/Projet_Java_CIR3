@@ -55,7 +55,7 @@ abstract public class Road {
     public Pair<Boolean, Integer> isFree(double x, double y, Vehicule vehicule){
         int i = 1;
         for(Vehicule v : vehicules){
-            if(v.getDestination() != vehicule.getDestination()){
+            if(v.getDestination() == vehicule.getDestination()){
                 if(v.getX() == x && v.getY() == y) {
                     if(this.nbWay == i) return new Pair<>(false, -1);
                     else i++;
