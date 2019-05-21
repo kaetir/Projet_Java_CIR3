@@ -100,7 +100,7 @@
                                     </AnchorPane>
                                     <AnchorPane>
                                        <children>
-                                                <Canvas fx:id="Drawing_Canvas" height="736.0" layoutX="-688.0" layoutY="41.0" width="1009.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="-688.0" AnchorPane.rightAnchor="688.0" AnchorPane.topAnchor="41.0">
+                                                <Canvas fx:id="Drawing_Canvas" height="736.0" layoutX="-688.0" layoutY="41.0" width="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <effect>
                                                         <DisplacementMap>
                                                             <mapData>
