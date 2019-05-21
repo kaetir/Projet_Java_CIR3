@@ -10,6 +10,7 @@ abstract public class Vehicule {
     //Paramètres d'un véhicule
     protected final Vehicule.type name;
     protected final double maxSpeed;
+    protected double currentSpeed = 0;
     protected final double size;
     protected final boolean canPass;
     protected double x;
@@ -31,6 +32,16 @@ abstract public class Vehicule {
     //Choix aléatoire de la taille du véhicule comprise entre sizeMin et sizeMax
     public double randSize(double sizeMin, double sizeMax){
         return (sizeMin + (Math.random() * ((sizeMax - sizeMin) + 1)));
+    }
+
+    //Modifie la position d'un véhicule en sauvegardant son ancienne position
+    public void updateVehicule(double x, double y){
+        setOldX(getX());
+        setOldY(getY());
+        setX(x);
+        setY(y);
+        System.out.println(getType() + " rolled from (" + getOldX() + ", " + getOldY() + ") to (" + getX()
+                + ", " + getY() + ").");
     }
 
     //Affichage du name de véhicule et de ses coordonnées
@@ -93,8 +104,21 @@ abstract public class Vehicule {
         this.way = way;
     }
 
+    public type getName() {
+        return name;
+    }
+
+    public double getCurrentSpeed() {
+        return currentSpeed;
+    }
+
     public double getMaxSpeed() {
         return maxSpeed;
+    }
+
+    public void setCurrentSpeed(double currentSpeed) {
+        System.out.println(name + " is now going at " + currentSpeed + " km/h (max at : " + this.maxSpeed + " km/h)");
+        this.currentSpeed = currentSpeed;
     }
 
     public double getSize() {

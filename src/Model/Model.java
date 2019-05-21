@@ -68,18 +68,8 @@ public abstract class Model {
         System.out.println("Following roads coming from / going to city " + city.getStringId() + " :");
         for(Road r : roads){
             if(r.getCityA() == city || r.getCityB() == city)
-                System.out.println("    Road " + r.getNbWay() + " ways");
+                System.out.println("    " + r.getName()  + " (" + r.getNbWay() + " ways)");
         }
-    }
-
-    //Modifie la position d'un véhicule en sauvegardant son ancienne position
-    public static void updateVehicule(Vehicule v, double x, double y){
-        v.setOldX(v.getX());
-        v.setOldY(v.getY());
-        v.setX(x);
-        v.setY(y);
-        System.out.println(v.getType() + " rolled from (" + v.getOldX() + ", " + v.getOldY() + ") to (" + v.getX()
-                + ", " + v.getY() + ").");
     }
 
     //Renvoie la liste de tous les véhicules présents sur la map

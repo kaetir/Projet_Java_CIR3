@@ -8,20 +8,29 @@ import java.util.Vector;
 
 abstract public class Road {
 
+    //Enumération du name de véhicule
+    public enum type {path, way , highway}
+
+    //Paramètres d'un véhicule
+    private final Road.type name;
+
     //Paramètres d'une route
     private final Vector<Pair<Double, Double>> dots;
     private final City cityA;   //Une route relie deux villes cityA et cityB
     private final City cityB;
     private final int nbWay;    //Une route possède un nombre de voies compris entre 1 et 3 (dans chaque sens)
+    private final double speedLimit;
     private Vector<Vehicule> vehicules = new Vector<>();    //Liste de tous les véhicules circulant sur la route
 
     //Constructeur
-    public Road(final City a, final City b, final int nbWay, String name, Vector<Pair<Double, Double>> dots) {
+    public Road(final City a, final City b, final int nbWay, type name, Vector<Pair<Double, Double>> dots, double speedLimit) {
+        this.name = name;
         this.cityA = a;
         this.cityB = b;
         this.nbWay = nbWay;
         this.dots = dots;
-        System.out.println(name + " created between " + a.getStringId() + " and " + b.getStringId() + ".");
+        this.speedLimit = speedLimit;
+        System.out.println(name + " created between " + a.getStringId() + " and " + b.getStringId());
     }
 
     //Ajout d'un véhicule à la liste de ceux circulant sur la route
@@ -36,7 +45,7 @@ abstract public class Road {
 
     //Affichage de tous les vehicules circulant sur la route
     public void printVehicules(){
-        System.out.println("Vehicules on this road : ");
+        System.out.println("Vehicules on this " + name + " : ");
         for(Vehicule v : vehicules){
             v.print();
         }
@@ -59,6 +68,22 @@ abstract public class Road {
     //Getters
     public Vector<Vehicule> getVehicules(){
         return vehicules;
+    }
+
+    public type getName() {
+        return name;
+    }
+
+    public Vector<Pair<Double, Double>> getDots() {
+        return dots;
+    }
+
+    public double getSpeedLimit() {
+        return speedLimit;
+    }
+
+    public void setVehicules(Vector<Vehicule> vehicules) {
+        this.vehicules = vehicules;
     }
 
     public City getCityA() {

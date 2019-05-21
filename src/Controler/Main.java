@@ -26,9 +26,11 @@ public class Main extends Application {
     public static void main(String[] args) throws RoadCreationException, VehiculeCreationException {
         launch(args);
 
+        System.out.println(System.getProperty("line.separator") + "*** Initialisation project ***" + System.getProperty("line.separator"));
+
         //Création de villes (id, position x, position y)
         Model.createCity(0, 0, 0);
-        Model.createCity(1, 50, 50);
+        Model.createCity(1, 0, 50);
 
         //Création de routes (nb voies, ville A, ville B)
         //  getCity retourne la ville par son index
@@ -49,8 +51,10 @@ public class Main extends Application {
 
         //Existe aussi getVehicules sans argument pour retourner un vecteur de tous les véhicules de la map
 
-        Model.start();
 
+        for(int i = 0; i < 5; i++){
+            Model.start();
+        }
         Model.clear();
     }
 }
