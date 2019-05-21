@@ -1,6 +1,7 @@
 package View.Displayable;
 
 
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 import java.util.Vector;
@@ -59,6 +60,7 @@ public class DisplayRoad implements Displayable {
 
         String path = new String();
 
+        gc.setStroke(Color.BLACK);
         // increment the numbre to change width of the road
         gc.setLineWidth(this.nbVoies*4);
 
@@ -76,7 +78,7 @@ public class DisplayRoad implements Displayable {
             System.err.println("NOT ENOUGH POINTS");
             return;
         }
-        System.out.println(path);
+
         gc.beginPath();
         gc.appendSVGPath(path);
         gc.stroke();
