@@ -109,15 +109,15 @@ public class Controller {
     }
 
     //Create a new Vehicule
-    public void createVehicle(DisplayVehicle vehicle, int id) throws VehiculeCreationException {
+    public void createVehicle(DisplayVehicle vehicle, int id, int destination) throws VehiculeCreationException {
         Vehicule vehicle2;
 
         if( vehicle.getVasistas().equals(Vehicule.type.truck) ){
-            vehicle2 = Model.createVehicule(Vehicule.type.truck);
+            vehicle2 = Model.createVehicule(Vehicule.type.truck, destination);
         }else if( vehicle.getVasistas().equals(Vehicule.type.car) ){
-            vehicle2 = Model.createVehicule(Vehicule.type.car);
+            vehicle2 = Model.createVehicule(Vehicule.type.car, destination);
         }else{
-            vehicle2 = Model.createVehicule(Vehicule.type.motorBike);
+            vehicle2 = Model.createVehicule(Vehicule.type.motorBike, destination);
         }
         Model.getCity(id).add(vehicle2);
     }
