@@ -59,8 +59,11 @@ public class DisplayRoad implements Displayable {
 
         String path = new String();
 
+        // increment the numbre to change width of the road
+        gc.setLineWidth(this.nbVoies*4);
+
         if(Dots.size() > 2){
-            path = "M " + Math.floor(Dots.elementAt(0).getKey()) + " " + Math.floor( Dots.elementAt(0).getValue()) + " S ";
+            path = "M " + Math.floor(Dots.elementAt(0).getKey()) + " " + Math.floor( Dots.elementAt(0).getValue()) + "  ";
             for (Pair<Double, Double > p: Dots  ) {
                 path += Math.floor(p.getKey()) + " " + Math.floor(p.getValue()) + " " ;
             }

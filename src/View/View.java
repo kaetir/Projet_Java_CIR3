@@ -121,6 +121,11 @@ public class View implements Initializable {
     }
 
     @FXML
+    public void run(){
+        conTroller.run();
+    }
+
+    @FXML
     public void buttonPath(){
         Road(1);
     }
@@ -140,7 +145,6 @@ public class View implements Initializable {
     public void Road(int i){
 
         gc.setFill(Color.WHITE);
-        gc.setLineWidth(i*2);
         gc.setStroke(Color.BLACK);
 
         Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -158,7 +162,6 @@ public class View implements Initializable {
                     start = colideCity(x,y);
                     System.out.println(start);
                     if(start != null){
-                        System.out.println("set Start : " + x + " : " + y);
                         dr.addDot(start.getX(), start.getY());
                     }
 
@@ -166,12 +169,12 @@ public class View implements Initializable {
                         end = colideCity(x,y);
                         System.out.println(end);
                         if(end != null){
-                            System.out.println("set End : " + end);
                             if(start != end) {
+                                // ploting
                                 dr.addDot(end.getX(), end.getY());
-                                dr.Draw();
 
                                 displayRoads.add(dr);
+                                // Call controlleur for adding city
                                 try {
                                     conTroller.createRoad(dr, start.getId(), end.getId());
                                 }catch (RoadCreationException e){
@@ -180,8 +183,7 @@ public class View implements Initializable {
                                 start = null ;
                                 end = null;
                                 dr = new DisplayRoad();
-                                System.out.println("une route type : " + i);
-                                // ICI APPEL AU CONTROLER POUR AJOUT VILLE
+                                refresh();
 
                             }
                         }else {
@@ -224,9 +226,15 @@ public class View implements Initializable {
 
         gc.clearRect(0,0,Drawing_Canvas.getWidth(), Drawing_Canvas.getHeight());
 
-        // redrawing saved elements
-        displayCities.forEach( (dv)-> dv.Draw() );
 
+        // redrawing saved elements
+
+        displayRoads.forEach( (dr) -> dr.Draw() );
+
+        displayIntersections.forEach( (di)-> di.Draw() );
+        displayCities.forEach( (dc)-> dc.Draw() );
+
+        displayVehicles.forEach( (dv) -> dv.Draw());
 
 
 
