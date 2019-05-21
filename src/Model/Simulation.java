@@ -17,7 +17,6 @@ public abstract class Simulation {
             System.out.println(System.getProperty("line.separator") + "-> City " + c.getStringId() + " :");
             vehiculeFromCityToRoad(c);
         }
-        step();
     }
 
     //Placement des différentes voiture d'une ville au début d'un route SI C'EST POSSIBLE
@@ -117,5 +116,14 @@ public abstract class Simulation {
                 v.updateVehicule(v.getX()+ajoutX, v.getY()+ajoutY);
             }
         }
+    }
+
+    public static boolean isFinish(){
+        for(City c : Model.getCities()){
+            for(Vehicule v : Model.getVehicules()){
+                if(!(v.getDestination().equals(c))) return false;
+            }
+        }
+        return true;
     }
 }
