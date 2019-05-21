@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Roads.Road;
 import Model.Vehicules.Vehicule;
 import javafx.util.Pair;
 
@@ -10,11 +11,13 @@ public abstract class Simulation {
     //Simulation
     public static void start(){
         System.out.println(System.getProperty("line.separator") + "*** Starting simulation ***");
+        System.out.println(System.getProperty("line.separator") + "*~ init from cities ~*");
         //Parcours de toutes les villes c de la map
         for(City c : Model.getCities()) {
             System.out.println(System.getProperty("line.separator") + "-> City " + c.getStringId() + " :");
             vehiculeFromCityToRoad(c);
         }
+        step();
     }
 
     //Placement des différentes voiture d'une ville au début d'un route SI C'EST POSSIBLE
@@ -38,7 +41,7 @@ public abstract class Simulation {
                 //Ajout de la ville de destination au véhicule
                 if(Model.getRoads(c).get(i).getCityA().equals(c)) v.setDestination(Model.getRoads(c).get(i).getCityB());
                 else v.setDestination(Model.getRoads(c).get(i).getCityA());
-                System.out.println("    by the road at the index " + i + " of city " + c.getStringId());
+                System.out.println("    by the " + Model.getRoads(c).get(i).getName() + " at the index " + i + " of city " + c.getStringId());
                 //Ajout du véhicule v à la route d'index i
                 Model.getRoads(c).get(i).add(v);
                 Model.getRoads(c).get(i).printVehicules();
@@ -82,5 +85,37 @@ public abstract class Simulation {
 
         return new Pair<>(-1, -1);  //Si aucune route n'est libre, renvoie -1
 
+    }
+
+    public static void step(){
+
+        int acc = 10;   //Coefficient d'accélération
+
+        System.out.println(System.getProperty("line.separator") + "*~ step ~*");
+
+        //Parcours de toutes les routes r de la map
+        for(Road r : Model.getRoads()) {
+            //Affichage console
+            System.out.println(System.getProperty("line.separator") + "-> " + r.getName() + " (" + r.getNbWay() +
+                    " ways) between city " + r.getCityA().getStringId() + " and " + r.getCityB().getStringId() + " :");
+            r.printVehicules();
+
+            double distanceRoute = Math.sqrt(Math.pow((r.getCityB().getX() - r.getCityA().getX()), 2) + Math.pow((r.getCityB().getY() - r.getCityA().getY()), 2));
+            double cote = Math.abs(r.getCityB().getX() - r.getCityA().getX());
+            double angle = Math.asin(cote/distanceRoute);
+
+            //Affichage de la vitesse
+            System.out.println("Speed limit on " + r.getName() + " : " + r.getSpeedLimit() + " km/h");
+            //Augmentation de la vitesse pour chaque véhicule v
+            for(Vehicule v : r.getVehicules()){
+                if((v.getCurrentSpeed() + acc) <= v.getMaxSpeed()) v.setCurrentSpeed(v.getCurrentSpeed() + acc);
+                else v.setCurrentSpeed(v.getMaxSpeed());
+
+                double ajoutX = v.getCurrentSpeed()*Math.sin(angle);
+                double ajoutY = v.getCurrentSpeed()*Math.cos(angle);
+
+                v.updateVehicule(v.getX()+ajoutX, v.getY()+ajoutY);
+            }
+        }
     }
 }
