@@ -42,18 +42,18 @@ abstract public class Road {
         }
     }
 
-    //Vérification qu'un tronçon de route est libre pour accueillir un nouveau véhicule au départ d'une ville
-    public boolean isFree(City c){
+    //Vérification qu'un tronçon de route est libre pour accueillir un nouveau véhicule aux coordonnées x et y
+    public Pair<Boolean, Integer> isFree(double x, double y, Vehicule vehicule){
         int i = 1;
         for(Vehicule v : vehicules){
-            if(v.getDestination() != c){
-                if(v.getX() == c.getX() && v.getY() == c.getY()) {
-                    if(this.nbWay == i) return false;
+            if(v.getDestination() != vehicule.getDestination()){
+                if(v.getX() == x && v.getY() == y) {
+                    if(this.nbWay == i) return new Pair<>(false, -1);
                     else i++;
                 }
             }
         }
-        return true;
+        return new Pair<>(true, i-1);
     }
 
     //Getters
