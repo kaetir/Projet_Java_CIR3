@@ -52,6 +52,15 @@
                                                 </AnchorPane>
                                                 <AnchorPane VBox.vgrow="ALWAYS">
                                                    <children>
+                                                      <Button mnemonicParsing="false" text="Reset" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <VBox.margin>
+                                                            <Insets />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane VBox.vgrow="ALWAYS">
+                                                   <children>
                                                               <Button mnemonicParsing="false" onAction="#buttonSelection" text="Selection" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
