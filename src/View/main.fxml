@@ -47,7 +47,7 @@
                                                     <children>
                                                 <AnchorPane VBox.vgrow="ALWAYS">
                                                    <children>
-                                                      <Button mnemonicParsing="false" text="Run" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <Button mnemonicParsing="false" onAction="#run" text="Run" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
                                                 <AnchorPane VBox.vgrow="ALWAYS">
