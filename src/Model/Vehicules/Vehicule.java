@@ -17,15 +17,16 @@ abstract public class Vehicule {
     protected double y;
     protected double oldX;
     protected double oldY;
-    protected City destination = null;
+    protected City destination;
     protected int way = -1;
 
     //Constructeur
-    public Vehicule(double maxVitesse, double sizeMin, double sizeMax, boolean canPass, Vehicule.type name) {
+    public Vehicule(double maxVitesse, double sizeMin, double sizeMax, boolean canPass, Vehicule.type name, City destination) {
         this.maxSpeed = maxVitesse;
         this.size = randSize(sizeMin, sizeMax);
         this.canPass = canPass;
         this.name = name;
+        this.destination = destination;
         System.out.println(name + " created");
     }
 
