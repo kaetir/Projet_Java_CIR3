@@ -89,6 +89,7 @@ public abstract class Model {
 
     //Démarrage de la simulation
     public static void start(){
+        System.out.println(System.getProperty("line.separator") + "*** Initialisation project ***" + System.getProperty("line.separator"));
         Simulation.start();
     }
 
