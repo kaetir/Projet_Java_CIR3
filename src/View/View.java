@@ -12,14 +12,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
-
+import javax.sound.sampled.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -125,17 +124,25 @@ public class View implements Initializable {
 
     @FXML
     public void run(){
-        String musicFile = "run.mp3";     // For example
 
-        Media sound = new Media(new File(musicFile).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
 
-        try {
-            Thread.sleep(1);
-        }catch (InterruptedException ie){
-            System.err.println("NO GOD PLEASE NO !");
+
+        try{
+
+        File audioFile = new File("run.wav");
+
+        final AudioClip clip = new AudioClip(audioFile.toURI().toString());
+
+        clip.play();
+
+
+        }catch (Exception e){
+            System.err.println(e);
         }
+
+
+
+
 
         conTroller.run();
 
