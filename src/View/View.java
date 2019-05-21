@@ -136,7 +136,7 @@ public class View implements Initializable {
     }
 
 
-    // function which draw roads with int as type
+    // function which draw roads with int as name
     public void Road(int i){
 
         gc.setFill(Color.WHITE);
@@ -180,7 +180,7 @@ public class View implements Initializable {
                                 start = null ;
                                 end = null;
                                 dr = new DisplayRoad();
-                                System.out.println("une route type : " + i);
+                                System.out.println("une route name : " + i);
                                 // ICI APPEL AU CONTROLER POUR AJOUT VILLE
 
                             }
