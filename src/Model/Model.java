@@ -38,8 +38,8 @@ public abstract class Model {
     }
 
     //Création d'un véhicule
-    public static Vehicule createVehicule(Vehicule.type vehType) throws VehiculeCreationException {
-        Vehicule v = VehiculeFactory.create(vehType);
+    public static Vehicule createVehicule(Vehicule.type vehType, City destination) throws VehiculeCreationException {
+        Vehicule v = VehiculeFactory.create(vehType, destination);
         vehicules.add(v);
         return v;
     }
