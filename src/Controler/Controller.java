@@ -30,8 +30,9 @@ public class Controller {
     public void run(){
         createVehicles(Vehicule.type.car,0, 1, 10);
 
-        while (Simulation.isFinish() == false){
-            Model.start();
+        while (!(Simulation.isFinish())){
+            Simulation.start();
+            Simulation.step();
             this.view.setDisplayVehicles(getVehicles());
 
         }
