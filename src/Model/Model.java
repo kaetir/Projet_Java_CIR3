@@ -91,7 +91,6 @@ public abstract class Model {
     //Démarrage de la simulation
     public static void start() throws InterruptedException {
         Simulation.start();
-        TimeUnit.SECONDS.sleep(1);
         Simulation.step();
     }
 

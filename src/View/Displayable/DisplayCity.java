@@ -92,4 +92,6 @@ public class DisplayCity implements Displayable {
         return id;
     }
 
+    public static void reset(){nbVilles = 0;}
+
 }
