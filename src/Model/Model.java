@@ -4,6 +4,7 @@ import Model.Roads.*;
 import Model.Roads.Exception.RoadCreationException;
 import Model.Vehicules.Vehicule;
 import Model.Vehicules.VehiculeFactory;
+import View.View;
 import javafx.util.Pair;
 
 import java.util.Vector;
