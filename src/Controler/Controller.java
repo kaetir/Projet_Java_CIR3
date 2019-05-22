@@ -34,7 +34,13 @@ public class Controller {
             Simulation.start();
             Simulation.step();
             this.view.setDisplayVehicles(getVehicles());
+            view.refresh();
 
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
