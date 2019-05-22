@@ -123,7 +123,7 @@ public class View implements Initializable {
     }
 
     @FXML
-    public void run(){
+    public void run() throws InterruptedException {
 
 
 
