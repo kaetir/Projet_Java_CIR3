@@ -95,6 +95,7 @@ public class View implements Initializable {
         }
     }
 
+    public void addIntersection(double x, double y ){  displayIntersections.add(new DisplayIntersection(x,y)) ;  }
 
     public void buttonSelection(){
 
@@ -249,13 +250,10 @@ public class View implements Initializable {
 
 
         // redrawing saved elements
-
-        displayRoads.forEach( (dr) -> dr.Draw() );
-
-        displayIntersections.forEach( (di)-> di.Draw() );
-        displayCities.forEach( (dc)-> dc.Draw() );
-
-        displayVehicles.forEach( (dv) -> dv.Draw());
+        displayIntersections.forEach(DisplayIntersection::Draw);
+        displayRoads.forEach(        DisplayRoad::Draw);
+        displayCities.forEach(       DisplayCity::Draw);
+        displayVehicles.forEach(     DisplayVehicle::Draw);
 
 
 
@@ -281,6 +279,8 @@ public class View implements Initializable {
         displayIntersections.clear();
         displayRoads.clear();
         displayCities.clear();
+
+        DisplayCity.reset();
 
         refresh();
         conTroller.clear_Model();
