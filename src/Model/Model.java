@@ -2,10 +2,8 @@ package Model;
 
 import Model.Roads.*;
 import Model.Roads.Exception.RoadCreationException;
-import Model.Vehicules.Exception.VehiculeCreationException;
 import Model.Vehicules.Vehicule;
 import Model.Vehicules.VehiculeFactory;
-import View.View;
 import javafx.util.Pair;
 
 import java.util.Vector;
@@ -27,7 +25,7 @@ public abstract class Model {
     }
 
     //Création d'une route
-    public static void createRoad(int voies, City a, City b, Vector<Pair<Double, Double>> dots) throws RoadCreationException {
+    public static void createRoad(int voies, City a, City b, Vector<Pair<Double, Double>> dots) {
         Road road;
         try {
             if(voies == 1) road = new Path(a, b, dots);
@@ -39,7 +37,7 @@ public abstract class Model {
     }
 
     //Création d'un véhicule
-    public static Vehicule createVehicule(Vehicule.type vehType, int destination) throws VehiculeCreationException {
+    public static Vehicule createVehicule(Vehicule.type vehType, int destination) {
         Vehicule v = VehiculeFactory.create(vehType, destination);
         vehicules.add(v);
         return v;
