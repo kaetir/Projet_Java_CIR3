@@ -38,11 +38,6 @@ abstract public class Road {
         vehicules.add(v);
     }
 
-    //Enlèvement d'un véhicule à la liste de ceux circulants sur la route
-    public void sub(Vehicule v){
-        vehicules.removeElement(v);
-    }
-
     //Affichage de tous les vehicules circulant sur la route
     public void printVehicules(){
         System.out.println("Vehicules on this " + name + " : ");

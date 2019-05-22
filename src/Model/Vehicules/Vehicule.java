@@ -1,6 +1,7 @@
 package Model.Vehicules;
 
 import Model.City;
+import Model.Roads.Road;
 
 abstract public class Vehicule {
 
@@ -36,13 +37,13 @@ abstract public class Vehicule {
     }
 
     //Modifie la position d'un véhicule en sauvegardant son ancienne position
-    public void updateVehicule(double x, double y){
+    public void updateVehicule(double x, double y, Road r){
         setOldX(getX());
         setOldY(getY());
         setX(x);
         setY(y);
-        System.out.println(getType() + " rolled from (" + getOldX() + ", " + getOldY() + ") to (" + getX()
-                + ", " + getY() + ").");
+        System.out.println(this.getType() + " rolled from (" + getOldX() + ", " + getOldY() + ") to (" + getX()
+                + ", " + getY() + ")");
     }
 
     //Affichage du name de véhicule et de ses coordonnées
@@ -103,10 +104,6 @@ abstract public class Vehicule {
     public void setWay(int way) {
         System.out.println("    on way " + way);
         this.way = way;
-    }
-
-    public type getName() {
-        return name;
     }
 
     public double getCurrentSpeed() {
