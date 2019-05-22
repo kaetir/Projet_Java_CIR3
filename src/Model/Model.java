@@ -25,7 +25,7 @@ public abstract class Model {
     }
 
     //Création d'une route
-    public static void createRoad(int voies, City a, City b, Vector<Pair<Double, Double>> dots) throws RoadCreationException {
+    public static void createRoad(int voies, City a, City b, Vector<Pair<Double, Double>> dots) {
         Road road;
         try {
             if(voies == 1) road = new Path(a, b, dots);
