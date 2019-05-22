@@ -178,7 +178,7 @@ public abstract class Simulation {
                 System.out.println("Some vehicles are still on roads");
                 return false;
             }
-            System.out.println("No more vehicles are rolling");
+            System.out.println("No more vehicles are rolling on " + r.getName() + " between city " + r.getCityA().getStringId() + "and city " + r.getCityB().getStringId());
         }
 
         for(City c : Model.getCities()){

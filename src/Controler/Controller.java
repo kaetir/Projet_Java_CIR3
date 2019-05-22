@@ -1,7 +1,6 @@
 package Controler;
 
 import Model.Roads.Exception.RoadCreationException;
-import Model.Vehicules.Exception.VehiculeCreationException;
 import Model.Vehicules.Vehicule;
 import View.Displayable.DisplayCity;
 import View.Displayable.DisplayRoad;
@@ -9,6 +8,7 @@ import View.Displayable.DisplayVehicle;
 import View.View;
 import Model.Model;
 import javafx.util.Pair;
+import Model.Simulation;
 
 import java.util.Vector;
 
@@ -27,6 +27,7 @@ public class Controller {
     }
 
     public void run(){
+<<<<<<< Updated upstream
         Model.start();
     }
 
@@ -109,7 +110,7 @@ public class Controller {
     }
 
     //Create a new Vehicule
-    public void createVehicle(DisplayVehicle vehicle, int id, int destination) throws VehiculeCreationException {
+    public void createVehicle(DisplayVehicle vehicle, int id, int destination) {
         Vehicule vehicle2;
 
         if( vehicle.getVasistas().equals(Vehicule.type.truck) ){
