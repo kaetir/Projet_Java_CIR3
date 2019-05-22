@@ -115,7 +115,6 @@ public abstract class Simulation {
             System.out.println("Speed limit on " + r.getName() + " : " + r.getSpeedLimit() + " km/h");
 
             //Augmentation de la vitesse pour chaque véhicule v
-
             Iterator<Vehicule> iterator = r.getVehicules().iterator();
             while (iterator.hasNext()) {
                 Vehicule v = iterator.next();
