@@ -28,6 +28,10 @@ public class Controller {
 
     public void run(){
         Model.start();
+        //Model.step();
+        /*while (Model.isFinish == false){
+            Model.refresh();
+        }*/
     }
 
     //Create a new city on the grid
@@ -60,44 +64,29 @@ public class Controller {
                         double y_t;
 
                         if(x1 == x1_1){
-                            if(x2 == x2_1){
-                                //PAS DE CONNECTION
-                            }else{
+                            if(x2 != x2_1){
                                 y_t =((y2-y2_1)/(x2-x2_1))*x1 + y2 - ((y2-y2_1)/(x2-x2_1))*x2;
                                 if(Math.max(x2,x2_1) >= x1 && Math.min(x2,x2_1) < x1 && y_t >= I_1[0] && y_t <= I_1[1] ){
+                                    System.out.print("");
                                     //CONNECTION en x1 y_t route roads.elementAt(i)
-                                }else{
-                                    //PAS DE CONNECTION
                                 }
                             }
                         }else if(x2 == x2_1 ){
-                            if(x1 == x1_1){
-                                //PAS DE CONNECTION
-                            }else {
-                                y_t = ((y1 - y1_1) / (x1 - x1_1)) * x2 + y1 - ((y1 - y1_1) / (x1 - x1_1)) * x1;
-                                if (Math.max(x1, x1_1) >= x2 && Math.min(x1, x1_1) < x2 && y_t >= I_2[0] && y_t <= I_2[1]) {
-                                    //CONNECTION en x2 y_t route roads.elementAt(i)
-                                } else {
-                                    //PAS DE CONNECTION
-                                }
+                            y_t = ((y1 - y1_1) / (x1 - x1_1)) * x2 + y1 - ((y1 - y1_1) / (x1 - x1_1)) * x1;
+                            if (Math.max(x1, x1_1) >= x2 && Math.min(x1, x1_1) < x2 && y_t >= I_2[0] && y_t <= I_2[1]) {
+                                //CONNECTION en x2 y_t route roads.elementAt(i)
                             }
                         }else{
-                            if(I_1[1] < I_2[0] || I_1[0] > I_2[1]){
-                                //PAS DE CONNECTION
-                            }else{
+                            if( (I_1[1] >= I_2[0] && I_1[1] <= I_2[1]) || (I_1[0] >= I_2[0] && I_1[0] <= I_2[1]) ){
                                 double A1 = (y1-y1_1)/(x1-x1_1);
                                 double A2 = (y2-y2_1)/(x2-x2_1);
                                 double b1 = y1-A1*x1;
                                 double b2 = y2-A2*x2;
-                                if(A1 == A2){
-                                    //PAS DE CONNECTION
-                                }else{
+                                if(A1 != A2){
                                     double Xn = (b2-b1)/(A2-A1);
                                     if(Xn > Math.max(Math.min(x1,x1_1), Math.min(x2,x2_1)) && Xn < Math.min(Math.max(x1,x1_1), Math.max(x2,x2_1)) ){
                                         double Yn = A1*Xn + b1;
                                         //CONNECTION en Xn Yn, route roads.elementAt(i)
-                                    }else{
-                                        //PAS DE CONNECTION
                                     }
                                 }
                             }
@@ -120,6 +109,23 @@ public class Controller {
             vehicle2 = Model.createVehicule(Vehicule.type.motorBike, destination);
         }
         Model.getCity(id).add(vehicle2);
+    }
+
+    public void createVehicles(DisplayVehicle vehicle, int id, int destination, int n) throws VehiculeCreationException {
+        Vehicule vehicle2;
+
+        if( vehicle.getVasistas().equals(Vehicule.type.truck) ){
+            System.out.print("");
+            vehicle2 = Model.createVehicule(Vehicule.type.truck, destination);
+        }else if( vehicle.getVasistas().equals(Vehicule.type.car) ){
+            vehicle2 = Model.createVehicule(Vehicule.type.car, destination);
+        }else{
+            vehicle2 = Model.createVehicule(Vehicule.type.motorBike, destination);
+        }
+
+        for(int l = 0; l < n; l++){
+            Model.getCity(id).add(vehicle2);
+        }
     }
 
     //Get the vehicules List
