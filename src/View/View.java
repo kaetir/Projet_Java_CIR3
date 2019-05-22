@@ -141,11 +141,18 @@ public class View implements Initializable {
             System.err.println(e);
         }
 
+        Thread t = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try{
+                    conTroller.run();
+                }catch (InterruptedException e){
+                    System.err.println(e);
+                }
+            }
+        });
 
-
-
-
-        conTroller.run();
+        t.start();
 
     }
 

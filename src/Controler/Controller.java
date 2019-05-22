@@ -27,20 +27,15 @@ public class Controller {
         Model.clear();
     }
 
-    public void run(){
+    public void run() throws InterruptedException{
         createVehicles(Vehicule.type.car,0, 1, 10);
 
         while (!(Simulation.isFinish())){
-            Simulation.start();
+            Model.start();
             Simulation.step();
             this.view.setDisplayVehicles(getVehicles());
             view.refresh();
-
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Thread.sleep(1000);
         }
     }
 
@@ -162,7 +157,7 @@ public class Controller {
     //Get the vehicules List
     public Vector<DisplayVehicle> getVehicles(){
         Vector<Vehicule> vehicles = Model.getVehicules();
-        Vector<DisplayVehicle> vehicles2 = new Vector<DisplayVehicle>();
+        Vector<DisplayVehicle> vehicles2 = new Vector<>();
 
         for (Vehicule elt: vehicles) {
             vehicles2.add(new DisplayVehicle(elt.getX(), elt.getY(), elt.getOldX(), elt.getOldY(), elt.getType()));
