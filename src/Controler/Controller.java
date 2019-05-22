@@ -10,6 +10,7 @@ import Model.Model;
 import javafx.util.Pair;
 import Model.Simulation;
 
+import Model.Simulation;
 import java.util.Vector;
 
 public class Controller {
@@ -27,12 +28,13 @@ public class Controller {
     }
 
     public void run(){
-<<<<<<< Updated upstream
-        Model.start();
-        //Model.step();
-        /*while (Model.isFinish == false){
-            Model.refresh();
-        }*/
+        createVehicles(Vehicule.type.car,0, 1, 10);
+
+        while (Simulation.isFinish() == false){
+            Model.start();
+            this.view.setDisplayVehicles(getVehicles());
+
+        }
     }
 
     //Create a new city on the grid
@@ -99,12 +101,12 @@ public class Controller {
     }
 
     //Create a new Vehicule
-    public void createVehicle(DisplayVehicle vehicle, int id, int destination) {
+    public void createVehicle(Vehicule.type vehicle, int id, int destination) {
         Vehicule vehicle2;
 
-        if( vehicle.getVasistas().equals(Vehicule.type.truck) ){
+        if( vehicle.equals(Vehicule.type.truck) ){
             vehicle2 = Model.createVehicule(Vehicule.type.truck, destination);
-        }else if( vehicle.getVasistas().equals(Vehicule.type.car) ){
+        }else if( vehicle.equals(Vehicule.type.car) ){
             vehicle2 = Model.createVehicule(Vehicule.type.car, destination);
         }else{
             vehicle2 = Model.createVehicule(Vehicule.type.motorBike, destination);
@@ -112,13 +114,13 @@ public class Controller {
         Model.getCity(id).add(vehicle2);
     }
 
-    public void createVehicles(DisplayVehicle vehicle, int id, int destination, int n) throws VehiculeCreationException {
+    public void createVehicles(Vehicule.type vehicle, int id, int destination, int n) {
         Vehicule vehicle2;
 
-        if( vehicle.getVasistas().equals(Vehicule.type.truck) ){
+        if( vehicle.equals(Vehicule.type.truck) ){
             System.out.print("");
             vehicle2 = Model.createVehicule(Vehicule.type.truck, destination);
-        }else if( vehicle.getVasistas().equals(Vehicule.type.car) ){
+        }else if( vehicle.equals(Vehicule.type.car) ){
             vehicle2 = Model.createVehicule(Vehicule.type.car, destination);
         }else{
             vehicle2 = Model.createVehicule(Vehicule.type.motorBike, destination);
