@@ -68,30 +68,6 @@ public abstract class Simulation {
         }
 
         return new Pair<>(-1, -1);  //Si aucune route n'est libre, renvoie -1
-
-        /*
-        //Si une seule route est disponible, vérification de cette route. Sinon choix aléatoire
-        if(Model.getRoads(c).size() == 1){
-            paire = Model.getRoads(c).get(0).isFree(c.getX(), c.getY(), v);
-            if(paire.getKey()) return new Pair<>(0, paire.getValue());    //Si la route est libre, renvoi l'index 0
-        } else {
-            //Choix aléatoire
-            int i = (int) (Math.random() * (Model.getRoads(c).size()));
-            int j = i - 1;
-            if (j < 0) j = Model.getRoads(c).size() - 1;
-
-            //Vérification
-            while (i != j) {
-                paire = Model.getRoads(c).get(i).isFree(c.getX(), c.getY(), v);
-                if (paire.getKey()) return new Pair<>(i, paire.getValue());    //Si la route est libre, renvoi de l'index
-                else i = ++i;                    //Sinon incrémentation de l'index
-                if (i >= Model.getRoads(c).size())
-                    i = 0;            //Si l'index dépasse la taille, réinitialisation de l'index à 0
-            }
-        }
-
-        return new Pair<>(-1, -1);  //Si aucune route n'est libre, renvoie -1*/
-
     }
 
     public static void step(){
@@ -155,10 +131,6 @@ public abstract class Simulation {
                     }
                 }
 
-                ajoutX = ajoutX/2;
-                ajoutY = ajoutY/2;
-
-
                 if(v.getDestination().getX() == (v.getX()+ajoutX) && v.getDestination().getY() == (v.getY()+ajoutY)){
                     v.getDestination().add(v);
                     iterator.remove();
@@ -171,20 +143,24 @@ public abstract class Simulation {
     }
 
     public static boolean isFinish(){
-        System.out.println(System.getProperty("line.separator") + "*** ? Finishing Simulation ? ***");
+        System.out.println(System.getProperty("line.separator") + "*** ? Finishing Simulation ? ***" + System.getProperty("line.separator"));
 
         for(Road r : Model.getRoads()){
             if(!(r.getVehicules().isEmpty())){
                 System.out.println("Some vehicles are still on roads");
                 return false;
             }
-            System.out.println("No more vehicles are rolling on " + r.getName() + " between city " + r.getCityA().getStringId() + "and city " + r.getCityB().getStringId());
+            System.out.println("No more vehicles are rolling on " + r.getName() + " between city " + r.getCityA().getStringId() + " and city " + r.getCityB().getStringId());
         }
 
         for(City c : Model.getCities()){
             if(!(c.getVehicules().isEmpty())){
                 for(Vehicule v : c.getVehicules()){
-                    if(!(v.getDestination().equals(c))) return false;
+                    if(!(v.getDestination().equals(c))){
+                        System.out.println(v.getType() + " is not arrived yet at its destination");
+                        System.out.println("Simulation continuing...");
+                        return false;
+                    }
                     System.out.println(v.getType() + " is at its destination in city " + c.getStringId());
                 }
             }

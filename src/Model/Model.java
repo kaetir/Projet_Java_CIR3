@@ -8,6 +8,7 @@ import View.View;
 import javafx.util.Pair;
 
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 public abstract class Model {
 
@@ -88,9 +89,10 @@ public abstract class Model {
     }
 
     //Démarrage de la simulation
-    public static void start(){
-        System.out.println(System.getProperty("line.separator") + "*** Initialisation project ***" + System.getProperty("line.separator"));
-
+    public static void start() throws InterruptedException {
+        Simulation.start();
+        TimeUnit.SECONDS.sleep(1);
+        Simulation.step();
     }
 
     public static void clear(){
