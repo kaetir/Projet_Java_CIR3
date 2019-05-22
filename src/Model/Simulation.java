@@ -193,13 +193,5 @@ public abstract class Simulation {
         System.out.println("Shutdown simulation...");
         return true;
     }
-
-    public static boolean isFinish(){
-        for(City c : Model.getCities()){
-            for(Vehicule v : Model.getVehicules()){
-                if(!(v.getDestination().equals(c))) return false;
-            }
-        }
-        return true;
-    }
+    
 }
