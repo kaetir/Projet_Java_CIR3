@@ -9,17 +9,17 @@ abstract public class Vehicule {
     public enum type {car, truck , motorBike}
 
     //Paramètres d'un véhicule
-    protected final Vehicule.type name;
-    protected final double maxSpeed;
-    protected double currentSpeed = 0;
-    protected final double size;
-    protected final boolean canPass;
-    protected double x;
-    protected double y;
-    protected double oldX;
-    protected double oldY;
-    protected City destination;
-    protected int way = -1;
+    private final Vehicule.type name;
+    private final double maxSpeed;
+    private double currentSpeed = 0;
+    private final double size;
+    private final boolean canPass;
+    private double x;
+    private double y;
+    private double oldX;
+    private double oldY;
+    private City destination;
+    private int way = -1;
 
     //Constructeur
     public Vehicule(double maxVitesse, double sizeMin, double sizeMax, boolean canPass, Vehicule.type name, City destination) {

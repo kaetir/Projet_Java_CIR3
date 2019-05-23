@@ -4,7 +4,9 @@ import Model.Roads.Road;
 import Model.Vehicules.Vehicule;
 import javafx.util.Pair;
 
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.Vector;
 
 public abstract class Simulation {
 
