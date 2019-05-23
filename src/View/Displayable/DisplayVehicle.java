@@ -95,7 +95,7 @@ public class DisplayVehicle implements Displayable {
 
                 break;
         }
-        gc.setLineWidth(4);
+        gc.setLineWidth(10);
         gc.strokeLine(this.lastx, this.lasty, this.x , this.y);
 
     };

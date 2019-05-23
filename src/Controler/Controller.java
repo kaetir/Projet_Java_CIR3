@@ -27,9 +27,11 @@ public class Controller {
     }
 
     public void run() throws InterruptedException{
-        createVehicles(Vehicule.type.car,0, 1, 1);
-        createVehicles(Vehicule.type.truck,1, 2, 1);
-        createVehicles(Vehicule.type.motorBike,2, 0, 1);
+        createVehicle(Vehicule.type.car,0, 1);
+        createVehicle(Vehicule.type.truck,0, 1);
+        createVehicle(Vehicule.type.truck,1, 2);
+        createVehicle(Vehicule.type.truck,2, 0);
+        createVehicle(Vehicule.type.motorBike,2, 0);
 
         while (!(Simulation.isFinish())){
             Model.start();
