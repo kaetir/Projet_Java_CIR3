@@ -29,9 +29,10 @@ public class Controller {
 
     public void run() throws InterruptedException{
         createVehicle(Vehicule.type.car,0, 1);
-        createVehicle(Vehicule.type.truck,0, 1);
-        createVehicle(Vehicule.type.truck,2, 0);
+        createVehicle(Vehicule.type.car,1, 2);
+        createVehicle(Vehicule.type.truck,1, 2);
         createVehicle(Vehicule.type.motorBike,2, 0);
+        createVehicle(Vehicule.type.truck,2, 0);
 
         while (!(Simulation.isFinish())){
             Model.start();
@@ -39,6 +40,8 @@ public class Controller {
             view.refresh();
             Thread.sleep(25);
         }
+        this.view.setDisplayVehicles(getVehicles());
+        view.refresh();
     }
 
     //Create a new city on the grid
