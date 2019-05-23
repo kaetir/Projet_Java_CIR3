@@ -11,25 +11,30 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.*;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
-import javax.sound.sampled.*;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Vector;
+
 
 import static javafx.scene.input.KeyCode.*;
 
 
 public class View implements Initializable {
     @FXML public Canvas Drawing_Canvas;
-
     public static GraphicsContext gc;
+
+    public static Image car;
+    public static Image motorBike;
+    public static Image truck;
 
     @FXML
     private TableCityController CityEditController;
@@ -84,6 +89,14 @@ public class View implements Initializable {
         System.out.println("Table controller: " + CityEditController);
         CityEditController.setMaman(this);
         conTroller = new Controller(this);
+
+        try {
+            car = new Image(new FileInputStream("car.png"));
+            motorBike = new Image(new FileInputStream("motorbike.png"));
+            truck = new Image(new FileInputStream("truck.png"));
+        }catch (FileNotFoundException e){
+            System.err.println("File not found " + e);
+        }
 
     }
 
@@ -181,7 +194,6 @@ public class View implements Initializable {
             DisplayCity start = null ,end = null;
             DisplayRoad dr = new DisplayRoad();
 
-
             @Override
             public void handle(MouseEvent mouseEvent) {
                 x = mouseEvent.getX();
@@ -249,8 +261,7 @@ public class View implements Initializable {
     // erase and redraw the canvas (usefull in case of graphic glitch)
     public void refresh(){
         // debug message
-        System.out.println("refresh");
-
+        System.out.println("refresh : view");
 
 
         gc.clearRect(0,0,Drawing_Canvas.getWidth(), Drawing_Canvas.getHeight());

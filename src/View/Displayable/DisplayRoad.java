@@ -62,7 +62,7 @@ public class DisplayRoad implements Displayable {
 
         gc.setStroke(Color.BLACK);
         // increment the numbre to change width of the road
-        gc.setLineWidth(this.nbVoies*4);
+        gc.setLineWidth(this.nbVoies*8);
 
         if(Dots.size() > 2){
             path = "M " + Math.floor(Dots.elementAt(0).getKey()) + " " + Math.floor( Dots.elementAt(0).getValue()) + "  ";
