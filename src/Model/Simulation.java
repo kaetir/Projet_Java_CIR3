@@ -5,6 +5,7 @@ import Model.Vehicules.Vehicule;
 import javafx.util.Pair;
 
 import java.util.Iterator;
+import java.util.Vector;
 
 public abstract class Simulation {
 
@@ -192,12 +193,19 @@ public abstract class Simulation {
 
         for(City c : Model.getCities()){
             if(!(c.getVehicules().isEmpty())){
-                for(Vehicule v : c.getVehicules()){
+                Iterator<Vehicule> iterator = c.getVehicules().iterator();
+                while (iterator.hasNext()) {
+                    Vehicule v = iterator.next();
                     if(!(v.getDestination().equals(c))){
                         System.out.println("At least one " + v.getType() + " is not arrived yet at its destination");
                         System.out.println("Simulation continuing...");
                         return false;
-                    } else System.out.println(v.getType() + " is at its destination in city " + c.getStringId());
+                    } else {
+                        System.out.println(v.getType() + " is at its destination in city " + c.getStringId());
+                        Model.getVehicules().remove(iterator);
+                        iterator.remove();
+                        System.out.println("    and has been erased");
+                    }
                 }
             }
         }
