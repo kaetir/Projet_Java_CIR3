@@ -14,7 +14,7 @@ abstract public class Road {
 
     //Paramètres d'une route
     private final Road.type name;
-    private final Vector<Pair<Double, Double>> dots;
+    private Vector<Pair<Double, Double>> dots;
     private final City cityA;   //Une route relie deux villes cityA et cityB
     private final City cityB;
     private final int nbWay;    //Une route possède un nombre de voies compris entre 1 et 3 (dans chaque sens)

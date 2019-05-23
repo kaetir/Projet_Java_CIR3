@@ -23,7 +23,9 @@ public class City {
     //Ajout d'un véhicule à la liste de ceux présents dans la ville
     public void add(Vehicule v) {
         v.setX(x);
+        v.setOldX(x);
         v.setY(y);
+        v.setOldY(y);
         this.vehicules.add(v);
         System.out.println(v.getType() + " added to city " + this.id + " in (" + x + ", " + y + ")");
     }
