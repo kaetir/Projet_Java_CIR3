@@ -225,7 +225,7 @@ public class View implements Initializable {
     }
 
     @FXML
-    // add a city
+    // addVehicule a city
     public void DrawCity(int x, int y){
         if(colideCity(x,y) == null){
             DisplayCity tmp = new DisplayCity(x,y);

@@ -4,9 +4,7 @@ import Model.Roads.Road;
 import Model.Vehicules.Vehicule;
 import javafx.util.Pair;
 
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.Vector;
 
 public abstract class Simulation {
 
@@ -47,7 +45,7 @@ public abstract class Simulation {
                 else v.setDestination(Model.getRoads(c).get(i).getCityA(), paire.getValue());
                 System.out.println("    by the " + Model.getRoads(c).get(i).getName() + " at the index " + i + " of city " + c.getStringId());
                 //Ajout du véhicule v à la route d'index i
-                Model.getRoads(c).get(i).add(v);
+                Model.getRoads(c).get(i).addVehicule(v);
                 Model.getRoads(c).get(i).printVehicules();
                 //Initialisation de la voie du véhicule
                 v.setWay(paire.getValue());

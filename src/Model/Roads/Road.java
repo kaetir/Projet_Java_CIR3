@@ -1,6 +1,7 @@
 package Model.Roads;
 
 import Model.City;
+import Model.Intersections.Intersection;
 import Model.Vehicules.Vehicule;
 import javafx.util.Pair;
 
@@ -20,6 +21,7 @@ abstract public class Road {
     private final int nbWay;    //Une route possède un nombre de voies compris entre 1 et 3 (dans chaque sens)
     private final double speedLimit;
     private Vector<Vehicule> vehicules = new Vector<>();    //Liste de tous les véhicules circulant sur la route
+    private Vector<Intersection> intersex = new Vector<>();    //Liste de toutes les intersections se situant sur la route
 
     //Constructeur
     public Road(final City a, final City b, final int nbWay, type name, Vector<Pair<Double, Double>> dots, double speedLimit) {
@@ -33,8 +35,13 @@ abstract public class Road {
     }
 
     //Ajout d'un véhicule à la liste de ceux circulant sur la route
-    public void add(Vehicule v){
+    public void addVehicule(Vehicule v){
         vehicules.add(v);
+    }
+
+    //Ajout d'un véhicule à la liste de ceux circulant sur la route
+    public void addIntersec(Intersection inter){
+        intersex.add(inter);
     }
 
     //Affichage de tous les vehicules circulant sur la route
