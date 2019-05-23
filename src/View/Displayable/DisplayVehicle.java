@@ -75,27 +75,27 @@ public class DisplayVehicle implements Displayable {
     public void Draw(){
         switch (vasistas){
             case car:
-                gc.setFill(Color.BISQUE);
-                gc.setStroke(Color.BISQUE);
+                gc.setFill(Color.GREEN);
+                gc.setStroke(Color.GREEN);
                 gc.setLineWidth(1);
 
                 break;
 
             case truck:
-                gc.setFill(Color.PAPAYAWHIP);
-                gc.setStroke(Color.PAPAYAWHIP);
+                gc.setFill(Color.BLUE);
+                gc.setStroke(Color.BLUE);
                 gc.setLineWidth(2);
 
                 break;
 
             case motorBike:
-                gc.setFill(Color.CHOCOLATE);
-                gc.setStroke(Color.CHOCOLATE);
+                gc.setFill(Color.CORAL);
+                gc.setStroke(Color.CORAL);
                 gc.setLineWidth(3);
 
                 break;
         }
-        gc.setLineWidth(2);
+        gc.setLineWidth(10);
         gc.strokeLine(this.lastx, this.lasty, this.x , this.y);
 
     };

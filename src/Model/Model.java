@@ -4,11 +4,9 @@ import Model.Roads.*;
 import Model.Roads.Exception.RoadCreationException;
 import Model.Vehicules.Vehicule;
 import Model.Vehicules.VehiculeFactory;
-import View.View;
 import javafx.util.Pair;
 
 import java.util.Vector;
-import java.util.concurrent.TimeUnit;
 
 public abstract class Model {
 
@@ -69,7 +67,8 @@ public abstract class Model {
         System.out.println("Following roads coming from / going to city " + city.getStringId() + " :");
         for(Road r : roads){
             if(r.getCityA() == city || r.getCityB() == city)
-                System.out.println("    " + r.getName()  + " (" + r.getNbWay() + " ways)");
+                System.out.println("    " + r.getName()  + " (" + r.getNbWay() + " ways) between city " +
+                        r.getCityA().getStringId() + " and city " + r.getCityB().getStringId());
         }
     }
 
@@ -90,13 +89,13 @@ public abstract class Model {
 
     //Démarrage de la simulation
     public static void start() throws InterruptedException {
-        Simulation.start();
+        Simulation.vehiculesFromCitiesToRoads();
         Simulation.step();
     }
 
     public static void clear(){
 
-        System.out.println(newLine + "*** Clearing everything ***");
+        System.out.println(newLine + "*** Clearing everything ***" + newLine);
         for(City c : cities) {
             c.clear();
         }

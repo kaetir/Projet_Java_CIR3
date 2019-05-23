@@ -9,7 +9,7 @@ import java.util.Iterator;
 public abstract class Simulation {
 
     //Simulation
-    public static void start(){
+    public static void vehiculesFromCitiesToRoads(){
         System.out.println(System.getProperty("line.separator") + "*** Starting simulation ***");
         System.out.println(System.getProperty("line.separator") + "*~ init from cities ~*");
         //Parcours de toutes les villes c de la map
@@ -21,6 +21,8 @@ public abstract class Simulation {
 
     //Placement des différentes voiture d'une ville au début d'un route SI C'EST POSSIBLE
     public static void vehiculeFromCityToRoad(City c){
+        int i;
+
         //Affichage de la liste des routes rattahées à la ville c
         Model.printRoads(c);
         //Affichage de la liste des véhicules présents dans la ville c
@@ -33,13 +35,13 @@ public abstract class Simulation {
 
             //Choix de l'index d'une des routes rattachées à la ville c
             Pair<Integer, Integer> paire = chooseIndexRoad(c, v);
-            int i = paire.getKey();
+            i = paire.getKey();
             if(i != -1) {
                 //Enlèvement du véhicule v à la ville c
                 iterator.remove();
                 //Ajout de la ville de destination au véhicule
-                if(Model.getRoads(c).get(i).getCityA().equals(c)) v.setDestination(Model.getRoads(c).get(i).getCityB());
-                else v.setDestination(Model.getRoads(c).get(i).getCityA());
+                if(Model.getRoads(c).get(i).getCityA().equals(c)) v.setDestination(Model.getRoads(c).get(i).getCityB(), paire.getValue());
+                else v.setDestination(Model.getRoads(c).get(i).getCityA(), paire.getValue());
                 System.out.println("    by the " + Model.getRoads(c).get(i).getName() + " at the index " + i + " of city " + c.getStringId());
                 //Ajout du véhicule v à la route d'index i
                 Model.getRoads(c).get(i).add(v);
@@ -59,12 +61,17 @@ public abstract class Simulation {
     //Choix de l'index d'une des routes rattachées à la ville c
     public static Pair<Integer, Integer> chooseIndexRoad(City c, Vehicule v){
 
-        Pair<Boolean, Integer> paire;   //La paire va prendre comme première valeur un boolean indiquant si la route est libre
-        //Et comme deuxième valeur la voie disponible
+        if(!(v.getDestination().equals(c))){
 
-        for(Road r : Model.getRoads(c)){
-            paire = r.isFree(c.getX(), c.getY(), v);
-            if(paire.getKey() && !(v.getDestination().equals(c))) return new Pair<>(Model.getRoads().indexOf(r), paire.getValue());    //Si la route est libre, renvoi l'index 0
+            Pair<Boolean, Integer> paire;   //La paire va prendre comme première valeur un boolean indiquant si la route est libre
+            //Et comme deuxième valeur la voie disponible
+
+            for(Road r : Model.getRoads(c)){
+                paire = r.isFree(c.getX(), c.getY(), v);
+                if(r.getCityA().equals(v.getDestination()) || r.getCityB().equals(v.getDestination()) && paire.getKey())
+                    return new Pair<>(Model.getRoads(c).indexOf(r), paire.getValue());    //Si la route est libre, renvoi l'index 0
+            }
+            
         }
 
         return new Pair<>(-1, -1);  //Si aucune route n'est libre, renvoie -1
@@ -72,7 +79,8 @@ public abstract class Simulation {
 
     public static void step(){
 
-        int acc = 10;   //Coefficient d'accélération
+        double acc = 1;   //Coefficient d'accélération
+        double coeff = 40;
 
         System.out.println(System.getProperty("line.separator") + "*~ step ~*");
 
@@ -98,34 +106,35 @@ public abstract class Simulation {
                 if((v.getCurrentSpeed() + acc) <= v.getMaxSpeed() && (v.getCurrentSpeed() + acc) <= r.getSpeedLimit()) v.setCurrentSpeed(v.getCurrentSpeed() + acc);
                 else v.setCurrentSpeed(r.getSpeedLimit());
 
-                double ajoutX = 0;
-                double ajoutY = 0;
+                double ajoutX;
+                double ajoutY;
+                double speed = v.getCurrentSpeed()/coeff;
 
                 if(r.getCityB().getY() > r.getCityA().getY()){
                     cote = Math.abs(r.getCityB().getX() - r.getCityA().getX());
                     angle = Math.asin(cote/distanceRoute);
                     if(r.getCityB().getX() > r.getCityA().getX()){
-                        ajoutX = v.getCurrentSpeed()*Math.sin(angle);
-                        ajoutY = v.getCurrentSpeed()*Math.cos(angle);
-                        if(v.getX()+ajoutX > v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
-                        if(v.getY()+ajoutY > v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
+                        ajoutX = speed*Math.sin(angle);
+                        ajoutY = speed*Math.cos(angle);
+                        if(v.getX()+ajoutX >= v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
+                        if(v.getY()+ajoutY >= v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
                     } else {
-                        ajoutX = - v.getCurrentSpeed()*Math.sin(angle);
-                        ajoutY = v.getCurrentSpeed()*Math.cos(angle);
+                        ajoutX = - speed*Math.sin(angle);
+                        ajoutY = speed*Math.cos(angle);
                         if(v.getX()+ajoutX < v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
-                        if(v.getY()+ajoutY > v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
+                        if(v.getY()+ajoutY >= v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
                     }
                 } else {
                     cote = Math.abs(r.getCityA().getY() - r.getCityB().getY());
                     angle = Math.asin(cote/distanceRoute);
                     if(r.getCityB().getX() > r.getCityA().getX()){
-                        ajoutY = - v.getCurrentSpeed()*Math.sin(angle);
-                        ajoutX = v.getCurrentSpeed()*Math.cos(angle);
-                        if(v.getX()+ajoutX > v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
+                        ajoutY = - speed*Math.sin(angle);
+                        ajoutX = speed*Math.cos(angle);
+                        if(v.getX()+ajoutX >= v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
                         if(v.getY()+ajoutY < v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
                     } else {
-                        ajoutY = - v.getCurrentSpeed()*Math.sin(angle);
-                        ajoutX = - v.getCurrentSpeed()*Math.cos(angle);
+                        ajoutY = - speed*Math.sin(angle);
+                        ajoutX = - speed*Math.cos(angle);
                         if(v.getX()+ajoutX < v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
                         if(v.getY()+ajoutY < v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
                     }
@@ -157,11 +166,10 @@ public abstract class Simulation {
             if(!(c.getVehicules().isEmpty())){
                 for(Vehicule v : c.getVehicules()){
                     if(!(v.getDestination().equals(c))){
-                        System.out.println(v.getType() + " is not arrived yet at its destination");
+                        System.out.println("At least one " + v.getType() + " is not arrived yet at its destination");
                         System.out.println("Simulation continuing...");
                         return false;
-                    }
-                    System.out.println(v.getType() + " is at its destination in city " + c.getStringId());
+                    } else System.out.println(v.getType() + " is at its destination in city " + c.getStringId());
                 }
             }
         }

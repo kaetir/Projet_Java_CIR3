@@ -11,10 +11,9 @@ abstract public class Road {
     //Enumération du name de véhicule
     public enum type {path, way , highway}
 
-    //Paramètres d'un véhicule
-    private final Road.type name;
 
     //Paramètres d'une route
+    private final Road.type name;
     private final Vector<Pair<Double, Double>> dots;
     private final City cityA;   //Une route relie deux villes cityA et cityB
     private final City cityB;
@@ -48,16 +47,23 @@ abstract public class Road {
 
     //Vérification qu'un tronçon de route est libre pour accueillir un nouveau véhicule aux coordonnées x et y
     public Pair<Boolean, Integer> isFree(double x, double y, Vehicule vehicule){
-        int i = 1;
+        double dist;
+        int[] ways = {0, 0, 0};
+
         for(Vehicule v : vehicules){
-            if(v.getDestination() == vehicule.getDestination()){
-                if(v.getX() == x && v.getY() == y) {
-                    if(this.nbWay == i) return new Pair<>(false, -1);
-                    else i++;
-                }
+            if(v.getWay() != -1){
+                dist = Math.sqrt(Math.pow((v.getX() - x), 2) + Math.pow((v.getY() - y), 2));
+                dist = dist + (v.getSize()/2) + (vehicule.getSize()/2);
+                System.out.println("");
+                if(dist < 50) ways[v.getWay()] = 1;
             }
+
         }
-        return new Pair<>(true, i-1);
+
+        for(int i = 0; i < this.nbWay; i++){
+            if(ways[i] == 0) return new Pair<>(true, i);
+        }
+        return new Pair<>(false, -1);
     }
 
     //Getters

@@ -48,7 +48,7 @@ abstract public class Vehicule {
 
     //Affichage du name de véhicule et de ses coordonnées
     public void print(){
-        System.out.println("    " + this.name + " (" + this.x + ", " + this.y + ")");
+        System.out.println("    " + this.name + " (" + this.x + ", " + this.y + ")" + " wants to go to city " + this.destination.getStringId());
     }
 
     //Getters et Setters
@@ -88,9 +88,10 @@ abstract public class Vehicule {
         return destination;
     }
 
-    public void setDestination(City destination) {
-        System.out.println(getType() + " is now going to city " + destination.getStringId());
+    public void setDestination(City destination, int way) {
+        System.out.println(getType() + " is now going to city " + destination.getStringId() + " on way " + way);
         this.destination = destination;
+        this.way = way;
     }
 
     public type getType() {
@@ -102,7 +103,6 @@ abstract public class Vehicule {
     }
 
     public void setWay(int way) {
-        System.out.println("    on way " + way);
         this.way = way;
     }
 
