@@ -10,7 +10,6 @@ import Model.Model;
 import javafx.util.Pair;
 import Model.Simulation;
 
-import Model.Simulation;
 import java.util.Vector;
 
 public class Controller {
@@ -28,14 +27,15 @@ public class Controller {
     }
 
     public void run() throws InterruptedException{
-        createVehicles(Vehicule.type.car,0, 1, 10);
+        createVehicles(Vehicule.type.car,0, 1, 1);
+        createVehicles(Vehicule.type.truck,1, 2, 1);
+        createVehicles(Vehicule.type.motorBike,2, 0, 1);
 
         while (!(Simulation.isFinish())){
             Model.start();
-            Simulation.step();
             this.view.setDisplayVehicles(getVehicles());
             view.refresh();
-            Thread.sleep(1000);
+            Thread.sleep(25);
         }
     }
 
@@ -63,7 +63,7 @@ public class Controller {
                     double x1_1 = dots.elementAt(k+1).getKey();
                     double y1_1 = dots.elementAt(k+1).getKey();
 
-                    // parcourt des autres routes
+                    // parcours des autres routes
                     for(int n = 0; n < roads.elementAt(i).getDots().size()-1; n++ ){
                         // point 1
                         double x2 = roads.elementAt(i).getDots().elementAt(n).getKey();

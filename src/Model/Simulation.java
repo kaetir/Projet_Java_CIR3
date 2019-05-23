@@ -21,7 +21,7 @@ public abstract class Simulation {
 
     //Placement des différentes voiture d'une ville au début d'un route SI C'EST POSSIBLE
     public static void vehiculeFromCityToRoad(City c){
-        int i = 0;
+        int i;
 
         //Affichage de la liste des routes rattahées à la ville c
         Model.printRoads(c);
@@ -61,13 +61,17 @@ public abstract class Simulation {
     //Choix de l'index d'une des routes rattachées à la ville c
     public static Pair<Integer, Integer> chooseIndexRoad(City c, Vehicule v){
 
-        Pair<Boolean, Integer> paire;   //La paire va prendre comme première valeur un boolean indiquant si la route est libre
-        //Et comme deuxième valeur la voie disponible
+        if(!(v.getDestination().equals(c))){
 
-        for(Road r : Model.getRoads(c)){
-            paire = r.isFree(c.getX(), c.getY(), v);
-            if(r.getCityA().equals(v.getDestination()) || r.getCityB().equals(v.getDestination()) && paire.getKey())
-                return new Pair<>(Model.getRoads(c).indexOf(r), paire.getValue());    //Si la route est libre, renvoi l'index 0
+            Pair<Boolean, Integer> paire;   //La paire va prendre comme première valeur un boolean indiquant si la route est libre
+            //Et comme deuxième valeur la voie disponible
+
+            for(Road r : Model.getRoads(c)){
+                paire = r.isFree(c.getX(), c.getY(), v);
+                if(r.getCityA().equals(v.getDestination()) || r.getCityB().equals(v.getDestination()) && paire.getKey())
+                    return new Pair<>(Model.getRoads(c).indexOf(r), paire.getValue());    //Si la route est libre, renvoi l'index 0
+            }
+            
         }
 
         return new Pair<>(-1, -1);  //Si aucune route n'est libre, renvoie -1
@@ -112,13 +116,13 @@ public abstract class Simulation {
                     if(r.getCityB().getX() > r.getCityA().getX()){
                         ajoutX = speed*Math.sin(angle);
                         ajoutY = speed*Math.cos(angle);
-                        if(v.getX()+ajoutX > v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
-                        if(v.getY()+ajoutY > v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
+                        if(v.getX()+ajoutX >= v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
+                        if(v.getY()+ajoutY >= v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
                     } else {
                         ajoutX = - speed*Math.sin(angle);
                         ajoutY = speed*Math.cos(angle);
                         if(v.getX()+ajoutX < v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
-                        if(v.getY()+ajoutY > v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
+                        if(v.getY()+ajoutY >= v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
                     }
                 } else {
                     cote = Math.abs(r.getCityA().getY() - r.getCityB().getY());
@@ -126,7 +130,7 @@ public abstract class Simulation {
                     if(r.getCityB().getX() > r.getCityA().getX()){
                         ajoutY = - speed*Math.sin(angle);
                         ajoutX = speed*Math.cos(angle);
-                        if(v.getX()+ajoutX > v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
+                        if(v.getX()+ajoutX >= v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
                         if(v.getY()+ajoutY < v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
                     } else {
                         ajoutY = - speed*Math.sin(angle);
