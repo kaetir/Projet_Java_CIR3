@@ -11,10 +11,9 @@ abstract public class Road {
     //Enumération du name de véhicule
     public enum type {path, way , highway}
 
-    //Paramètres d'un véhicule
-    private final Road.type name;
 
     //Paramètres d'une route
+    private final Road.type name;
     private final Vector<Pair<Double, Double>> dots;
     private final City cityA;   //Une route relie deux villes cityA et cityB
     private final City cityB;
