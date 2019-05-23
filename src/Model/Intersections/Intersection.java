@@ -19,23 +19,25 @@ abstract public class Intersection {
 
     public boolean isOpen(Vehicule v, Road r){
         if(r.equals(a) || r.equals(b)){
-            if(a.getNbWay() > b.getNbWay()){
-                //vérifier que y a pas des véhicules en a qui veulent rouler
-                //sinon  laisser passer
-            } else if(b.getNbWay() > a.getNbWay()){
-                //vérifier que y a pas des véhicules en a qui veulent rouler
-                //sinon laisser passer
-            } else if(a.getNbWay() == b.getNbWay()){
-                //priorité à droite
+            if(a.getNbWay() > b.getNbWay())         return this.letPass(a);
+            else if(b.getNbWay() > a.getNbWay())    return this.letPass(b);
+            else if(a.getNbWay() == b.getNbWay()) ;      //priorité à droite
+        }
+        return false;
+    }
+
+    private boolean letPass(Road a){
+        double sizeIntersec = 20;
+        for(Vehicule v : a.getVehicules()){
+            if(v.getX() >= (this.x - sizeIntersec/2) && v.getX() <= (this.x + sizeIntersec/2)) {
+                return false;
+            } else {
+                if(v.getY() >= (this.y - sizeIntersec/2) && v.getY() <= (this.y + sizeIntersec/2)){
+                    return false;
+                }
             }
         }
         return true;
-    }
-
-    private static boolean canGo(Vehicule v, Road a){
-        if(){
-
-        }
     }
 
     public double getX() {
