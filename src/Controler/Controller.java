@@ -30,7 +30,6 @@ public class Controller {
     public void run() throws InterruptedException{
         createVehicle(Vehicule.type.car,0, 1);
         createVehicle(Vehicule.type.truck,0, 1);
-        createVehicle(Vehicule.type.truck,1, 2);
         createVehicle(Vehicule.type.truck,2, 0);
         createVehicle(Vehicule.type.motorBike,2, 0);
 

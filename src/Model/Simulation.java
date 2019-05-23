@@ -4,7 +4,6 @@ import Model.Roads.Road;
 import Model.Vehicules.Vehicule;
 import javafx.util.Pair;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -47,7 +46,7 @@ public abstract class Simulation {
                 else v.setDestination(Model.getRoads(c).get(i).getCityA(), paire.getValue());
                 System.out.println("    by the " + Model.getRoads(c).get(i).getName() + " at the index " + i + " of city " + c.getStringId());
                 //Ajout du véhicule v à la route d'index i
-                Model.getRoads(c).get(i).add(v);
+                Model.getRoads(c).get(i).addVehicule(v);
                 Model.getRoads(c).get(i).printVehicules();
                 //Initialisation de la voie du véhicule
                 v.setWay(paire.getValue());
@@ -71,7 +70,20 @@ public abstract class Simulation {
 
             for(Road r : Model.getRoads(c)){
                 paire = r.isFree(c.getX(), c.getY(), v);
-                if(r.getCityA().equals(v.getDestination()) || r.getCityB().equals(v.getDestination()) && paire.getKey())
+
+                City a;
+                City b;
+
+                if(v.getDestination().equals(r.getCityB())){
+                    a = r.getCityA();
+                    b = r.getCityB();
+                } else {
+                    a = r.getCityB();
+                    b = r.getCityA();
+                }
+
+
+                if(a.equals(v.getDestination()) || b.equals(v.getDestination()) && paire.getKey())
                     return new Pair<>(Model.getRoads(c).indexOf(r), paire.getValue());    //Si la route est libre, renvoi l'index 0
             }
             
@@ -181,12 +193,19 @@ public abstract class Simulation {
 
         for(City c : Model.getCities()){
             if(!(c.getVehicules().isEmpty())){
-                for(Vehicule v : c.getVehicules()){
+                Iterator<Vehicule> iterator = c.getVehicules().iterator();
+                while (iterator.hasNext()) {
+                    Vehicule v = iterator.next();
                     if(!(v.getDestination().equals(c))){
                         System.out.println("At least one " + v.getType() + " is not arrived yet at its destination");
                         System.out.println("Simulation continuing...");
                         return false;
-                    } else System.out.println(v.getType() + " is at its destination in city " + c.getStringId());
+                    } else {
+                        System.out.println(v.getType() + " is at its destination in city " + c.getStringId());
+                        Model.getVehicules().remove(iterator);
+                        iterator.remove();
+                        System.out.println("    and has been erased");
+                    }
                 }
             }
         }
