@@ -1,11 +1,21 @@
 package View.Displayable;
 
 import Model.Vehicules.Vehicule;
-import javafx.scene.paint.Color;
+
+import javafx.fxml.Initializable;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.transform.Rotate;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import static View.View.gc;
+import static View.View.car;
+import static View.View.truck;
+import static View.View.motorBike;
 
-public class DisplayVehicle implements Displayable {
+public class DisplayVehicle implements Displayable , Initializable {
 
     private double x,y, lastx, lasty;
     private Vehicule.type vasistas; // what is that allemand
@@ -54,7 +64,14 @@ public class DisplayVehicle implements Displayable {
 
     public Vehicule.type getVasistas() {
         return vasistas;
-    }public enum type {car, truck , motorBike};
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    public enum type {car, truck , motorBike};
 
     public void setVasistas(Vehicule.type vasistas) {
         this.vasistas = vasistas;
@@ -70,33 +87,36 @@ public class DisplayVehicle implements Displayable {
         return (x > xmin && x < xmax && y > ymin && y < ymax);
     }
 
+    private void rotate(GraphicsContext gc, double angle, double px, double py) {
+        Rotate r = new Rotate(angle, px, py);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+    }
+
+    private void drawRotatedImage(GraphicsContext gc, Image image, double angle, double tlpx, double tlpy) {
+        gc.save(); // saves the current state on stack, including the current transform
+        rotate(gc, angle, tlpx + image.getWidth() / 2, tlpy + image.getHeight() / 2);
+        gc.drawImage(image, tlpx, tlpy, image.getWidth()/2, image.getHeight()/2);
+        gc.restore(); // back to original state (before rotation)
+    }
 
     // display a vehicule on the canvas
     public void Draw(){
+
+        double angle = Math.toDegrees(Math.atan2(y-lasty,x-lastx)) + 90;
+
         switch (vasistas){
             case car:
-                gc.setFill(Color.GREEN);
-                gc.setStroke(Color.GREEN);
-                gc.setLineWidth(1);
-
+                drawRotatedImage(gc, car, angle ,x+car.getWidth()/2,y);
                 break;
 
             case truck:
-                gc.setFill(Color.BLUE);
-                gc.setStroke(Color.BLUE);
-                gc.setLineWidth(2);
-
+                drawRotatedImage(gc, truck, angle ,x+car.getWidth()/2,y);
                 break;
 
             case motorBike:
-                gc.setFill(Color.CORAL);
-                gc.setStroke(Color.CORAL);
-                gc.setLineWidth(3);
-
+                drawRotatedImage(gc, motorBike, angle ,x+car.getWidth()/2,y);
                 break;
         }
-        gc.setLineWidth(10);
-        gc.strokeLine(this.lastx, this.lasty, this.x , this.y);
 
     };
 }
