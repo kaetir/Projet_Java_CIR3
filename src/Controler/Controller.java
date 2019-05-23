@@ -47,13 +47,14 @@ public class Controller {
 
     //Create a new road on the grid
     public void createRoad(DisplayRoad road, int id1, int id2) throws RoadCreationException{
+
         Model.createRoad(road.getNbVoies(), Model.getCity(id1) , Model.getCity(id2), road.getDots());
 
         Vector<DisplayRoad> roads = view.getDisplayRoads();
         Vector<Pair<Double, Double>> dots = road.getDots();
         for(int i = 0; i < roads.size(); i++){
             // pas la meme route
-            if(!roads.elementAt(i).equals(road) ){
+            if(roads.elementAt(i).equals(road) == false ){
 
                 // parcourt de la route
                 for(int k = 0; k < dots.size()-1; k++){
@@ -99,28 +100,73 @@ public class Controller {
                         }else{
                             // oui ?  I_1 les X  I_2 les Y
                             // si xmax >= Ymin   et  Xmax <= Ymax
-                            if( (I_1[1] >= I_2[0] && I_1[1] <= I_2[1]) || (I_1[0] >= I_2[0] && I_1[0] <= I_2[1]) ){
+
+                            if( ((I_1[1] >= I_2[0] && I_1[1] <= I_2[1]) || (I_1[0] >= I_2[0] && I_1[0] <= I_2[1])) ){
                                 // coef dir
-                                double A1 = (y1-y1_1)/(x1-x1_1);
-                                double A2 = (y2-y2_1)/(x2-x2_1);
+                                double A1;
+                                double A2;
+                                if(Math.min(x1, x1_1) == x1){
+                                    A1 = (y1_1 - y1)/(x1_1 - x1);
+                                }else{
+                                    A1 = (y1 - y1_1)/(x1 - x1_1);
+                                }
+
+                                if(Math.min(x2,x2_1) == x2){
+                                    A2 = (y2_1 - y2)/(x2_1 - x2);
+                                }else{
+                                    A2 = (y2 - y2_1)/(x2 - x2_1);
+                                }
                                 // ordonné a l'origine
                                 double b1 = y1-A1*x1;
                                 double b2 = y2-A2*x2;
                                 // droites non parallèles
                                 if(A1 != A2){
-                                    double Xn = (b2-b1)/(A2-A1);
+                                    double Xn = (b1-b2)/(A2-A1);
+                                    double Yn = A1*Xn + b1;
                                     if(Xn > Math.max(Math.min(x1,x1_1), Math.min(x2,x2_1)) && Xn < Math.min(Math.max(x1,x1_1), Math.max(x2,x2_1)) ){
-                                        double Yn = A1*Xn + b1;
-                                        //CONNECTION en Xn Yn, route roads.elementAt(i)
-                                        System.out.print("PUTAING");
-                                        view.addIntersection(Xn, Yn);
+                                        if(k == 0 && n == 0){
+                                            if( !(dots.elementAt(k).equals(roads.elementAt(i).getDots().elementAt(n)))){
+                                                //CONNECTION en Xn Yn, route roads.elementAt(i)
+                                                System.out.println("INTERSECTION");
+                                                view.addIntersection(Xn, Yn);
+                                            }
+                                        }else if( k == 0 && n == roads.elementAt(i).getDots().size()-2){
+                                            if(!(dots.elementAt(k).equals(roads.elementAt(i).getDots().elementAt(n+1))) ){
+                                                //CONNECTION en Xn Yn, route roads.elementAt(i)
+                                                System.out.println("INTERSECTION");
+                                                view.addIntersection(Xn, Yn);
+                                            }
+                                        }else if(k == dots.size()-2 && n == 0){
+                                            if( !(dots.elementAt(k+1).equals(roads.elementAt(i).getDots().elementAt(n+1))) ){
+                                                //CONNECTION en Xn Yn, route roads.elementAt(i)
+                                                System.out.println("INTERSECTION");
+                                                view.addIntersection(Xn, Yn);
+                                            }
+                                        }else if(k == dots.size()-2 && n == roads.elementAt(i).getDots().size()-2){
+                                            if(!(dots.elementAt(k+1).equals(roads.elementAt(i).getDots().elementAt(n))) ){
+                                                //CONNECTION en Xn Yn, route roads.elementAt(i)
+                                                System.out.println("INTERSECTION");
+                                                view.addIntersection(Xn, Yn);
+                                            }
+                                        }else{
+                                            //CONNECTION en Xn Yn, route roads.elementAt(i)
+                                            System.out.println("INTERSECTION");
+                                            view.addIntersection(Xn, Yn);
+                                        }
                                     }
                                 }
                             }
                         }
+
+
                     }
+
+
                 }
+
+
             }
+
         }
     }
 
