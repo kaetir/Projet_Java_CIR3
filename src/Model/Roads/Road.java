@@ -48,13 +48,20 @@ abstract public class Road {
 
     //Vérification qu'un tronçon de route est libre pour accueillir un nouveau véhicule aux coordonnées x et y
     public Pair<Boolean, Integer> isFree(double x, double y, Vehicule vehicule){
+        double dist;
         int i = 1;
+
         for(Vehicule v : vehicules){
-            if(v.getDestination() == vehicule.getDestination()){
-                if(v.getX() == x && v.getY() == y) {
-                    if(this.nbWay == i) return new Pair<>(false, -1);
-                    else i++;
+
+            dist = Math.sqrt(Math.pow((v.getX() - x), 2) + Math.pow((v.getY() - y), 2));
+            dist = dist + (v.getSize()/2) + (vehicule.getSize()/2);
+
+            if(dist < 50){
+                for(i = 1; i <= 3; i++) {
+                    if(v.getWay() == i && i < this.nbWay) i++;
+                    else return new Pair<>(false, -1);
                 }
+
             }
         }
         return new Pair<>(true, i-1);
