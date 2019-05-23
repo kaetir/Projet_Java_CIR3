@@ -40,6 +40,7 @@ public abstract class Simulation {
             i = paire.getKey();
             if(i != -1) {
                 //Enlèvement du véhicule v à la ville c
+                System.out.println(v.getType() + " left city " + c.getStringId());
                 iterator.remove();
                 //Ajout de la ville de destination au véhicule
                 if(Model.getRoads(c).get(i).getCityA().equals(c)) v.setDestination(Model.getRoads(c).get(i).getCityB(), paire.getValue());
@@ -97,6 +98,9 @@ public abstract class Simulation {
             double cote;
             double angle;
 
+            City A = r.getCityA();
+            City B = r.getCityB();
+
             //Affichage de la vitesse
             System.out.println("Speed limit on " + r.getName() + " : " + r.getSpeedLimit() + " km/h");
 
@@ -108,44 +112,55 @@ public abstract class Simulation {
                 if((v.getCurrentSpeed() + acc) <= v.getMaxSpeed() && (v.getCurrentSpeed() + acc) <= r.getSpeedLimit()) v.setCurrentSpeed(v.getCurrentSpeed() + acc);
                 else v.setCurrentSpeed(r.getSpeedLimit());
 
+                City a;
+                City b;
+
+                if(v.getDestination().equals(B)){
+                    a = A;
+                    b = B;
+                } else {
+                    a = B;
+                    b = A;
+                }
+
                 double ajoutX;
                 double ajoutY;
                 double speed = v.getCurrentSpeed()/coeff;
 
-                if(r.getCityB().getY() > r.getCityA().getY()){
-                    cote = Math.abs(r.getCityB().getX() - r.getCityA().getX());
+                if(b.getY() > a.getY()){
+                    cote = Math.abs(b.getX() - a.getX());
                     angle = Math.asin(cote/distanceRoute);
-                    if(r.getCityB().getX() > r.getCityA().getX()){
+                    if(b.getX() > a.getX()){
                         ajoutX = speed*Math.sin(angle);
                         ajoutY = speed*Math.cos(angle);
-                        if(v.getX()+ajoutX >= v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
-                        if(v.getY()+ajoutY >= v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
+                        if(v.getX()+ajoutX >= b.getX()) ajoutX = b.getX()-v.getX();
+                        if(v.getY()+ajoutY >= b.getY()) ajoutY = b.getY()-v.getY();
                     } else {
                         ajoutX = - speed*Math.sin(angle);
                         ajoutY = speed*Math.cos(angle);
-                        if(v.getX()+ajoutX < v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
-                        if(v.getY()+ajoutY >= v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
+                        if(v.getX()+ajoutX < b.getX()) ajoutX = b.getX()-v.getX();
+                        if(v.getY()+ajoutY >= b.getY()) ajoutY = b.getY()-v.getY();
                     }
                 } else {
-                    cote = Math.abs(r.getCityA().getY() - r.getCityB().getY());
+                    cote = Math.abs(a.getY() - b.getY());
                     angle = Math.asin(cote/distanceRoute);
-                    if(r.getCityB().getX() > r.getCityA().getX()){
+                    if(b.getX() > a.getX()){
                         ajoutY = - speed*Math.sin(angle);
                         ajoutX = speed*Math.cos(angle);
-                        if(v.getX()+ajoutX >= v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
-                        if(v.getY()+ajoutY < v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
+                        if(v.getX()+ajoutX >= b.getX()) ajoutX = b.getX()-v.getX();
+                        if(v.getY()+ajoutY < b.getY()) ajoutY = b.getY()-v.getY();
                     } else {
                         ajoutY = - speed*Math.sin(angle);
                         ajoutX = - speed*Math.cos(angle);
-                        if(v.getX()+ajoutX < v.getDestination().getX()) ajoutX = v.getDestination().getX()-v.getX();
-                        if(v.getY()+ajoutY < v.getDestination().getY()) ajoutY = v.getDestination().getY()-v.getY();
+                        if(v.getX()+ajoutX < b.getX()) ajoutX = b.getX()-v.getX();
+                        if(v.getY()+ajoutY < b.getY()) ajoutY = b.getY()-v.getY();
                     }
                 }
 
-                if(v.getDestination().getX() == (v.getX()+ajoutX) && v.getDestination().getY() == (v.getY()+ajoutY)){
-                    v.getDestination().add(v);
+                if(b.getX() == (v.getX()+ajoutX) && b.getY() == (v.getY()+ajoutY)){
+                    b.add(v);
                     iterator.remove();
-                    System.out.println(v.getType() + " arrived in city " + v.getDestination().getStringId());
+                    System.out.println(v.getType() + " arrived in city " + b.getStringId());
                 } else {
                     v.updateVehicule(v.getX() + ajoutX, v.getY() + ajoutY, r);
                 }

@@ -30,12 +30,6 @@ public class City {
         System.out.println(v.getType() + " added to city " + this.id + " in (" + x + ", " + y + ")");
     }
 
-    //Enlèvement d'un véhicule à la liste de ceux présents dans la ville
-    public void sub(Vehicule v){
-        System.out.println(v.getType() + " left city " + getStringId());
-        vehicules.removeElement(v);
-    }
-
     //Renvoie la liste de tous les véhicules présents dans la ville
     public Vector<Vehicule> getVehicules() {
         return vehicules;
