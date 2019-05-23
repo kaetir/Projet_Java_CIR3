@@ -71,7 +71,20 @@ public abstract class Simulation {
 
             for(Road r : Model.getRoads(c)){
                 paire = r.isFree(c.getX(), c.getY(), v);
-                if(r.getCityA().equals(v.getDestination()) || r.getCityB().equals(v.getDestination()) && paire.getKey())
+
+                City a;
+                City b;
+
+                if(v.getDestination().equals(r.getCityB())){
+                    a = r.getCityA();
+                    b = r.getCityB();
+                } else {
+                    a = r.getCityB();
+                    b = r.getCityA();
+                }
+
+
+                if(a.equals(v.getDestination()) || b.equals(v.getDestination()) && paire.getKey())
                     return new Pair<>(Model.getRoads(c).indexOf(r), paire.getValue());    //Si la route est libre, renvoi l'index 0
             }
             

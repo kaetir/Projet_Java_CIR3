@@ -54,8 +54,8 @@ abstract public class Road {
             if(v.getWay() != -1){
                 dist = Math.sqrt(Math.pow((v.getX() - x), 2) + Math.pow((v.getY() - y), 2));
                 dist = dist + (v.getSize()/2) + (vehicule.getSize()/2);
-                System.out.println("");
-                if(dist < 50) ways[v.getWay()] = 1;
+                System.out.println("DISTANCE ==== " + dist);
+                if(dist < 40) ways[v.getWay()] = 1;
             }
 
         }
