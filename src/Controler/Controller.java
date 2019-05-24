@@ -91,12 +91,33 @@ public class Controller {
 
                         double determinant = a1*b2 - a2*b1;
                         if(determinant != 0){
-                            double x = (b2*c1 -b1*c2)/determinant;
-                            double y = (a1*c2 - a2*c1)/determinant;
+                            double x = (-1/(a1*b2-a2*b1))*(b2*c1-b1*c2);
+                            double y = (-1/(a1*b2-a2*b1))*(-a2*c1+a1*c2);
 
-                            System.out.println("INTERSECTION: "+ x+", "+y);
-                            view.addIntersection(x,y);
-                            view.refresh();
+                            if(k == 0 && n == 0){
+                                if( !(dots.elementAt(k).equals(roads.elementAt(i).getDots().elementAt(n))) ){
+                                    view.addIntersection(Math.abs(x),Math.abs(y));
+                                    view.refresh();
+                                }
+                            }else if(k == 0 && n == roads.elementAt(i).getDots().size()-2){
+                                if( !(dots.elementAt(k).equals(roads.elementAt(i).getDots().elementAt(n+1))) ){
+                                    view.addIntersection(Math.abs(x),Math.abs(y));
+                                    view.refresh();
+                                }
+                            }else if(k == dots.size()-2 && n == roads.elementAt(i).getDots().size()-2){
+                                if( !(dots.elementAt(k+1).equals(roads.elementAt(i).getDots().elementAt(n+1))) ){
+                                    view.addIntersection(Math.abs(x),Math.abs(y));
+                                    view.refresh();
+                                }
+                            }else if(k == dots.size()-2 && n == 0){
+                                if( !(dots.elementAt(k+1).equals(roads.elementAt(i).getDots().elementAt(n))) ){
+                                    view.addIntersection(Math.abs(x),Math.abs(y));
+                                    view.refresh();
+                                }
+                            }else{
+                                view.addIntersection(Math.abs(x),Math.abs(y));
+                                view.refresh();
+                            }
                         }
 
 
