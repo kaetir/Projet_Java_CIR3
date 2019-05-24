@@ -13,9 +13,9 @@ import static View.View.gc;
 
 public class DisplayRoad implements Displayable {
 
-    Vector<Pair<Double, Double>> Dots = new Vector<>();
-    int nbVoies;
-    static int largeur= 8;
+    private Vector<Pair<Double, Double>> Dots = new Vector<>();
+    private int nbVoies;
+    private static int largeur= 8;
 
     public DisplayRoad() {
     }
@@ -36,16 +36,6 @@ public class DisplayRoad implements Displayable {
         this.nbVoies = nbVoies;
     }
 
-    String replaceLast(String string, String substring, String replacement) {
-        int ind = string.lastIndexOf(substring);
-        if( ind != -1) {
-            StringBuilder b = new StringBuilder(string);
-            b.replace(ind, ind+substring.length(), replacement);
-            string = b.toString();
-        }
-        return string;
-    }
-
     public DisplayRoad(Vector<Pair<Double, Double>> dots, int nbVoies) {
         Dots = dots;
         this.nbVoies = nbVoies <= 3 ? nbVoies : 3;
@@ -59,60 +49,60 @@ public class DisplayRoad implements Displayable {
     @Override
     public void Draw() {
 
-        String path = new String();
+        StringBuilder path;
 
         gc.setStroke(Color.BLACK);
         // increment the numbre to change width of the road
         gc.setLineWidth(this.nbVoies*largeur);
 
         if(Dots.size() > 2){
-            path = "M " + Math.floor(Dots.elementAt(0).getKey()) + " " + Math.floor( Dots.elementAt(0).getValue()) + "  ";
+            path = new StringBuilder("M " + Math.floor(Dots.elementAt(0).getKey()) + " " + Math.floor(Dots.elementAt(0).getValue()) + "  ");
             for (Pair<Double, Double > p: Dots  ) {
-                path += Math.floor(p.getKey()) + " " + Math.floor(p.getValue()) + " " ;
+                path.append(Math.floor(p.getKey())).append(" ").append(Math.floor(p.getValue())).append(" ");
             }
 
         }else if (Dots.size() == 2){
-            path = "M " +Math.floor(Dots.elementAt(0).getKey()) + " " + Math.floor( Dots.elementAt(0).getValue())
-                    + " " + Math.floor(Dots.elementAt(1).getKey()) + " " + Math.floor( Dots.elementAt(1).getValue());
+            path = new StringBuilder("M " + Math.floor(Dots.elementAt(0).getKey()) + " " + Math.floor(Dots.elementAt(0).getValue())
+                    + " " + Math.floor(Dots.elementAt(1).getKey()) + " " + Math.floor(Dots.elementAt(1).getValue()));
 
-        }else if (Dots.size() < 2){
+        }else {
             System.err.println("NOT ENOUGH POINTS");
             return;
         }
 
         gc.beginPath();
-        gc.appendSVGPath(path);
+        gc.appendSVGPath(path.toString());
         gc.stroke();
         gc.closePath();
     }
 
 
-    float area(int x1, int y1, int x2, int y2,
-               int x3, int y3){
-        return abs((x1 * (y2 - y3) + x2 * (y3 - y1) +
+    private double area(int x1, int y1, int x2, int y2,
+                        int x3, int y3){
+        return Math.abs((x1 * (y2 - y3) + x2 * (y3 - y1) +
                 x3 * (y1 - y2)) / 2.0);
     }
 
     /* A function to check whether point P(x, y)
        lies inside the rectangle formed by A(x1, y1),
        B(x2, y2), C(x3, y3) and D(x4, y4) */
-    Boolean check(int x1, int y1, int x2, int y2, int x3,
-               int y3, int x4, int y4, int x, int y) {
+    private Boolean check(int x1, int y1, int x2, int y2, int x3,
+                          int y3, int x4, int y4, int x, int y) {
         /* Calculate area of rectangle ABCD */
-        float A = area(x1, y1, x2, y2, x3, y3) +
+        double A = area(x1, y1, x2, y2, x3, y3) +
                 area(x1, y1, x4, y4, x3, y3);
 
         /* Calculate area of triangle PAB */
-        float A1 = area(x, y, x1, y1, x2, y2);
+        double A1 = area(x, y, x1, y1, x2, y2);
 
         /* Calculate area of triangle PBC */
-        float A2 = area(x, y, x2, y2, x3, y3);
+        double A2 = area(x, y, x2, y2, x3, y3);
 
         /* Calculate area of triangle PCD */
-        float A3 = area(x, y, x3, y3, x4, y4);
+        double A3 = area(x, y, x3, y3, x4, y4);
 
         /* Calculate area of triangle PAD */
-        float A4 = area(x, y, x1, y1, x4, y4);
+        double A4 = area(x, y, x1, y1, x4, y4);
 
     /* Check if sum of A1, A2, A3 and A4
        is same as A */
