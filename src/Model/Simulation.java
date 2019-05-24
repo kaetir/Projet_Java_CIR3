@@ -4,6 +4,7 @@ import Model.Roads.Road;
 import Model.Vehicules.Vehicule;
 import javafx.util.Pair;
 
+import java.security.KeyStoreSpi;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -92,10 +93,10 @@ public abstract class Simulation {
         return new Pair<>(-1, -1);  //Si aucune route n'est libre, renvoie -1
     }
 
+
     public static void step(){
 
-        double acc = 1;   //Coefficient d'accélération
-        double coeff = 40;
+        double coeff = 50;
 
         System.out.println(System.getProperty("line.separator") + "*~ step ~*");
 
@@ -121,8 +122,8 @@ public abstract class Simulation {
             while (iterator.hasNext()) {
                 Vehicule v = iterator.next();
 
-                if((v.getCurrentSpeed() + acc) <= v.getMaxSpeed() && (v.getCurrentSpeed() + acc) <= r.getSpeedLimit()) v.setCurrentSpeed(v.getCurrentSpeed() + acc);
-                else v.setCurrentSpeed(r.getSpeedLimit());
+                v.setCurrentSpeed(calculAcc(v, r));
+                System.out.println("Current speed set at : " + v.getCurrentSpeed());
 
                 City a;
                 City b;
@@ -178,6 +179,45 @@ public abstract class Simulation {
                 }
             }
         }
+    }
+
+
+    private static double calculAcc(Vehicule v, Road r){
+
+        double acc;   //Coefficient d'accélération
+
+        System.out.println("Speed of this " + v.getType() + " : " + v.getCurrentSpeed());
+        if(isThereACityNear(v, r)){
+            acc = -0.5;
+            if(r.getNbWay() == 3) acc = -1;
+            if((v.getCurrentSpeed() + acc) <= 0) return 20;
+            else return (v.getCurrentSpeed() + acc);
+        }
+
+        acc = 0.5;
+        if(r.getNbWay() == 3) acc = 2;
+
+        if((v.getCurrentSpeed() + acc) <= v.getMaxSpeed() && (v.getCurrentSpeed() + acc) <= r.getSpeedLimit()) return (v.getCurrentSpeed() + acc);
+        else return r.getSpeedLimit();
+    }
+
+    private static boolean isThereACityNear(Vehicule v, Road r){
+        double dist;
+
+        dist = Math.sqrt(Math.pow((v.getDestination().getX() - v.getX()), 2) + Math.pow((v.getDestination().getY() - v.getY()), 2));
+        System.out.println("    approaching a city distant of " + dist);
+
+        if(r.getNbWay() == 1){
+            if(dist < 130) return true;
+        }
+        if(r.getNbWay() == 2){
+            if(dist < 230) return true;
+        }
+        if(r.getNbWay() == 3){
+            if(dist < 190) return true;
+        }
+        
+        return false;
     }
 
     public static boolean isFinish(){
