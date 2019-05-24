@@ -199,8 +199,6 @@ public abstract class Simulation {
 
     }
 
-
-
     private static double calculAcc(Vehicule v, Road r){
 
         double acc;   //Coefficient d'accélération
@@ -214,6 +212,7 @@ public abstract class Simulation {
         }
 
         acc = 0.5;
+        if(r.getNbWay() == 2) acc = 1;
         if(r.getNbWay() == 3) acc = 2;
 
         if((v.getCurrentSpeed() + acc) <= v.getMaxSpeed() && (v.getCurrentSpeed() + acc) <= r.getSpeedLimit()) return (v.getCurrentSpeed() + acc);
@@ -227,7 +226,7 @@ public abstract class Simulation {
         System.out.println("    approaching destination distant of " + dist);
 
         if(r.getNbWay() == 1 && dist < 130) return true;
-        if(r.getNbWay() == 2 && dist < 230) return true;
+        if(r.getNbWay() == 2 && dist < 170) return true;
         if(r.getNbWay() == 3 && dist < 190) return true;
         
         return false;
