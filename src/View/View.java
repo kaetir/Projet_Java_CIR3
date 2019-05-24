@@ -115,9 +115,12 @@ public class View implements Initializable {
         Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(colideCity(mouseEvent.getX(), mouseEvent.getY()) != null ){
-                    System.out.println("x:" + mouseEvent.getX() + "  y:" + mouseEvent.getY() + " isIn : " + colideCity(mouseEvent.getX(), mouseEvent.getY()));
+                double x = mouseEvent.getX();
+                double y = mouseEvent.getY();
+                if(colideCity(x, y) != null ){
+                    System.out.println("x:" + x + "  y:" + y + " isIn : " + colideCity(x, y));
                 }
+                getDisplayRoads().forEach(displayRoad -> {if (displayRoad.isIn(x, y)) System.out.println("route en x: " + x +" y: "+ y ); });
 
 
             }
@@ -284,7 +287,7 @@ public class View implements Initializable {
     }
 
     // tell if a hit touch a city
-    private DisplayCity colideCity(double x, double y){
+    public DisplayCity colideCity(double x, double y){
         for (DisplayCity city: displayCities) {
             if (city.isIn(x,y))
                 return city;
