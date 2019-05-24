@@ -115,7 +115,10 @@ public class View implements Initializable {
         Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("x:" + mouseEvent.getX() + "  y:" + mouseEvent.getY() + " isIn : " + colideCity(mouseEvent.getX(), mouseEvent.getY()));
+                if(colideCity(mouseEvent.getX(), mouseEvent.getY()) != null ){
+                    System.out.println("x:" + mouseEvent.getX() + "  y:" + mouseEvent.getY() + " isIn : " + colideCity(mouseEvent.getX(), mouseEvent.getY()));
+                }
+
 
             }
         });
@@ -138,8 +141,6 @@ public class View implements Initializable {
 
     @FXML
     public void run() throws InterruptedException {
-
-
 
         try{
 
@@ -190,50 +191,50 @@ public class View implements Initializable {
 
 
         Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            double x,y;
-            DisplayCity start = null ,end = null;
-            DisplayRoad dr = new DisplayRoad();
+        double x,y;
+        DisplayCity start = null ,end = null;
+        DisplayRoad dr = new DisplayRoad();
 
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                x = mouseEvent.getX();
-                y = mouseEvent.getY();
-                dr.setNbVoies(i);
-                if(start == null){
-                    start = colideCity(x,y);
-                    System.out.println(start);
-                    if(start != null){
-                        dr.addDot(start.getX(), start.getY());
-                    }
+        @Override
+        public void handle(MouseEvent mouseEvent) {
+            x = mouseEvent.getX();
+            y = mouseEvent.getY();
+            dr.setNbVoies(i);
+            if(start == null){
+                start = colideCity(x,y);
+                System.out.println(start);
+                if(start != null){
+                    dr.addDot(start.getX(), start.getY());
+                }
 
-                }else if(end == null){
-                        end = colideCity(x,y);
-                        System.out.println(end);
-                        if(end != null){
-                            if(start != end) {
-                                // ploting
-                                dr.addDot(end.getX(), end.getY());
+            }else if(end == null){
+                end = colideCity(x,y);
+                System.out.println(end);
+                if(end != null){
+                    if(start != end) {
+                        // ploting
+                        dr.addDot(end.getX(), end.getY());
 
-                                displayRoads.add(dr);
-                                // Call controlleur for adding city
-                                try {
-                                    conTroller.createRoad(dr, start.getId(), end.getId());
-                                }catch (RoadCreationException e){
-                                    System.err.println(e);
-                                }
-                                start = null ;
-                                end = null;
-                                dr = new DisplayRoad();
-                                refresh();
-
-                            }
-                        }else {
-                            dr.addDot(x,y);
+                        displayRoads.add(dr);
+                        // Call controlleur for adding city
+                        try {
+                            conTroller.createRoad(dr, start.getId(), end.getId());
+                        }catch (RoadCreationException e){
+                            System.err.println(e);
                         }
+                        start = null ;
+                        end = null;
+                        dr = new DisplayRoad();
+                        refresh();
+
+                    }else{
+                        end = null;
+                    }
+                }else {
+                    dr.addDot(x,y);
                 }
             }
-        });
-
+        }});
     }
 
     @FXML
