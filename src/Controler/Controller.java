@@ -89,8 +89,8 @@ public class Controller {
 
                         double determinant = a1*b2 - a2*b1;
                         if(determinant != 0){
-                            double x = (-1/(a1*b2-a2*b1))*(b2*c1-b1*c2);
-                            double y = (-1/(a1*b2-a2*b1))*(-a2*c1+a1*c2);
+                            double x = (-1/((a1*b2)-(a2*b1)))*((b2*c1)-(b1*c2));
+                            double y = (-1/((a1*b2)-(a2*b1)))*((-a2*c1)+(a1*c2));
 
                             if(k == 0 && n == 0){
                                 if( !(dots.elementAt(k).equals(roads.elementAt(i).getDots().elementAt(n))) ){
