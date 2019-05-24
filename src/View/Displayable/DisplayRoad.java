@@ -4,6 +4,7 @@ package View.Displayable;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
+import java.util.NoSuchElementException;
 import java.util.Vector;
 
 
@@ -112,21 +113,26 @@ public class DisplayRoad implements Displayable {
     @Override
     public boolean isIn(double x, double y) {
         for (int i = 0; i < Dots.size()-1; i++) {
-            double angle = Math.atan2(Dots.elementAt(i+1).getKey()-Dots.elementAt(i).getKey(),
-                Dots.elementAt(i+1).getValue()-Dots.elementAt(i).getValue() ) ;
+            double x_1 = Dots.elementAt(i).getKey() ,
+                    y_1 = Dots.elementAt(i).getValue();
+            double x_2 = Dots.elementAt(i+1).getKey(),
+                    y_2 = Dots.elementAt(i+1).getValue();
+
+
+            double angle = Math.atan2(y_2 - y_1, x_2 - x_1) + Math.PI/2;
             if(check(
             // point 1
-            (int) (Dots.elementAt(i).getKey()+ Math.cos(angle)*largeur/2),
-            (int) (Dots.elementAt(i).getValue()+ Math.sin(angle)*largeur/2),
+            (int) (x_1+ Math.cos(angle)*largeur*nbVoies/2),
+            (int) (y_1+ Math.sin(angle)*largeur*nbVoies/2),
             // point 2
-            (int) (Dots.elementAt(i).getKey()- Math.cos(angle)*largeur/2),
-            (int) (Dots.elementAt(i).getValue()- Math.sin(angle)*largeur/2),
+            (int) (x_1- Math.cos(angle)*largeur*nbVoies/2),
+            (int) (y_1- Math.sin(angle)*largeur*nbVoies/2),
             // point 3
-            (int) (Dots.elementAt(i+1).getKey()+ Math.cos(angle)*largeur/2),
-            (int) (Dots.elementAt(i+1).getValue()+ Math.sin(angle)*largeur/2),
+            (int) (x_2- Math.cos(angle)*largeur*nbVoies/2),
+            (int) (y_2- Math.sin(angle)*largeur*nbVoies/2),
             // point 4
-            (int) (Dots.elementAt(i+1).getKey()- Math.cos(angle)*largeur/2),
-            (int) (Dots.elementAt(i+1).getValue()- Math.sin(angle)*largeur/2),
+            (int) (x_2+ Math.cos(angle)*largeur*nbVoies/2),
+            (int) (y_2+ Math.sin(angle)*largeur*nbVoies/2),
             // point a tester
                     (int)x, (int)y) ){
                 return true;
@@ -134,4 +140,51 @@ public class DisplayRoad implements Displayable {
         }
         return false;
     }
+
+    protected double length(Pair<Double, Double> p1, Pair<Double, Double> p2){
+        return Math.sqrt(Math.pow(p1.getKey()-p2.getKey(), 2) + Math.pow(p1.getValue()-p2.getValue(), 2) );
+    }
+
+    public Vector<Pair<Double, Double>> colide(DisplayRoad road) {
+        Vector<Pair<Double, Double>> toReturn = new Vector<>();
+        if(this == road ) {
+            ;;
+        }else{
+
+            // we need at least 3 point in the cross to certify.
+            int countIn = 0;
+
+            Vector<Pair<Double, Double>> rDots = road.getDots();
+            // parcourt des points
+            for (int i = 0; i < rDots.size()-1; i++) {
+                double x_1 = rDots.elementAt(i).getKey() ,
+                        y_1 = rDots.elementAt(i).getValue();
+                double x_2 = rDots.elementAt(i+1).getKey(),
+                        y_2 = rDots.elementAt(i+1).getValue();
+
+                double angle = Math.atan2(y_2-y_1, x_2 - x_1);
+                for (int j = 0; j < length(rDots.elementAt(i), rDots.elementAt(i+1)) ; j++) {
+                    if(isIn(rDots.elementAt(i).getKey()+Math.cos(angle)*j, rDots.elementAt(i).getValue()+Math.sin(angle)*j)){
+                        countIn++;
+                    }else {
+                        // reset if not concursive
+                        countIn = 0;
+                    }
+                    // 3 point following each other
+                    if (countIn >= 3){
+                        System.out.println("Intersection detected");
+                        toReturn.add(new Pair<Double,Double>(rDots.elementAt(i).getKey()+Math.cos(angle)*j, rDots.elementAt(i).getValue()+Math.sin(angle)*j));
+                        // exit the road we are crossing
+                        while (isIn(rDots.elementAt(i).getKey()+Math.cos(angle)*j, rDots.elementAt(i).getValue()+Math.sin(angle)*j)) j++;
+                        countIn = 0;
+                    }
+                }
+
+            }
+        }
+
+        return toReturn;
+
+    }
+
 }
