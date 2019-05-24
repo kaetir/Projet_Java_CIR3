@@ -39,6 +39,9 @@ public class View implements Initializable {
     @FXML
     private TableCityController CityEditController;
 
+    private Double scale;
+    private Double translateX;
+    private Double translateY;
 
     private Controller conTroller;
 
@@ -85,11 +88,16 @@ public class View implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gc = Drawing_Canvas.getGraphicsContext2D();
         System.out.println("Graphic context: " + gc);
+        gc.setFill(Color.PINK);
+        gc.fillRect(0,0 ,Drawing_Canvas.getWidth(), Drawing_Canvas.getHeight());
         // controller available in initialize method
         System.out.println("Table controller: " + CityEditController);
         CityEditController.setMaman(this);
         conTroller = new Controller(this);
 
+        scale = 1.;
+        translateX = Drawing_Canvas.getWidth()/2;
+        translateY = Drawing_Canvas.getHeight()/2;
         try {
             car = new Image(new FileInputStream("car.png"));
             motorBike = new Image(new FileInputStream("motorbike.png"));
@@ -112,19 +120,27 @@ public class View implements Initializable {
 
     public void buttonSelection(){
 
-        Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                double x = mouseEvent.getX();
-                double y = mouseEvent.getY();
-                if(colideCity(x, y) != null ){
-                    System.out.println("x:" + x + "  y:" + y + " isIn : " + colideCity(x, y));
-                }
-                getDisplayRoads().forEach(displayRoad -> {if (displayRoad.isIn(x, y)) System.out.println("route en x: " + x +" y: "+ y ); });
-
-
+        Drawing_Canvas.setOnMouseClicked(mouseEvent -> {
+            double x = mouseEvent.getX();
+            double y = mouseEvent.getY();
+            if(colideCity(x, y) != null ){
+                System.out.println("x:" + x + "  y:" + y + " isIn : " + colideCity(x, y));
             }
+            getDisplayRoads().forEach(displayRoad -> {if (displayRoad.isIn(x, y)) System.out.println("route en x: " + x +" y: "+ y ); });
+
         });
+
+        Drawing_Canvas.setOnScroll(scrollEvent -> {
+            System.out.println("zoom " + scrollEvent.getDeltaY());
+            scale += scrollEvent.getDeltaY()/100;
+            Drawing_Canvas.setScaleX(scale);
+            Drawing_Canvas.setScaleY(scale);
+            translateX += (scrollEvent.getX()-Drawing_Canvas.getWidth()/2)/4;
+            translateY += (scrollEvent.getY()-Drawing_Canvas.getHeight()/2)/4;
+            Drawing_Canvas.setTranslateX(translateX);
+            Drawing_Canvas.setTranslateY(translateY);
+        });
+
     }
 
 
@@ -303,6 +319,14 @@ public class View implements Initializable {
         displayCities.clear();
 
         DisplayCity.reset();
+
+        scale = 1.;
+        translateX = Drawing_Canvas.getWidth()/2;
+        translateY = Drawing_Canvas.getHeight()/2;
+        Drawing_Canvas.setScaleX(scale);
+        Drawing_Canvas.setScaleY(scale);
+        Drawing_Canvas.setTranslateX(translateX);
+        Drawing_Canvas.setTranslateY(translateY);
 
         refresh();
         conTroller.clear_Model();
