@@ -3,6 +3,8 @@ package Model.Vehicules;
 import Model.City;
 import Model.Roads.Road;
 
+import java.util.Vector;
+
 abstract public class Vehicule {
 
     //Enumération du name de véhicule
@@ -44,6 +46,21 @@ abstract public class Vehicule {
         setY(y);
         System.out.println(this.getType() + " rolled from (" + getOldX() + ", " + getOldY() + ") to (" + getX()
                 + ", " + getY() + ")");
+    }
+
+    public Vector<Vehicule> onLineAroundVehicule(Road r, double distanceSecurite, int line){
+        Vector<Vehicule> nearVeh = new Vector<>();
+        double d = distanceSecurite;
+        for(Vehicule v : r.getVehicules()){
+            if(v.getX() < (this.getX()-d) && v.getX() > (this.getX()+d)){
+                if(v.getY() < (this.getY()-d) && v.getY() > (this.getY()+d)){
+                    if(v.getWay() == line){
+                        nearVeh.add(v);
+                    }
+                }
+            }
+        }
+        return nearVeh;
     }
 
     //Affichage du name de véhicule et de ses coordonnées

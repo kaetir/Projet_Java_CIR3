@@ -181,6 +181,25 @@ public abstract class Simulation {
         }
     }
 
+    private static void updateWays(Vehicule vehicule, Road r){
+        Vector<Vehicule> vehLine;
+        for(int i = 3; i > 1; i--){
+            vehLine = vehicule.onLineAroundVehicule(r, 30, i-1);
+            for(Vehicule v : vehLine){
+                if(v.getCurrentSpeed() > vehicule.getCurrentSpeed()){
+                    if(vehicule.onLineAroundVehicule(r, 10, i-1).isEmpty())
+                        vehicule.setWay(i-1);
+                }
+            }
+        }
+        vehLine = vehicule.onLineAroundVehicule(r, 30, vehicule.getWay());
+        for(Vehicule v : vehLine){
+            //du code
+        }
+
+    }
+
+
 
     private static double calculAcc(Vehicule v, Road r){
 
@@ -205,17 +224,11 @@ public abstract class Simulation {
         double dist;
 
         dist = Math.sqrt(Math.pow((v.getDestination().getX() - v.getX()), 2) + Math.pow((v.getDestination().getY() - v.getY()), 2));
-        System.out.println("    approaching a city distant of " + dist);
+        System.out.println("    approaching destination distant of " + dist);
 
-        if(r.getNbWay() == 1){
-            if(dist < 130) return true;
-        }
-        if(r.getNbWay() == 2){
-            if(dist < 230) return true;
-        }
-        if(r.getNbWay() == 3){
-            if(dist < 190) return true;
-        }
+        if(r.getNbWay() == 1 && dist < 130) return true;
+        if(r.getNbWay() == 2 && dist < 230) return true;
+        if(r.getNbWay() == 3 && dist < 190) return true;
         
         return false;
     }
