@@ -27,6 +27,7 @@ public class Controller {
         Model.clear();
     }
 
+    //Run the simulation
     public void run() throws InterruptedException{
         createVehicle(Vehicule.type.car,0, 1);
         createVehicle(Vehicule.type.car,1, 2);
@@ -91,8 +92,8 @@ public class Controller {
 
                         double determinant = a1*b2 - a2*b1;
                         if(determinant != 0){
-                            double x = (-1/(a1*b2-a2*b1))*(b2*c1-b1*c2);
-                            double y = (-1/(a1*b2-a2*b1))*(-a2*c1+a1*c2);
+                            double x = (-1/((a1*b2)-(a2*b1)))*((b2*c1)-(b1*c2));
+                            double y = (-1/((a1*b2)-(a2*b1)))*((-a2*c1)+(a1*c2));
 
                             if(k == 0 && n == 0){
                                 if( !(dots.elementAt(k).equals(roads.elementAt(i).getDots().elementAt(n))) ){
@@ -146,6 +147,7 @@ public class Controller {
         Model.getCity(id).add(vehicle2);
     }
 
+    //Create n vehicles
     public void createVehicles(Vehicule.type vehicle, int id, int destination, int n) {
         Vehicule vehicle2;
 
