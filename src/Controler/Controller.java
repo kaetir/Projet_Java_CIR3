@@ -27,6 +27,7 @@ public class Controller {
         Model.clear();
     }
 
+    //Run the simulation
     public void run() throws InterruptedException{
         createVehicle(Vehicule.type.car,0, 1);
         createVehicle(Vehicule.type.car,1, 2);
@@ -146,6 +147,7 @@ public class Controller {
         Model.getCity(id).add(vehicle2);
     }
 
+    //Create n vehicles
     public void createVehicles(Vehicule.type vehicle, int id, int destination, int n) {
         Vehicule vehicle2;
 
