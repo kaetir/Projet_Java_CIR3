@@ -235,7 +235,7 @@ public abstract class Simulation {
     private static boolean whatToSend(Road r, double dist) {
         if(r.getNbWay() == 1 && dist < 130) return true;
         if(r.getNbWay() == 2 && dist < 170) return true;
-        if(r.getNbWay() == 3 && dist < 190) return true;
+        if(r.getNbWay() == 3 && dist < 150) return true;
         return false;
     }
 
