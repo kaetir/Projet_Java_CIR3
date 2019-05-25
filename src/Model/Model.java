@@ -45,9 +45,10 @@ public abstract class Model {
         return v;
     }
 
-    public static void addIntersec(double x, double y, Road a, Road b){
+    public static Intersection createIntersec(double x, double y, Road a, Road b){
         Intersection in = new Intersection(x, y, a, b);
         intersex.add(in);
+        return in;
     }
 
     //Renvoie la liste de toutes les routes de la map
