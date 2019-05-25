@@ -15,6 +15,8 @@ import static View.View.car;
 import static View.View.truck;
 import static View.View.motorBike;
 
+import static java.lang.Math.*;
+
 public class DisplayVehicle implements Displayable , Initializable {
 
     private double x,y, lastx, lasty;
@@ -83,15 +85,15 @@ public class DisplayVehicle implements Displayable , Initializable {
 
         switch (vasistas){
             case car:
-                drawRotatedImage(gc, car, angle ,x+car.getWidth()/2,y);
+                drawRotatedImage(gc, car, angle ,x+car.getWidth()/2+cos(angle)*way,y+sin(angle)*way);
                 break;
 
             case truck:
-                drawRotatedImage(gc, truck, angle ,x+truck.getWidth()/2,y);
+                drawRotatedImage(gc, truck, angle ,x+truck.getWidth()/2+cos(angle)*way,y+sin(angle)*way);
                 break;
 
             case motorBike:
-                drawRotatedImage(gc, motorBike, angle ,x+motorBike.getWidth()/2,y);
+                drawRotatedImage(gc, motorBike, angle ,x+motorBike.getWidth()/2+cos(angle)*way,y+sin(angle)*way);
                 break;
         }
 
