@@ -19,7 +19,7 @@ public class DisplayIntersection implements Displayable {
 
     @Override
     public void Draw() {
-        gc.setFill(Color.GREEN);
+        gc.setFill(Color.CHARTREUSE);
         gc.fillRect(x-20,y-20 , 40 , 40);
 
     }

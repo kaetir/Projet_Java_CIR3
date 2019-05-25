@@ -115,6 +115,56 @@ public class View implements Initializable {
             System.err.println("File not found " + e);
         }
 
+
+        pane_canvas.setOnMouseClicked(mouseEvent -> {
+            //System.out.println(mouseEvent.toString());
+            if(mouseEvent.getButton() == MouseButton.MIDDLE){
+                translateX = 0.;
+                translateY = 0.;
+                Drawing_Canvas.setTranslateX(translateX);
+                Drawing_Canvas.setTranslateY(translateY);
+            }else if(mouseEvent.getButton() == MouseButton.SECONDARY){
+                mouseX = mouseEvent.getX() ;
+                mouseY = mouseEvent.getY() ;
+            }
+
+        });
+
+        pane_canvas.setOnMouseDragged(mouseEvent -> {
+            if(mouseEvent.getButton() == MouseButton.SECONDARY){
+                Drawing_Canvas.setTranslateX( (mouseX - mouseEvent.getX()));
+                Drawing_Canvas.setTranslateY( (mouseY - mouseEvent.getY()));
+            }
+        });
+
+        pane_canvas.setOnMouseReleased(mouseEvent -> {
+            if(mouseEvent.getButton() == MouseButton.SECONDARY) {
+                translateX += (mouseX - mouseEvent.getX());
+                translateY += (mouseY - mouseEvent.getY());
+            }
+        });
+
+
+        pane_canvas.setOnScroll(scrollEvent -> {
+            scale += scrollEvent.getDeltaY()/200;
+            scale = (scale > 0.3)? (scale > 10)? 10 : scale : 0.3;
+            Drawing_Canvas.setScaleX(scale);
+            Drawing_Canvas.setScaleY(scale);
+            System.out.println("=== Zoom ===");
+            System.out.println("zoom " + scrollEvent.getDeltaY()/200);
+            System.out.println("scale :" + scale);
+            /*if(scrollEvent.getDeltaY() > 0){
+                translateX = Drawing_Canvas.getLayoutX() + scrollEvent.getX()/10;
+                translateY = Drawing_Canvas.getLayoutY() + scrollEvent.getY()/10;
+            }else{
+                translateX += scrollEvent.getX()/10;
+                translateY += scrollEvent.getY()/10;
+            }
+            Drawing_Canvas.setTranslateX(translateX);
+            Drawing_Canvas.setTranslateY(translateY);
+            */
+        });
+
     }
 
     @FXML
@@ -142,52 +192,6 @@ public class View implements Initializable {
 
         });
 
-        pane_canvas.setOnMouseClicked(mouseEvent -> {
-            //System.out.println(mouseEvent.toString());
-            if(mouseEvent.getButton() == MouseButton.MIDDLE){
-                translateX = 0.;
-                translateY = 0.;
-                Drawing_Canvas.setTranslateX(translateX);
-                Drawing_Canvas.setTranslateY(translateY);
-                System.out.println("translate : x=" + translateX + " y=" + translateY);
-            }else if(mouseEvent.getButton() == MouseButton.SECONDARY){
-                mouseX = mouseEvent.getX() ;
-                mouseY = mouseEvent.getY() ;
-            }
-
-        });
-
-        pane_canvas.setOnMouseDragged(mouseEvent -> {
-            if(mouseEvent.getButton() == MouseButton.SECONDARY){
-                Drawing_Canvas.setTranslateX(translateX + mouseX - mouseEvent.getX());
-                Drawing_Canvas.setTranslateY(translateY + mouseY - mouseEvent.getY());
-            }
-        });
-
-
-
-        pane_canvas.setOnScroll(scrollEvent -> {
-            scale += scrollEvent.getDeltaY()/200;
-            scale = (scale > 0.1)? (scale > 10)? 10 : scale : 0.1;
-            Drawing_Canvas.setScaleX(scale);
-            Drawing_Canvas.setScaleY(scale);
-            System.out.println("=== Zoom ===");
-            System.out.println("zoom " + scrollEvent.getDeltaY()/200);
-            System.out.println("scale :" + scale);
-            if(scrollEvent.getDeltaY() > 0){
-                translateX = Drawing_Canvas.getLayoutX() + scrollEvent.getX()/10;
-                translateY = Drawing_Canvas.getLayoutY() + scrollEvent.getY()/10;
-            }else{
-                translateX += scrollEvent.getX()/10;
-                translateY += scrollEvent.getY()/10;
-
-            }
-
-            Drawing_Canvas.setTranslateX(translateX);
-            Drawing_Canvas.setTranslateY(translateY);
-            System.out.println("translate : x=" + translateX + " y=" + translateY);
-        });
-
     }
 
 
@@ -196,39 +200,32 @@ public class View implements Initializable {
 
         gc.setFill(Color.RED);
 
-        Drawing_Canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
+        Drawing_Canvas.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getButton() == MouseButton.PRIMARY)
                 DrawCity((int)mouseEvent.getX(), (int)mouseEvent.getY());
-            }
         });
 
     }
 
     @FXML
-    public void run() throws InterruptedException {
+    public void run() {
 
         try{
-
-        File audioFile = new File("run.wav");
-
-        final AudioClip clip = new AudioClip(audioFile.toURI().toString());
-
-        clip.play();
-
+            File audioFile = new File("run.wav");
+            final AudioClip clip = new AudioClip(audioFile.toURI().toString());
+            clip.play();
+            Thread.sleep(1000);
 
         }catch (Exception e){
-            System.err.println(e);
+            System.err.println("An error occur during the file loading");
         }
 
-        Thread t = new Thread(new Runnable(){
-            @Override
-            public void run() {
-                try{
-                    conTroller.run();
-                }catch (InterruptedException e){
-                    System.err.println(e);
-                }
+
+        Thread t = new Thread(() -> {
+            try{
+                conTroller.run();
+            }catch (InterruptedException e){
+                System.err.println("Stopped by user");
             }
         });
 
@@ -278,11 +275,11 @@ public class View implements Initializable {
                 System.out.println(end);
                 if(end != null){
                     if(start != end) {
-                        // ploting
+                        // plotting
                         dr.addDot(end.getX(), end.getY());
 
                         displayRoads.add(dr);
-                        // Call controlleur for adding city
+                        // Call controller for adding city
                         try {
                             conTroller.createRoad(dr, start.getId(), end.getId());
                         }catch (RoadCreationException e){
@@ -309,7 +306,7 @@ public class View implements Initializable {
         if(colideCity(x,y) == null){
             DisplayCity tmp = new DisplayCity(x,y);
             displayCities.add(tmp);
-            // send to controlleur
+            // send to controller
             conTroller.createCity(tmp);
             tmp.Draw();
         }
@@ -358,6 +355,10 @@ public class View implements Initializable {
 
     @FXML
     public void reset(){
+
+
+        conTroller.clear_Model();
+
         displayVehicles.clear();
         displayIntersections.clear();
         displayRoads.clear();
@@ -373,9 +374,10 @@ public class View implements Initializable {
         Drawing_Canvas.setTranslateX(translateX);
         Drawing_Canvas.setTranslateY(translateY);
 
+        System.out.println("*** view is cleared***");
         refresh();
-        conTroller.clear_Model();
 
+        System.out.println("*** Cleaned ***");
     }
 
 

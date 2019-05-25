@@ -171,7 +171,7 @@ public class DisplayRoad implements Displayable {
                         countIn = 0;
                     }
                     // 3 point following each other
-                    if (countIn >= 3){
+                    if (countIn >= road.nbVoies*largeur/2){
                         System.out.println("Intersection detected");
                         toReturn.add(new Pair<Double,Double>(rDots.elementAt(i).getKey()+Math.cos(angle)*j, rDots.elementAt(i).getValue()+Math.sin(angle)*j));
                         // exit the road we are crossing
