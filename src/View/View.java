@@ -253,6 +253,7 @@ public class View implements Initializable {
                         displayRoads.add(dr);
                         // Call controller for adding city
                         conTroller.createRoad(dr, start.getId(), end.getId());
+
                         start = null ;
                         end = null;
                         dr = new DisplayRoad();
