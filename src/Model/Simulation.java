@@ -202,33 +202,71 @@ public abstract class Simulation {
     private static double calculAcc(Vehicule v, Road r){
 
         double acc = 0;   //Coefficient d'accélération
+        double coeff = 1;
 
-        System.out.println("Speed of this " + v.getType() + " : " + v.getCurrentSpeed());
-        if(isThereACityNear(v, r) || isThereAnIntersecNear(v, r)){
+        System.out.println("+Speed of this " + v.getType() + " : " + v.getCurrentSpeed());
+        System.out.println(isThereAnIntersecNearInFront(v, r));
+        if(isThereACityNear(v, r) || isThereAnIntersecNearInFront(v, r).getValue()){
+            if(isThereAnIntersecNearInFront(v, r).getValue()){
+                System.out.println("Intersection detected : incomming");
+                if(isThereAnIntersecNearInFront(v, r).getKey().isOpen(v, r)) {
+                    return 40;
+                } else {
+                    return 0;
+                }
+            }
             acc = -0.5;
             if(r.getNbWay() == 3) acc = -1;
             if((v.getCurrentSpeed() + acc) <= 0) return 20;
             else return (v.getCurrentSpeed() + acc);
         }
 
-        if(r.getNbWay() == 1) acc = 0.5;
-        if(r.getNbWay() == 2) acc = 1;
-        if(r.getNbWay() == 3) acc = 2;
+        if(isThereAnIntersecNearBehind(v, r).getValue()) {
+            System.out.println("Intersection detected : leaving");
+            coeff = 40;
+        }
+        if(r.getNbWay() == 1) acc = 0.5*coeff;
+        if(r.getNbWay() == 2) acc = 1*coeff;
+        if(r.getNbWay() == 3) acc = 2*coeff;
 
         if((v.getCurrentSpeed() + acc) <= v.getMaxSpeed() && (v.getCurrentSpeed() + acc) <= r.getSpeedLimit()) return (v.getCurrentSpeed() + acc);
         else return r.getSpeedLimit();
     }
 
-    private static boolean isThereAnIntersecNear(Vehicule v, Road r){
+    private static Pair<Intersection, Boolean> isThereAnIntersecNearBehind(Vehicule v, Road r){
+        System.out.println("        behind");
+        return isThereAnIntersecNear(v, r, true);
+    }
+
+    private static Pair<Intersection, Boolean> isThereAnIntersecNearInFront(Vehicule v, Road r){
+        System.out.println("        front");
+        return isThereAnIntersecNear(v, r, false);
+    }
+
+    private static Pair<Intersection, Boolean> isThereAnIntersecNear(Vehicule v, Road r, boolean i){
         double dist;
         double dist2;
+        Pair<Intersection, Boolean> retour;
         for(Intersection in : Model.getIntersex()){
             if(in.getA().equals(r) || in.getB().equals(r)){
                 dist = Math.sqrt(Math.pow((in.getX() - v.getX()), 2) + Math.pow((in.getY() - v.getY()), 2));
-                dist2 = Math.sqrt(Math.pow((in.getX() - v.getDestination().getX()), 2) + Math.pow((in.getY() - v.getDestination().getY()), 2));
-                if (whatToSend(r, dist) && (dist > dist2)) return true;
+                System.out.println("    approaching intersection distant of " + dist);
+                dist2 = Math.sqrt(Math.pow((v.getX() - v.getDestination().getX()), 2) + Math.pow((v.getY() - v.getDestination().getY()), 2));
+                if(i){
+                    retour = new Pair<>(in, true);
+                    if (whatToSendInter(dist) && (dist > dist2)) return retour;
+                } else {
+                    retour = new Pair<>(in, true);
+                    if (whatToSendInter(dist) && (dist < dist2)) return retour;
+                }
             }
         }
+        retour = new Pair<>(null, false);
+        return retour;
+    }
+
+    private static boolean whatToSendInter(double dist) {
+        if(dist < 25) return true;
         return false;
     }
 

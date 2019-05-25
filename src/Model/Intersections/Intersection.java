@@ -20,21 +20,22 @@ public class Intersection {
 
     public boolean isOpen(Vehicule v, Road r){
         if(r.equals(a) || r.equals(b)){
-            if(a.getNbWay() > b.getNbWay())         return this.letPass(a);
-            else if(b.getNbWay() > a.getNbWay())    return this.letPass(b);
-            else if(a.getNbWay() == b.getNbWay()) ;      //priorité à droite
+            if(a.getNbWay() > b.getNbWay())         return this.letPass(a, v);
+            else if(b.getNbWay() > a.getNbWay())    return this.letPass(b, v);
+            else if(a.getNbWay() == b.getNbWay()) return this.letPass(a, v);
         }
         return false;
     }
 
-    private boolean letPass(Road a){
-        double sizeIntersec = 20;
-        for(Vehicule v : a.getVehicules()){
-            if(v.getX() >= (this.x - sizeIntersec/2) && v.getX() <= (this.x + sizeIntersec/2)) {
-                return false;
-            } else {
-                if(v.getY() >= (this.y - sizeIntersec/2) && v.getY() <= (this.y + sizeIntersec/2)){
-                    return false;
+    private boolean letPass(Road a, Vehicule vehicule) {
+        double sizeIntersec = 10;
+        for (Vehicule v : a.getVehicules()) {
+            if(!(vehicule.equals(v))){
+                if (v.getX() >= (this.x - sizeIntersec) && v.getX() <= (this.x + sizeIntersec)) {
+                    if (v.getY() >= (this.y - sizeIntersec) && v.getY() <= (this.y + sizeIntersec)) {
+                        System.out.println("Something is rolling on the intersection");
+                        return false;
+                    }
                 }
             }
         }
