@@ -18,16 +18,18 @@ import static View.View.motorBike;
 public class DisplayVehicle implements Displayable , Initializable {
 
     private double x,y, lastx, lasty;
+    private int way;
     private Vehicule.type vasistas; // what is that allemand
 
 
     //constructor
-    public DisplayVehicle(double x, double y, double lastx, double lasty, Vehicule.type vasistas) {
+    public DisplayVehicle(double x, double y, double lastx, double lasty, Vehicule.type vasistas, int way) {
         this.x = x;
         this.y = y;
         this.lastx = lastx;
         this.lasty = lasty;
         this.vasistas = vasistas;
+        this.way = way;
     }
 
     public double getX() {
@@ -85,11 +87,11 @@ public class DisplayVehicle implements Displayable , Initializable {
                 break;
 
             case truck:
-                drawRotatedImage(gc, truck, angle ,x+car.getWidth()/2,y);
+                drawRotatedImage(gc, truck, angle ,x+truck.getWidth()/2,y);
                 break;
 
             case motorBike:
-                drawRotatedImage(gc, motorBike, angle ,x+car.getWidth()/2,y);
+                drawRotatedImage(gc, motorBike, angle ,x+motorBike.getWidth()/2,y);
                 break;
         }
 
