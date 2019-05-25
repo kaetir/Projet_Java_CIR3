@@ -39,11 +39,6 @@ abstract public class Road {
         vehicules.add(v);
     }
 
-    //Ajout d'un véhicule à la liste de ceux circulant sur la route
-    public void addIntersec(Intersection inter){
-        intersex.add(inter);
-    }
-
     //Affichage de tous les vehicules circulant sur la route
     public void printVehicules(){
         System.out.println("Vehicules on this " + name + " : ");
