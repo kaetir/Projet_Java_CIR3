@@ -15,6 +15,7 @@ public class Intersection {
         this.y = y;
         this.a = a;
         this.b = b;
+        System.out.println("Intersection created at (" + x + ", " + y + ") between " + a.getName() + " and " + b.getName());
     }
 
     public boolean isOpen(Vehicule v, Road r){
