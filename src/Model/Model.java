@@ -54,6 +54,7 @@ public abstract class Model {
 
     //Renvoie la liste de toutes les routes de la map
     public static Vector<Road> getRoads() {
+        Vector<Road> roads1 = (Vector<Road>) roads.clone();
         return roads;
     }
 
