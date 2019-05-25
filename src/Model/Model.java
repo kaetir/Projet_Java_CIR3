@@ -88,7 +88,8 @@ public abstract class Model {
 
     //Renvoie la liste de toutes les intersections présentes sur la map
     public static Vector<Intersection> getIntersex() {
-        return intersex;
+        Vector<Intersection> intersections = (Vector<Intersection>) intersex.clone();
+        return intersections;
     }
 
     //Renvoie la ville de la liste de toutes les villes présentes sur la map dont l'index est passé en paramètre
