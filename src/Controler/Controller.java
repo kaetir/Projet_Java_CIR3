@@ -37,8 +37,13 @@ public class Controller {
 
                 for (Road r : roads ) {
                     for (int i = 0; i < (int)(Math.random() *10 +1 ); i++) {
+                        if(i%2 == 0){
                         r.getCityA().add( Model.createVehicule((i%3 > 1)? Vehicule.type.car : (i%3 == 0)? Vehicule.type.motorBike :Vehicule.type.truck ,
                                  r.getCityB().getId()));
+                        }else {
+                        r.getCityB().add( Model.createVehicule((i%3 > 1)? Vehicule.type.car : (i%3 == 0)? Vehicule.type.motorBike :Vehicule.type.truck ,
+                                 r.getCityA().getId()));
+                        }
                     }
                 }
 
@@ -125,7 +130,7 @@ public class Controller {
         Vector<DisplayVehicle> vehicles2 = new Vector<>();
 
         for (Vehicule elt: vehicles) {
-            vehicles2.add(new DisplayVehicle(elt.getX(), elt.getY(), elt.getOldX(), elt.getOldY(), elt.getType()));
+            vehicles2.add(new DisplayVehicle(elt.getX(), elt.getY(), elt.getOldX(), elt.getOldY(), elt.getType(), elt.getWay()));
         }
 
         return vehicles2;
