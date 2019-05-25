@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Intersections.Intersection;
 import Model.Roads.*;
 import Model.Roads.Exception.RoadCreationException;
 import Model.Vehicules.Vehicule;
@@ -14,6 +15,7 @@ public abstract class Model {
     private static Vector<City> cities = new Vector<>();        //Liste de toutes les villes
     private static Vector<Road> roads = new Vector<>();         //Liste de toutes les routes
     private static Vector<Vehicule> vehicules = new Vector<>(); //Liste de tous les véhicules
+    private static Vector<Intersection> intersex = new Vector<>(); //Liste de toute les intersex
 
     //Séparateur pour le println()
     private static String newLine = System.getProperty("line.separator");
@@ -43,14 +45,14 @@ public abstract class Model {
         return v;
     }
 
+    public static void addIntersec(double x, double y, Road a, Road b){
+        Intersection in = new Intersection(x, y, a, b);
+        intersex.add(in);
+    }
+
     //Renvoie la liste de toutes les routes de la map
     public static Vector<Road> getRoads() {
         return roads;
-    }
-
-    //Renvoie la route de la liste de toutes les routes de la map dont l'index est passé en paramètre
-    public static Road getRoad(int index){
-        return roads.get(index);
     }
 
     //Renvoie la liste de toutes les routes se rattachant à une ville passée en paramètre
@@ -82,6 +84,11 @@ public abstract class Model {
         return cities;
     }
 
+    //Renvoie la liste de toutes les intersections présentes sur la map
+    public static Vector<Intersection> getIntersex() {
+        return intersex;
+    }
+
     //Renvoie la ville de la liste de toutes les villes présentes sur la map dont l'index est passé en paramètre
     public static City getCity(int index){
         return cities.get(index);
@@ -110,5 +117,4 @@ public abstract class Model {
         System.out.println("Vehicules in map cleared");
         vehicules.removeAllElements();
     }
-
 }

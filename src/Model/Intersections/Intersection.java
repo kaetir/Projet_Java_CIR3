@@ -3,7 +3,7 @@ package Model.Intersections;
 import Model.Roads.Road;
 import Model.Vehicules.Vehicule;
 
-abstract public class Intersection {
+public class Intersection {
 
     private final double x;
     private final double y;

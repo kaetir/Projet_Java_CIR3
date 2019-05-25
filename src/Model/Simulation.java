@@ -1,10 +1,10 @@
 package Model;
 
+import Model.Intersections.Intersection;
 import Model.Roads.Road;
 import Model.Vehicules.Vehicule;
 import javafx.util.Pair;
 
-import java.security.KeyStoreSpi;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -201,22 +201,42 @@ public abstract class Simulation {
 
     private static double calculAcc(Vehicule v, Road r){
 
-        double acc;   //Coefficient d'accélération
+        double acc = 0;   //Coefficient d'accélération
 
         System.out.println("Speed of this " + v.getType() + " : " + v.getCurrentSpeed());
-        if(isThereACityNear(v, r)){
+        if(isThereACityNear(v, r) || isThereAnIntersecNear(v, r)){
             acc = -0.5;
             if(r.getNbWay() == 3) acc = -1;
             if((v.getCurrentSpeed() + acc) <= 0) return 20;
             else return (v.getCurrentSpeed() + acc);
         }
 
-        acc = 0.5;
+        if(r.getNbWay() == 1) acc = 0.5;
         if(r.getNbWay() == 2) acc = 1;
         if(r.getNbWay() == 3) acc = 2;
 
         if((v.getCurrentSpeed() + acc) <= v.getMaxSpeed() && (v.getCurrentSpeed() + acc) <= r.getSpeedLimit()) return (v.getCurrentSpeed() + acc);
         else return r.getSpeedLimit();
+    }
+
+    private static boolean isThereAnIntersecNear(Vehicule v, Road r){
+        double dist;
+        double dist2;
+        for(Intersection in : Model.getIntersex()){
+            if(in.getA().equals(r) || in.getB().equals(r)){
+                dist = Math.sqrt(Math.pow((in.getX() - v.getX()), 2) + Math.pow((in.getY() - v.getY()), 2));
+                dist2 = Math.sqrt(Math.pow((in.getX() - v.getDestination().getX()), 2) + Math.pow((in.getY() - v.getDestination().getY()), 2));
+                if (whatToSend(r, dist) && (dist > dist2)) return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean whatToSend(Road r, double dist) {
+        if(r.getNbWay() == 1 && dist < 130) return true;
+        if(r.getNbWay() == 2 && dist < 170) return true;
+        if(r.getNbWay() == 3 && dist < 190) return true;
+        return false;
     }
 
     private static boolean isThereACityNear(Vehicule v, Road r){
@@ -225,10 +245,8 @@ public abstract class Simulation {
         dist = Math.sqrt(Math.pow((v.getDestination().getX() - v.getX()), 2) + Math.pow((v.getDestination().getY() - v.getY()), 2));
         System.out.println("    approaching destination distant of " + dist);
 
-        if(r.getNbWay() == 1 && dist < 130) return true;
-        if(r.getNbWay() == 2 && dist < 170) return true;
-        if(r.getNbWay() == 3 && dist < 190) return true;
-        
+        if (whatToSend(r, dist)) return true;
+
         return false;
     }
 
