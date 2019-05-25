@@ -6,6 +6,7 @@ import View.Displayable.DisplayCity;
 import View.Displayable.DisplayIntersection;
 import View.Displayable.DisplayRoad;
 import View.Displayable.DisplayVehicle;
+import com.sun.org.apache.bcel.internal.generic.DREM;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +14,9 @@ import javafx.scene.canvas.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
@@ -29,6 +32,7 @@ import static javafx.scene.input.KeyCode.*;
 
 
 public class View implements Initializable {
+
     @FXML public Canvas Drawing_Canvas;
     public static GraphicsContext gc;
 
@@ -86,9 +90,12 @@ public class View implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Drawing_Canvas.setWidth(Drawing_Canvas.getWidth()+50);
+        Drawing_Canvas.setHeight(Drawing_Canvas.getHeight()+100);
+
         gc = Drawing_Canvas.getGraphicsContext2D();
         System.out.println("Graphic context: " + gc);
-        gc.setFill(Color.PINK);
+        gc.setFill(Color.LIGHTGREY);
         gc.fillRect(0,0 ,Drawing_Canvas.getWidth(), Drawing_Canvas.getHeight());
         // controller available in initialize method
         System.out.println("Table controller: " + CityEditController);
@@ -121,22 +128,41 @@ public class View implements Initializable {
     public void buttonSelection(){
 
         Drawing_Canvas.setOnMouseClicked(mouseEvent -> {
-            double x = mouseEvent.getX();
-            double y = mouseEvent.getY();
-            if(colideCity(x, y) != null ){
-                System.out.println("x:" + x + "  y:" + y + " isIn : " + colideCity(x, y));
+            System.out.println(mouseEvent.toString());
+            if(mouseEvent.getButton() == MouseButton.PRIMARY){
+                double x = mouseEvent.getX();
+                double y = mouseEvent.getY();
+                if(colideCity(x, y) != null ){
+                    System.out.println("x:" + x + "  y:" + y + " isIn : " + colideCity(x, y));
+                }
+                getDisplayRoads().forEach(displayRoad -> {if (displayRoad.isIn(x, y)) System.out.println("route en x: " + x +" y: "+ y ); });
+            }else if(mouseEvent.getButton() == MouseButton.MIDDLE){
+                translateX = Drawing_Canvas.getWidth()/2;
+                translateY = Drawing_Canvas.getHeight()/2;
+                Drawing_Canvas.setTranslateX(translateX);
+                Drawing_Canvas.setTranslateY(translateY);
             }
-            getDisplayRoads().forEach(displayRoad -> {if (displayRoad.isIn(x, y)) System.out.println("route en x: " + x +" y: "+ y ); });
 
         });
 
+
         Drawing_Canvas.setOnScroll(scrollEvent -> {
-            System.out.println("zoom " + scrollEvent.getDeltaY());
-            scale += scrollEvent.getDeltaY()/100;
+            scale += scrollEvent.getDeltaY()/200;
+            scale = (scale > 0.1)? (scale > 10)? 10 : scale : 0.1;
             Drawing_Canvas.setScaleX(scale);
             Drawing_Canvas.setScaleY(scale);
-            translateX += (scrollEvent.getX()-Drawing_Canvas.getWidth()/2)/4;
-            translateY += (scrollEvent.getY()-Drawing_Canvas.getHeight()/2)/4;
+            System.out.println("=== Zoom ===");
+            System.out.println("zoom " + scrollEvent.getDeltaY()/200);
+            System.out.println("scale :" + scale);
+            if(scrollEvent.getDeltaY() > 0){
+                translateX -= (scrollEvent.getX()-Drawing_Canvas.getWidth()/2)/10;
+                translateY -= (scrollEvent.getY()-Drawing_Canvas.getHeight()/2)/10;
+            }else{
+                translateX += (scrollEvent.getX()-Drawing_Canvas.getWidth()/2)/10;
+                translateY += (scrollEvent.getY()-Drawing_Canvas.getHeight()/2)/10;
+
+            }
+
             Drawing_Canvas.setTranslateX(translateX);
             Drawing_Canvas.setTranslateY(translateY);
         });
@@ -283,7 +309,7 @@ public class View implements Initializable {
         // debug message
         System.out.println("refresh : view");
 
-
+        gc.setFill(Color.LIGHTGREY);
         gc.clearRect(0,0,Drawing_Canvas.getWidth(), Drawing_Canvas.getHeight());
 
 

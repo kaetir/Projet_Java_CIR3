@@ -103,11 +103,11 @@
                                                 </VBox>
                                        </children>
                                     </AnchorPane>
-                                    <Pane prefHeight="200.0" prefWidth="200.0">
+                                    <Pane fx:id="pane_canvas">
                                        <children>
                                           <AnchorPane layoutY="2.0">
                                              <children>
-                                                      <Canvas fx:id="Drawing_Canvas" height="758.0" layoutX="-688.0" layoutY="41.0" width="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                      <Canvas fx:id="Drawing_Canvas" height="765.0" width="1001.0">
                                                           <effect>
                                                               <DisplacementMap>
                                                                   <mapData>
