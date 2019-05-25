@@ -1,6 +1,7 @@
 package Controler;
 
 import Model.Roads.Exception.RoadCreationException;
+import Model.Roads.Road;
 import Model.Vehicules.Vehicule;
 import View.Displayable.DisplayCity;
 import View.Displayable.DisplayRoad;
@@ -55,13 +56,18 @@ public class Controller {
     //Create a new road on the grid
     public void createRoad(DisplayRoad road, int id1, int id2) throws RoadCreationException{
 
-        Model.createRoad(road.getNbVoies(), Model.getCity(id1) , Model.getCity(id2), road.getDots());
+        Road route = Model.createRoad(road.getNbVoies(), Model.getCity(id1) , Model.getCity(id2), road.getDots());
+        Vector<DisplayRoad> dr = view.getDisplayRoads();
+        int i =0;
+        for(Road r: Model.getRoads()){
+            Vector<Pair<Double, Double>> v = road.colide(dr.elementAt(i));
+            v.forEach(pos -> {if(view.colideCity(pos.getKey(), pos.getValue()) == null){
+                view.addIntersection(pos.getKey(), pos.getValue());
+                Model.createIntersec(pos.getKey(), pos.getValue(), route, r);
+            }
 
-        for (DisplayRoad dr: view.getDisplayRoads() ) {
-            Vector<Pair<Double, Double>> v = road.colide(dr);
-            v.forEach(pos -> {if(view.colideCity(pos.getKey(), pos.getValue()) == null)
-                                view.addIntersection(pos.getKey(), pos.getValue());
-                             });
+            });
+            i++;
         }
     }
 
