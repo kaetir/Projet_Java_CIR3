@@ -4,7 +4,6 @@ package View.Displayable;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
-import java.util.NoSuchElementException;
 import java.util.Vector;
 
 
@@ -23,10 +22,6 @@ public class DisplayRoad implements Displayable {
 
     public Vector<Pair<Double, Double>> getDots() {
         return Dots;
-    }
-
-    public void setDots(Vector<Pair<Double, Double>> dots) {
-        Dots = dots;
     }
 
     public int getNbVoies() {
@@ -141,15 +136,13 @@ public class DisplayRoad implements Displayable {
         return false;
     }
 
-    protected double length(Pair<Double, Double> p1, Pair<Double, Double> p2){
+    private double length(Pair<Double, Double> p1, Pair<Double, Double> p2){
         return Math.sqrt(Math.pow(p1.getKey()-p2.getKey(), 2) + Math.pow(p1.getValue()-p2.getValue(), 2) );
     }
 
     public Vector<Pair<Double, Double>> colide(DisplayRoad road) {
         Vector<Pair<Double, Double>> toReturn = new Vector<>();
-        if(this == road ) {
-            ;;
-        }else{
+        if (this != road) {
 
             // we need at least 3 point in the cross to certify.
             int countIn = 0;
@@ -173,7 +166,7 @@ public class DisplayRoad implements Displayable {
                     // 3 point following each other
                     if (countIn >= road.nbVoies*largeur/2){
                         System.out.println("Intersection detected");
-                        toReturn.add(new Pair<Double,Double>(rDots.elementAt(i).getKey()+Math.cos(angle)*j, rDots.elementAt(i).getValue()+Math.sin(angle)*j));
+                        toReturn.add(new Pair<>(rDots.elementAt(i).getKey() + Math.cos(angle) * j, rDots.elementAt(i).getValue() + Math.sin(angle) * j));
                         // exit the road we are crossing
                         while (isIn(rDots.elementAt(i).getKey()+Math.cos(angle)*j, rDots.elementAt(i).getValue()+Math.sin(angle)*j)) j++;
                         countIn = 0;

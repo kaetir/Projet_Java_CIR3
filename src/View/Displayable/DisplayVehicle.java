@@ -30,22 +30,6 @@ public class DisplayVehicle implements Displayable , Initializable {
         this.vasistas = vasistas;
     }
 
-    public double getLastx() {
-        return lastx;
-    }
-
-    public void setLastx(double lastx) {
-        this.lastx = lastx;
-    }
-
-    public double getLasty() {
-        return lasty;
-    }
-
-    public void setLasty(double lasty) {
-        this.lasty = lasty;
-    }
-
     public double getX() {
         return x;
     }
@@ -62,20 +46,11 @@ public class DisplayVehicle implements Displayable , Initializable {
         this.y = y;
     }
 
-    public Vehicule.type getVasistas() {
-        return vasistas;
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
-    public enum type {car, truck , motorBike};
-
-    public void setVasistas(Vehicule.type vasistas) {
-        this.vasistas = vasistas;
-    }
 
     //get colision between a point and a Vehicule
     @Override
@@ -118,5 +93,5 @@ public class DisplayVehicle implements Displayable , Initializable {
                 break;
         }
 
-    };
+    }
 }

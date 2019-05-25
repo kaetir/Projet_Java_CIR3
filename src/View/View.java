@@ -1,13 +1,12 @@
 package View;
 
+import javafx.event.EventHandler;
 import Controler.Controller;
 import Model.Roads.Exception.RoadCreationException;
 import View.Displayable.DisplayCity;
 import View.Displayable.DisplayIntersection;
 import View.Displayable.DisplayRoad;
 import View.Displayable.DisplayVehicle;
-import com.sun.org.apache.bcel.internal.generic.DREM;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.*;
@@ -20,10 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
-import java.awt.geom.Point2D;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -53,42 +49,18 @@ public class View implements Initializable {
     private Controller conTroller;
 
 
-    public Vector<DisplayCity> displayCities = new Vector<>();
+    private Vector<DisplayCity> displayCities = new Vector<>();
     private Vector<DisplayRoad> displayRoads = new Vector<>();
     private Vector<DisplayVehicle> displayVehicles = new Vector<>();
     private Vector<DisplayIntersection> displayIntersections = new Vector<>();
 
 
-    public Vector<DisplayCity> getDisplayCities() {
-        return displayCities;
-    }
-
-    public void setDisplayCities(Vector<DisplayCity> displayCities) {
-        this.displayCities = displayCities;
-    }
-
     public Vector<DisplayRoad> getDisplayRoads() {
         return displayRoads;
     }
 
-    public void setDisplayRoads(Vector<DisplayRoad> displayRoads) {
-        this.displayRoads = displayRoads;
-    }
-
-    public Vector<DisplayVehicle> getDisplayVehicles() {
-        return displayVehicles;
-    }
-
     public void setDisplayVehicles(Vector<DisplayVehicle> displayVehicles) {
         this.displayVehicles = displayVehicles;
-    }
-
-    public Vector<DisplayIntersection> getDisplayIntersections() {
-        return displayIntersections;
-    }
-
-    public void setDisplayIntersections(Vector<DisplayIntersection> displayIntersections) {
-        this.displayIntersections = displayIntersections;
     }
 
     @Override
@@ -108,12 +80,13 @@ public class View implements Initializable {
         translateY = 0.;
         refresh();
         try {
-            car = new Image(new FileInputStream("car.png"));
-            motorBike = new Image(new FileInputStream("motorbike.png"));
-            truck = new Image(new FileInputStream("truck.png"));
-        }catch (FileNotFoundException e){
-            System.err.println("File not found " + e);
+            car = new Image(getClass().getResource("car.png").toString());
+            motorBike = new Image(getClass().getResource("motorbike.png").toString());
+            truck = new Image(getClass().getResource("truck.png").toString());
+        }catch (Exception e){
+            System.err.println(e.toString());
         }
+
 
 
         pane_canvas.setOnMouseClicked(mouseEvent -> {
@@ -211,8 +184,7 @@ public class View implements Initializable {
     public void run() {
 
         try{
-            File audioFile = new File("run.wav");
-            final AudioClip clip = new AudioClip(audioFile.toURI().toString());
+            final AudioClip clip = new AudioClip(getClass().getResource("run.wav").toString());
             clip.play();
             Thread.sleep(1000);
 
@@ -283,7 +255,7 @@ public class View implements Initializable {
                         try {
                             conTroller.createRoad(dr, start.getId(), end.getId());
                         }catch (RoadCreationException e){
-                            System.err.println(e);
+                            System.err.println(e.toString());
                         }
                         start = null ;
                         end = null;
@@ -302,7 +274,7 @@ public class View implements Initializable {
 
     @FXML
     // addVehicule a city
-    public void DrawCity(int x, int y){
+    private void DrawCity(int x, int y){
         if(colideCity(x,y) == null){
             DisplayCity tmp = new DisplayCity(x,y);
             displayCities.add(tmp);
@@ -314,7 +286,7 @@ public class View implements Initializable {
     }
 
     // edit a city
-    public void EditCity(int id, double x, double y, double size,String name){
+    void EditCity(int id, double x, double y, double size, String name){
         displayCities.elementAt(id).setX(x);
         displayCities.elementAt(id).setY(y);
         displayCities.elementAt(id).setSize(size);
@@ -333,8 +305,8 @@ public class View implements Initializable {
         // redrawing saved elements
         displayIntersections.forEach(DisplayIntersection::Draw);
         displayRoads.forEach(        DisplayRoad::Draw);
-        displayCities.forEach(       DisplayCity::Draw);
         displayVehicles.forEach(     DisplayVehicle::Draw);
+        displayCities.forEach(       DisplayCity::Draw);
 
 
         // refresh city edit

@@ -25,6 +25,7 @@ public class DisplayCity implements Displayable {
 
         gc.setFont(Font.font("Deja vu"));
         gc.setTextAlign(TextAlignment.CENTER);
+        gc.setStroke(Color.BLACK);
         gc.setTextBaseline(VPos.CENTER);
         gc.strokeText(name, x, y- size /2-10);
     }
@@ -78,10 +79,6 @@ public class DisplayCity implements Displayable {
 
     public void setSize(double size) {
         this.size = size;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setName(String name) {

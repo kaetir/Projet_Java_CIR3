@@ -8,11 +8,10 @@ import View.Displayable.DisplayRoad;
 import View.Displayable.DisplayVehicle;
 import View.View;
 import Model.Model;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import javafx.util.Pair;
 import Model.Simulation;
 
-import java.io.Console;
-import java.util.NoSuchElementException;
 import java.util.Vector;
 
 public class Controller {
@@ -31,19 +30,37 @@ public class Controller {
 
     //Run the simulation
     public void run() throws InterruptedException{
-        createVehicle(Vehicule.type.car,0, 1);
-        createVehicle(Vehicule.type.car,0, 1);
-        createVehicle(Vehicule.type.truck,3, 2);
-        createVehicle(Vehicule.type.truck,3, 2);
 
-        while (!(Simulation.isFinish())){
+        Thread Genauto = new Thread(() -> {
+            Vector<Road> roads = Model.getRoads();
+            for (int J = 0; J < 20; J++) {
+
+                for (Road r : roads ) {
+                    for (int i = 0; i < (int)(Math.random() *10 +1 ); i++) {
+                        r.getCityA().add( Model.createVehicule((i%3 > 1)? Vehicule.type.car : (i%3 == 0)? Vehicule.type.motorBike :Vehicule.type.truck ,
+                                 r.getCityB().getId()));
+                    }
+                }
+
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Genauto.start();
+
+        //while (!(Simulation.isFinish())){
+        while (true){
             Model.start();
             this.view.setDisplayVehicles(getVehicles());
             view.refresh();
             Thread.sleep(25);
-        }
+        }/*
         this.view.setDisplayVehicles(getVehicles());
-        view.refresh();
+        view.refresh();*/
     }
 
     //Create a new city on the grid
@@ -53,7 +70,7 @@ public class Controller {
 
 
     //Create a new road on the grid
-    public void createRoad(DisplayRoad road, int id1, int id2) throws RoadCreationException{
+    public void createRoad(DisplayRoad road, int id1, int id2) {
 
         Road route = Model.createRoad(road.getNbVoies(), Model.getCity(id1) , Model.getCity(id2), road.getDots());
         Vector<DisplayRoad> dr = view.getDisplayRoads();
@@ -71,7 +88,7 @@ public class Controller {
     }
 
     //Create a new Vehicule
-    public void createVehicle(Vehicule.type vehicle, int id, int destination) {
+    private void createVehicle(Vehicule.type vehicle, int id, int destination) {
         Vehicule vehicle2;
 
         if( vehicle.equals(Vehicule.type.truck) ){
@@ -103,7 +120,7 @@ public class Controller {
     }
 
     //Get the vehicules List
-    public Vector<DisplayVehicle> getVehicles(){
+    private Vector<DisplayVehicle> getVehicles(){
         Vector<Vehicule> vehicles = Model.getVehicules();
         Vector<DisplayVehicle> vehicles2 = new Vector<>();
 

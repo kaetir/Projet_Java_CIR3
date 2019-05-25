@@ -9,12 +9,10 @@ import static View.View.gc;
 public class DisplayIntersection implements Displayable {
     private double x;
     private double y;
-    private int nbJonction;
 
     public DisplayIntersection(double x, double y) {
         this.x = x;
         this.y = y;
-        this.nbJonction=1;
     }
 
     @Override
