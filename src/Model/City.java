@@ -2,6 +2,7 @@ package Model;
 
 import Model.Vehicules.Vehicule;
 
+import java.util.Iterator;
 import java.util.Vector;
 
 public class City {
@@ -43,7 +44,9 @@ public class City {
     //Affichage des véhicules présents dans la ville
     public void printVehicules(){
         System.out.println("Remaining vehicules in city " + this.getStringId() +  " :");
-        for(Vehicule v : vehicules){
+        Iterator<Vehicule> iterator = getVehicules().iterator();
+        while (iterator.hasNext()) {
+            Vehicule v = iterator.next();
             v.print();
         }
     }
