@@ -27,8 +27,8 @@ public abstract class Model {
     }
 
     //Création d'une route
-    public static void createRoad(int voies, City a, City b, Vector<Pair<Double, Double>> dots) {
-        Road road;
+    public static Road createRoad(int voies, City a, City b, Vector<Pair<Double, Double>> dots) {
+        Road road = null;
         try {
             if(voies == 1) road = new Path(a, b, dots);
             else if(voies == 2) road = new Way(a, b, dots);
@@ -36,6 +36,7 @@ public abstract class Model {
             else throw new RoadCreationException();
             roads.add(road);
         } catch (RoadCreationException e){}
+        return road;
     }
 
     //Création d'un véhicule
